@@ -1,0 +1,223 @@
+/* ============================================
+   FOUR GATE ALPHA — Hero variations
+   Shared system (used by all 4 hero pages)
+   ============================================ */
+
+:root {
+  --burnt-umber:    #12130E;
+  --parchment-gold: #D4C5A9;
+  --raw-sienna:     #1A1815;
+  --warm-ash:       #8A8478;
+  --bone-white:     #E0DCD5;
+  --old-paper:      #F5F2ED;
+  --dark-earth:     #7A2520;
+
+  --ink:            #14171C;
+  --ink-2:          #181C22;
+  --ink-3:          #1F242B;
+  --hairline:       rgba(212, 197, 169, 0.10);
+  --hairline-strong:rgba(212, 197, 169, 0.20);
+
+  --text:           var(--bone-white);
+  --text-dim:       var(--warm-ash);
+  --text-faint:     #5C5A52;
+  --accent:         var(--parchment-gold);
+
+  --display: "Libre Baskerville", "Times New Roman", serif;
+  --body:    "Newsreader", Georgia, serif;
+  --mono:    "Fira Code", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --container: 1280px;
+  --gutter: clamp(20px, 4vw, 64px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.83  0 0 0 0 0.77  0 0 0 0 0.66  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+}
+
+::selection { background: var(--accent); color: var(--ink); }
+
+a { color: inherit; text-decoration: none; }
+
+/* ============ Shared bits ============ */
+.hero-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  border-bottom: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--ink) 92%, transparent);
+}
+.topbar-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 16px var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+}
+.brand-mark .glyph { color: var(--accent); display: inline-flex; }
+.brand-mark .name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.brand-mark .name em { font-style: italic; font-weight: 400; color: var(--accent); }
+
+.meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.meta .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+@media (max-width: 640px) {
+  .meta .hide-mobile { display: none; }
+}
+
+/* Variant badge — floating chip, bottom-center */
+.variant-badge {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 16px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  z-index: 100;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 10px 18px;
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  white-space: nowrap;
+  max-width: calc(100vw - 32px);
+  overflow-x: auto;
+}
+.variant-badge .label { color: var(--accent); }
+.variant-badge a {
+  color: var(--text-faint);
+  border-bottom: 1px solid transparent;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+.variant-badge a:hover { color: var(--text); border-color: var(--hairline-strong); }
+.variant-badge a.is-active { color: var(--accent); border-color: var(--accent); }
+
+/* Form */
+.form-row {
+  display: flex;
+  align-items: stretch;
+  max-width: 480px;
+  border: 1px solid var(--hairline-strong);
+  background: color-mix(in srgb, var(--ink-2) 70%, transparent);
+  transition: border-color 0.2s ease;
+}
+.form-row:focus-within { border-color: var(--accent); }
+.form-row input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 16px 18px;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 16px;
+}
+.form-row input::placeholder { color: var(--text-faint); font-family: var(--body); }
+.btn-primary {
+  background: var(--accent);
+  color: var(--burnt-umber);
+  border: none;
+  padding: 0 24px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.18s ease;
+  white-space: nowrap;
+}
+.btn-primary:hover { background: var(--bone-white); }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+.eyebrow .pip {
+  width: 18px; height: 1px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+.fine {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin: 18px 0 0;
+}
+.note {
+  font-size: 14.5px;
+  color: var(--text);
+  opacity: 0.78;
+  margin: 14px 0 0;
+}
+.note strong { color: var(--accent); font-weight: 500; }

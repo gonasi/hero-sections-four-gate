@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hero V1 · Logo + Frames — Four Gate Alpha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css" />
+<style>
+  .v1-hero {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    padding: clamp(40px, 8vh, 100px) 0;
+  }
+  .v1-grid {
+    max-width: var(--container);
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(40px, 6vw, 96px);
+    align-items: center;
+  }
+  .v1-title {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(40px, 5.4vw, 70px);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    margin: 26px 0 28px;
+    max-width: 14ch;
+    text-wrap: pretty;
+  }
+  .v1-title em { font-style: italic; font-weight: 400; color: var(--accent); }
+  .v1-sub {
+    font-size: 18px;
+    line-height: 1.6;
+    opacity: 0.86;
+    max-width: 48ch;
+    margin: 0 0 32px;
+  }
+  .v1-art {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .v1-art .frame {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--hairline-strong);
+  }
+  .v1-art .frame.f2 { inset: 8%; }
+  .v1-art .frame.f3 { inset: 18%; }
+  .v1-art .ch {
+    position: absolute;
+    width: 12px; height: 12px;
+  }
+  .v1-art .ch::before, .v1-art .ch::after {
+    content: ""; position: absolute; background: var(--accent);
+  }
+  .v1-art .ch::before { left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%); }
+  .v1-art .ch::after  { top: 50%; left: 0; right: 0; height: 1px; transform: translateY(-50%); }
+  .v1-art .ch.tl { top: -6px; left: -6px; }
+  .v1-art .ch.tr { top: -6px; right: -6px; }
+  .v1-art .ch.bl { bottom: -6px; left: -6px; }
+  .v1-art .ch.br { bottom: -6px; right: -6px; }
+  .v1-art .corner {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .v1-art .corner.tl { top: -22px; left: 0; }
+  .v1-art .corner.tr { top: -22px; right: 0; }
+  .v1-art .corner.bl { bottom: -22px; left: 0; }
+  .v1-art .corner.br { bottom: -22px; right: 0; }
+  .v1-logo { width: 78%; filter: drop-shadow(0 8px 32px rgba(0,0,0,0.4)); }
+  @media (max-width: 920px) {
+    .v1-grid { grid-template-columns: 1fr; gap: 56px; }
+    .v1-art { max-width: 380px; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero-page">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-mark">
+        <span class="glyph">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.9">
+            <rect x="2.5" y="2" width="19" height="20"/><rect x="5" y="4.2" width="14" height="17.8"/>
+            <rect x="7.5" y="6.4" width="9" height="15.6"/><rect x="10" y="8.6" width="4" height="13.4"/>
+          </svg>
+        </span>
+        <span class="name">Four Gate <em>Alpha</em></span>
+      </div>
+      <div class="meta">
+        <span class="hide-mobile">Prelaunch · Founding Members</span>
+        <span><span class="dot"></span>&nbsp;&nbsp;Waitlist Open</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="v1-hero">
+    <div class="v1-grid">
+      <div>
+        <span class="eyebrow"><span class="pip"></span>Launching September 2026 · Founding members only</span>
+        <h1 class="v1-title">The trade ideas <em>institutional desks</em> already have. Delivered before the move.</h1>
+        <p class="v1-sub">Four Gate Alpha sends a small number of researched, high-conviction trade ideas every month — each with the thesis, the entry, the exit, and the reason to walk away. No noise. No chat room.</p>
+        <form class="form-row" onsubmit="event.preventDefault()">
+          <input type="email" placeholder="you@firm.com" aria-label="Email address"/>
+          <button type="submit" class="btn-primary">Get Early Access</button>
+        </form>
+        <p class="note">Founding members get <strong>40% off for life</strong> and first access when we open.</p>
+        <p class="fine">No spam · One preview drop before launch</p>
+      </div>
+
+      <div class="v1-art">
+        <span class="corner tl">Mark · 01</span>
+        <span class="corner tr">Founding · MMXXVI</span>
+        <span class="corner bl">Concentric Gates</span>
+        <span class="corner br">Four · Gate · Alpha</span>
+        <div class="frame"></div>
+        <div class="frame f2"></div>
+        <div class="frame f3"></div>
+        <span class="ch tl"></span><span class="ch tr"></span>
+        <span class="ch bl"></span><span class="ch br"></span>
+        <img class="v1-logo" src="assets/logo.png" alt="Four Gate Alpha"/>
+      </div>
+    </div>
+  </section>
+</div>
+
+<nav class="variant-badge">
+  <span class="label">Hero ·</span>
+  <a href="hero-v1.html" class="is-active">V1 Frames</a>
+  <a href="hero-v2.html">V2 Ticker</a>
+  <a href="hero-v3.html">V3 Trade Card</a>
+  <a href="hero-v4.html">V4 Typographic</a>
+</nav>
+
+</body>
+</html>
