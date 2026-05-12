@@ -242,12 +242,12 @@
       var sc = window.pageYOffset || document.documentElement.scrollTop || 0;
       var p = sc / max;
       p = p < 0 ? 0 : p > 1 ? 1 : p;
-      pxC += (pxT - pxC) * 0.07;
-      pyC += (pyT - pyC) * 0.07;
+      pxC += (pxT - pxC) * 0.12;
+      pyC += (pyT - pyC) * 0.12;
       for (var i = 0; i < layers.length; i++) {
         var L = layers[i];
         var x = pxC * L.amp;
-        var y = L.ty * p + pyC * L.amp * 0.5;
+        var y = L.ty * p + pyC * L.amp * 0.6;
         L.el.style.transform =
           "translate3d(" + x.toFixed(2) + "px," + y.toFixed(2) + "px,0)";
       }
