@@ -11,6 +11,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="shared/teaser.css" />
+    <script>
+      try { document.documentElement.dataset.theme = localStorage.getItem("fga-theme") === "light" ? "light" : "dark"; } catch (e) { document.documentElement.dataset.theme = "dark"; }
+    </script>
     <style>
       /* ============================================================
      v3 — "Pop"
@@ -117,7 +120,7 @@
         filter: blur(40px);
         opacity: 0.55;
         mix-blend-mode: screen;
-        animation: candleBreath 18s ease-in-out infinite;
+        animation: candleBreath 11s ease-in-out infinite;
       }
       @keyframes candleBreath {
         0%,
@@ -165,8 +168,8 @@
           #000 30%,
           transparent 80%
         );
-        animation: gridDrift 70s linear infinite;
-        opacity: 0.28;
+        animation: gridDrift 36s linear infinite;
+        opacity: 0.42;
       }
       @keyframes gridDrift {
         0% {
@@ -186,7 +189,7 @@
           transparent 65%
         );
         mix-blend-mode: screen;
-        animation: scan 14s ease-in-out infinite;
+        animation: scan 8s ease-in-out infinite;
         opacity: 0.6;
       }
       @keyframes scan {
@@ -369,7 +372,7 @@
         height: 5px;
         border-radius: 50%;
         background: var(--burnt-umber);
-        animation: accent-pulse 2.4s ease-in-out infinite;
+        animation: accent-pulse 1.6s ease-in-out infinite;
       }
 
       /* Headline */
@@ -476,7 +479,7 @@
         padding: 14px 16px;
         width: 230px;
         pointer-events: none;
-        animation: floatY 6s ease-in-out infinite;
+        animation: floatY 3.8s ease-in-out infinite;
       }
       .float .lbl {
         font-family: var(--mono);

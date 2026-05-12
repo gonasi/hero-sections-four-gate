@@ -11,6 +11,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="shared/teaser.css" />
+    <script>
+      try { document.documentElement.dataset.theme = localStorage.getItem("fga-theme") === "light" ? "light" : "dark"; } catch (e) { document.documentElement.dataset.theme = "dark"; }
+    </script>
     <style>
       /* ============================================================
      v1 — "Concentric Gate"
@@ -89,8 +92,8 @@
           #000 30%,
           transparent 80%
         );
-        animation: gridDrift 60s linear infinite;
-        opacity: 0.35;
+        animation: gridDrift 32s linear infinite;
+        opacity: 0.5;
       }
       @keyframes gridDrift {
         0% {
@@ -110,8 +113,8 @@
           transparent 65%
         );
         mix-blend-mode: screen;
-        animation: scan 14s ease-in-out infinite;
-        opacity: 0.55;
+        animation: scan 8s ease-in-out infinite;
+        opacity: 0.8;
       }
       @keyframes scan {
         0% {
@@ -316,7 +319,7 @@
         );
         filter: blur(24px);
         z-index: -1;
-        animation: breathe 7s ease-in-out infinite;
+        animation: breathe 4.4s ease-in-out infinite;
       }
       @keyframes breathe {
         0%,

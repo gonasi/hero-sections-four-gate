@@ -11,6 +11,14 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="_shared.css" />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("fga-theme") === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
     <style>
       .v2-page {
         position: relative;
@@ -31,27 +39,45 @@
       .t-row {
         white-space: nowrap;
         font-family: var(--mono);
-        font-size: clamp(44px, 7vw, 96px);
+        font-size: clamp(46px, 7.4vw, 104px);
         font-weight: 300;
         letter-spacing: -0.01em;
-        color: rgba(212, 197, 169, 0.06);
+        color: rgba(212, 197, 169, 0.11);
         line-height: 1;
         will-change: transform;
       }
       .t-row.dim {
-        color: rgba(212, 197, 169, 0.04);
+        color: rgba(212, 197, 169, 0.07);
       }
       .t-row.bright {
-        color: rgba(212, 197, 169, 0.1);
+        color: rgba(212, 197, 169, 0.17);
       }
       .t-row .pos {
-        color: rgba(212, 197, 169, 0.18);
+        color: rgba(212, 197, 169, 0.3);
       }
       .t-row .neg {
-        color: rgba(199, 122, 110, 0.12);
+        color: rgba(199, 122, 110, 0.24);
       }
       .t-row .sym {
-        color: rgba(224, 220, 213, 0.14);
+        color: rgba(224, 220, 213, 0.26);
+      }
+      :root[data-theme="light"] .t-row {
+        color: rgba(42, 39, 34, 0.1);
+      }
+      :root[data-theme="light"] .t-row.dim {
+        color: rgba(42, 39, 34, 0.06);
+      }
+      :root[data-theme="light"] .t-row.bright {
+        color: rgba(42, 39, 34, 0.16);
+      }
+      :root[data-theme="light"] .t-row .pos {
+        color: rgba(122, 96, 32, 0.32);
+      }
+      :root[data-theme="light"] .t-row .neg {
+        color: rgba(167, 70, 56, 0.26);
+      }
+      :root[data-theme="light"] .t-row .sym {
+        color: rgba(42, 39, 34, 0.32);
       }
 
       .t-track {
@@ -63,23 +89,23 @@
         animation-iteration-count: infinite;
       }
       .t-row.r1 .t-track {
-        animation-duration: 95s;
+        animation-duration: 52s;
         animation-direction: normal;
       }
       .t-row.r2 .t-track {
-        animation-duration: 140s;
+        animation-duration: 78s;
         animation-direction: reverse;
       }
       .t-row.r3 .t-track {
-        animation-duration: 110s;
+        animation-duration: 63s;
         animation-direction: normal;
       }
       .t-row.r4 .t-track {
-        animation-duration: 170s;
+        animation-duration: 92s;
         animation-direction: reverse;
       }
       .t-row.r5 .t-track {
-        animation-duration: 80s;
+        animation-duration: 44s;
         animation-direction: normal;
       }
       @keyframes scroll {
@@ -88,6 +114,40 @@
         }
         100% {
           transform: translateX(-50%);
+        }
+      }
+
+      /* Drifting accent glow behind the tickers */
+      .v2-glow {
+        position: absolute;
+        inset: -20%;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(
+            38vw 38vw at 22% 28%,
+            color-mix(in srgb, var(--accent) 22%, transparent),
+            transparent 62%
+          ),
+          radial-gradient(
+            34vw 34vw at 80% 76%,
+            color-mix(in srgb, var(--dark-earth) 24%, transparent),
+            transparent 60%
+          );
+        filter: blur(60px);
+        mix-blend-mode: screen;
+        animation: v2GlowDrift 24s ease-in-out infinite alternate;
+      }
+      :root[data-theme="light"] .v2-glow {
+        mix-blend-mode: multiply;
+        opacity: 0.5;
+      }
+      @keyframes v2GlowDrift {
+        0% {
+          transform: translate3d(-4%, -3%, 0) scale(1);
+        }
+        100% {
+          transform: translate3d(5%, 4%, 0) scale(1.2);
         }
       }
 
@@ -102,6 +162,18 @@
           var(--ink) 0%,
           transparent 70%
         );
+        animation: v2Breathe 9s ease-in-out infinite;
+      }
+      @keyframes v2Breathe {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.07);
+          opacity: 0.86;
+        }
       }
 
       /* Grid overlay */
@@ -112,10 +184,23 @@
         pointer-events: none;
         background-image: linear-gradient(
           to right,
-          rgba(212, 197, 169, 0.04) 1px,
+          rgba(212, 197, 169, 0.07) 1px,
           transparent 1px
         );
-        background-size: 12.5% 100%;
+        background-size: 96px 100%;
+        animation: v2GridDrift 7s linear infinite;
+      }
+      :root[data-theme="light"] .v2-grid-bg {
+        background-image: linear-gradient(
+          to right,
+          rgba(42, 39, 34, 0.07) 1px,
+          transparent 1px
+        );
+      }
+      @keyframes v2GridDrift {
+        to {
+          background-position: 96px 0;
+        }
       }
 
       .v2-hero {
@@ -199,11 +284,15 @@
         right: 0;
         background: linear-gradient(to left, var(--ink), transparent);
       }
+      .v2-mini {
+        box-shadow: inset 0 0 40px
+          color-mix(in srgb, var(--accent) 8%, transparent);
+      }
       .v2-mini-track {
         display: inline-flex;
         gap: 40px;
         padding: 12px 24px;
-        animation: scroll 90s linear infinite;
+        animation: scroll 44s linear infinite;
         font-family: var(--mono);
         font-size: 12px;
         letter-spacing: 0.04em;
@@ -262,6 +351,7 @@
         </div>
       </header>
 
+      <div class="v2-glow" aria-hidden="true"></div>
       <div class="v2-grid-bg"></div>
 
       <div class="ticker-stack" aria-hidden="true">
@@ -276,19 +366,19 @@
 
       <section class="v2-hero">
         <div class="v2-inner">
-          <span class="eyebrow v2-eyebrow"
+          <span class="eyebrow v2-eyebrow reveal d1"
             ><span class="pip"></span>Launching September 2026 · Founding
             members only</span
           >
-          <h1 class="v2-title">
-            Stop guessing what to <em>trade this week</em>.
+          <h1 class="v2-title reveal d2">
+            Stop guessing what to <em class="glow">trade this week</em>.
           </h1>
-          <p class="v2-sub">
+          <p class="v2-sub reveal d3">
             A small number of researched ideas, delivered the way a real desk
             would write them — thesis, levels, invalidation. Built for
             independent investors who'd rather think than scroll.
           </p>
-          <div class="v2-form-wrap">
+          <div class="v2-form-wrap reveal d4">
             <form class="form-row" onsubmit="event.preventDefault()">
               <input
                 type="email"
@@ -374,5 +464,7 @@
       ).join("");
       document.getElementById("mini").innerHTML = mini + mini;
     </script>
+
+    <script src="shared/theme-toggle.js" defer></script>
   </body>
 </html>

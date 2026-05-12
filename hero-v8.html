@@ -11,6 +11,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="shared/teaser.css" />
+    <script>
+      try { document.documentElement.dataset.theme = localStorage.getItem("fga-theme") === "light" ? "light" : "dark"; } catch (e) { document.documentElement.dataset.theme = "dark"; }
+    </script>
     <style>
       /* ============================================================
      v4 — "Field of View"
@@ -106,7 +109,7 @@
           rgba(212, 197, 169, 0) 360deg
         );
         filter: blur(80px);
-        animation: spin 60s linear infinite;
+        animation: spin 32s linear infinite;
         opacity: 0.9;
       }
       @keyframes spin {
@@ -145,7 +148,7 @@
           #000 30%,
           transparent 80%
         );
-        animation: gridDrift 70s linear infinite;
+        animation: gridDrift 36s linear infinite;
         opacity: 0.36;
       }
       @keyframes gridDrift {
@@ -188,7 +191,7 @@
         filter: drop-shadow(0 0 6px rgba(212, 197, 169, 0.55));
         stroke-dasharray: 2400;
         stroke-dashoffset: 2400;
-        animation: drawPnl 9s ease-in-out infinite;
+        animation: drawPnl 5.4s ease-in-out infinite;
       }
       @keyframes drawPnl {
         0% {
@@ -213,7 +216,7 @@
       .stage .chart .pnl-tip {
         fill: #d4c5a9;
         filter: drop-shadow(0 0 10px rgba(212, 197, 169, 0.85));
-        animation: tipMove 9s ease-in-out infinite;
+        animation: tipMove 5.4s ease-in-out infinite;
         opacity: 0;
       }
       @keyframes tipMove {
@@ -249,7 +252,7 @@
         border-radius: 50%;
         background: rgba(212, 197, 169, 0.85);
         box-shadow: 0 0 8px 1px rgba(212, 197, 169, 0.55);
-        animation: particleRise 14s linear infinite;
+        animation: particleRise 8s linear infinite;
         opacity: 0;
       }
       @keyframes particleRise {
@@ -280,8 +283,8 @@
           transparent 62%
         );
         mix-blend-mode: screen;
-        animation: scan 12s ease-in-out infinite;
-        opacity: 0.7;
+        animation: scan 7s ease-in-out infinite;
+        opacity: 0.78;
       }
       @keyframes scan {
         0% {
@@ -443,7 +446,7 @@
         height: 5px;
         border-radius: 50%;
         background: var(--burnt-umber);
-        animation: accent-pulse 2.4s ease-in-out infinite;
+        animation: accent-pulse 1.6s ease-in-out infinite;
       }
 
       /* Headline */
@@ -629,7 +632,7 @@
         display: inline-flex;
         gap: 28px;
         white-space: nowrap;
-        animation: tickerScroll 40s linear infinite;
+        animation: tickerScroll 24s linear infinite;
         font-family: var(--mono);
         font-size: 10.5px;
         letter-spacing: 0.18em;

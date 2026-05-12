@@ -17,6 +17,14 @@
     />
 
     <link rel="stylesheet" href="_shared.css" />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("fga-theme") === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
 
     <style>
       .index-page {
@@ -32,6 +40,8 @@
         margin: 0 auto;
         padding: 80px var(--gutter) 56px;
         border-bottom: 1px solid var(--hairline);
+        position: relative;
+        z-index: 1;
       }
       .index-hero h1 {
         font-family: var(--display);
@@ -79,6 +89,8 @@
         gap: 1px;
         background: var(--hairline);
         border: 1px solid var(--hairline);
+        position: relative;
+        z-index: 1;
       }
       @media (max-width: 820px) {
         .grid {
@@ -94,17 +106,89 @@
         background: var(--ink);
         padding: 36px clamp(24px, 3.5vw, 44px) 32px;
         min-height: 320px;
-        transition: background 0.2s ease;
         position: relative;
+        overflow: hidden;
+        transition:
+          background 0.25s ease,
+          transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+          box-shadow 0.3s ease;
+        animation: cardIn 0.66s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+      }
+      /* diagonal light sweep on hover */
+      .card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        mix-blend-mode: screen;
+        background: linear-gradient(
+          115deg,
+          transparent 36%,
+          color-mix(in srgb, var(--accent) 14%, transparent) 50%,
+          transparent 64%
+        );
+        transform: translateX(-110%);
+        transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      :root[data-theme="light"] .card::after {
+        mix-blend-mode: multiply;
       }
       .card:hover {
         background: var(--ink-2);
+        transform: translateY(-6px);
+        box-shadow:
+          0 26px 60px rgba(0, 0, 0, 0.34),
+          inset 0 0 0 1px color-mix(in srgb, var(--accent) 32%, transparent),
+          0 0 44px color-mix(in srgb, var(--accent) 12%, transparent);
+        z-index: 2;
+      }
+      .card:hover::after {
+        transform: translateX(110%);
       }
       .card:hover .card-cta {
         color: var(--accent);
       }
       .card:hover .card-cta .arrow {
-        transform: translateX(4px);
+        transform: translateX(5px);
+      }
+      .card:hover .card-tag .pip {
+        width: 34px;
+      }
+      .card:hover .card-title em {
+        text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 38%, transparent);
+      }
+      @keyframes cardIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px) scale(0.985);
+        }
+      }
+      .grid > .card:nth-child(1) {
+        animation-delay: 0.04s;
+      }
+      .grid > .card:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .grid > .card:nth-child(3) {
+        animation-delay: 0.16s;
+      }
+      .grid > .card:nth-child(4) {
+        animation-delay: 0.22s;
+      }
+      .grid > .card:nth-child(5) {
+        animation-delay: 0.28s;
+      }
+      .grid > .card:nth-child(6) {
+        animation-delay: 0.34s;
+      }
+      .grid > .card:nth-child(7) {
+        animation-delay: 0.4s;
+      }
+      .grid > .card:nth-child(8) {
+        animation-delay: 0.46s;
+      }
+      .grid > .card:nth-child(9) {
+        animation-delay: 0.52s;
       }
 
       .card-head {
@@ -128,6 +212,7 @@
         height: 1px;
         background: var(--accent);
         display: inline-block;
+        transition: width 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
       }
       .card-num {
         font-family: var(--mono);
@@ -148,6 +233,7 @@
       .card-title em {
         font-style: italic;
         color: var(--accent);
+        transition: text-shadow 0.3s ease;
       }
 
       .card-foot {
@@ -195,6 +281,8 @@
         letter-spacing: 0.16em;
         text-transform: uppercase;
         color: var(--text-faint);
+        position: relative;
+        z-index: 1;
       }
       .footer a {
         border-bottom: 1px solid var(--hairline-strong);
@@ -206,6 +294,13 @@
   </head>
   <body>
     <div class="hero-page index-page">
+      <div class="fx-layer" aria-hidden="true">
+        <div class="fx-aurora"></div>
+        <div class="fx-rays"></div>
+        <div class="fx-grid"></div>
+        <div class="fx-scan"></div>
+        <div class="fx-vignette"></div>
+      </div>
       <header class="topbar">
         <div class="topbar-inner">
           <div class="brand-mark">
@@ -256,16 +351,21 @@
       </header>
 
       <section class="index-hero">
-        <span class="eyebrow"><span class="pip"></span>For review</span>
-        <h1>Nine hero &amp; teaser studies, <em>one product</em>.</h1>
-        <p>
+        <span class="eyebrow reveal d1"
+          ><span class="pip"></span>For review</span
+        >
+        <h1 class="reveal d2">
+          Nine hero &amp; teaser studies, <em class="glow">one product</em>.
+        </h1>
+        <p class="reveal d3">
           Each page below is a self-contained treatment for Four Gate Alpha —
           same copy intent, different structure and emphasis. V1–V4 are hero
-          sections; V5–V9 are full-bleed launch teasers (with their own
-          cinematic chrome, light/dark toggle and countdown). Open any to review
-          the full layout, type, and motion in context.
+          sections; V5–V9 are full-bleed launch teasers with cinematic chrome
+          and a countdown. Every page now carries a light/dark toggle and a
+          heavier dose of motion. Open any to review the full layout, type, and
+          motion in context.
         </p>
-        <div class="meta-row">
+        <div class="meta-row reveal d4">
           <span><strong>Variants</strong> 9</span>
           <span
             ><strong>Shared system</strong> _shared.css ·
@@ -437,5 +537,7 @@
         <span>Best viewed on desktop</span>
       </footer>
     </div>
+
+    <script src="shared/theme-toggle.js" defer></script>
   </body>
 </html>

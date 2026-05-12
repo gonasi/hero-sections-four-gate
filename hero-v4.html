@@ -11,6 +11,14 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="_shared.css" />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("fga-theme") === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
     <style>
       .v4-page {
         background:
@@ -28,6 +36,8 @@
         border-bottom: 1px solid var(--hairline-strong);
         padding: 8px 0;
         background: color-mix(in srgb, var(--ink-2) 50%, transparent);
+        position: relative;
+        z-index: 1;
       }
       .v4-rule-inner {
         max-width: var(--container);
@@ -54,6 +64,8 @@
         place-items: center;
         padding: clamp(40px, 8vh, 100px) var(--gutter);
         text-align: center;
+        position: relative;
+        z-index: 1;
       }
       .v4-inner {
         max-width: 1100px;
@@ -71,17 +83,45 @@
       }
       .v4-line.l1 {
         font-size: clamp(56px, 11vw, 158px);
+        text-shadow: 0 0 38px color-mix(in srgb, var(--accent) 8%, transparent);
+        animation: revealUp 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.18s both;
       }
       .v4-line.l2 {
         font-style: italic;
         font-weight: 400;
-        color: var(--accent);
         font-size: clamp(56px, 11vw, 158px);
+        background: linear-gradient(
+          100deg,
+          var(--accent) 0%,
+          color-mix(in srgb, var(--accent) 48%, #fff) 22%,
+          var(--accent) 46%,
+          color-mix(in srgb, var(--accent) 60%, #14130f) 72%,
+          var(--accent) 100%
+        );
+        background-size: 240% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        text-shadow: 0 0 44px color-mix(in srgb, var(--accent) 22%, transparent);
+        animation:
+          revealUp 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.32s both,
+          v4Shimmer 7s linear 1.4s infinite;
       }
       .v4-line.l3 {
         font-size: clamp(40px, 7.5vw, 110px);
         margin-top: 6px;
         color: var(--text);
+        text-shadow: 0 0 38px color-mix(in srgb, var(--accent) 8%, transparent);
+        animation: revealUp 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.46s both;
+      }
+      @keyframes v4Shimmer {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: -240% 50%;
+        }
       }
       .v4-line .amp {
         font-style: italic;
@@ -111,6 +151,18 @@
         line-height: 0.85;
         margin: 0.05em 0.12em 0 0;
         color: var(--accent);
+        animation: v4DropGlow 4.6s ease-in-out infinite;
+      }
+      @keyframes v4DropGlow {
+        0%,
+        100% {
+          text-shadow: 0 0 14px
+            color-mix(in srgb, var(--accent) 14%, transparent);
+        }
+        50% {
+          text-shadow: 0 0 34px
+            color-mix(in srgb, var(--accent) 42%, transparent);
+        }
       }
       .v4-pulled em {
         font-style: italic;
@@ -133,11 +185,43 @@
         color: var(--accent);
         font-size: 16px;
         line-height: 0;
+        display: inline-block;
+        text-shadow: 0 0 14px color-mix(in srgb, var(--accent) 30%, transparent);
+        animation: v4Twinkle 3.4s ease-in-out infinite;
+      }
+      .v4-marks span.star ~ span.star {
+        animation-delay: 1.7s;
+      }
+      @keyframes v4Twinkle {
+        0%,
+        100% {
+          transform: scale(1) rotate(0deg);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.55) rotate(180deg);
+          opacity: 0.5;
+        }
       }
       .v4-marks .ln {
         width: 36px;
         height: 1px;
         background: var(--hairline-strong);
+        animation: v4Line 3.4s ease-in-out infinite;
+      }
+      .v4-marks span.ln ~ span.ln {
+        animation-delay: 1.7s;
+      }
+      @keyframes v4Line {
+        0%,
+        100% {
+          width: 36px;
+          opacity: 0.7;
+        }
+        50% {
+          width: 56px;
+          opacity: 1;
+        }
       }
 
       .v4-cta {
@@ -164,6 +248,16 @@
         text-transform: uppercase;
         color: var(--text-faint);
         pointer-events: none;
+        animation: v4MarginPulse 5.5s ease-in-out infinite;
+      }
+      @keyframes v4MarginPulse {
+        0%,
+        100% {
+          opacity: 0.4;
+        }
+        50% {
+          opacity: 1;
+        }
       }
       .v4-margin.m1 {
         top: 38%;
@@ -176,6 +270,7 @@
         right: 6%;
         transform: rotate(90deg);
         transform-origin: right center;
+        animation-delay: 2.75s;
       }
       @media (max-width: 1100px) {
         .v4-margin {
@@ -188,6 +283,8 @@
         border-top: 1px solid var(--hairline);
         padding: 14px 0;
         background: color-mix(in srgb, var(--ink-2) 50%, transparent);
+        position: relative;
+        z-index: 1;
       }
       .v4-foot-inner {
         max-width: var(--container);
@@ -221,6 +318,12 @@
   </head>
   <body>
     <div class="hero-page v4-page">
+      <div class="fx-layer" aria-hidden="true">
+        <div class="fx-aurora"></div>
+        <div class="fx-rays"></div>
+        <div class="fx-scan"></div>
+        <div class="fx-vignette"></div>
+      </div>
       <header class="topbar">
         <div class="topbar-inner">
           <div class="brand-mark">
@@ -261,7 +364,7 @@
         <span class="v4-margin m2">Sept MMXXVI · 40% Off for Life</span>
 
         <div class="v4-inner">
-          <div class="v4-marks">
+          <div class="v4-marks reveal d1">
             <span class="ln"></span><span class="star">✦</span
             ><span>Four Gate Alpha</span><span class="star">✦</span
             ><span class="ln"></span>
@@ -275,7 +378,7 @@
             >
           </h1>
 
-          <p class="v4-pulled">
+          <p class="v4-pulled reveal d5">
             We are building the trading letter we wished existed when we ran our
             own books — a quiet, monthly correspondence with a small number of
             researched, <em>high-conviction</em> ideas, each with the thesis
@@ -284,7 +387,7 @@
             urgency manufactured for marketing.
           </p>
 
-          <div class="v4-cta">
+          <div class="v4-cta reveal d6">
             <form class="form-row" onsubmit="event.preventDefault()">
               <input
                 type="email"
@@ -326,5 +429,7 @@
       <a href="hero-v9.html">V9 Marquee</a>
       <a href="index.html">Index</a>
     </nav>
+
+    <script src="shared/theme-toggle.js" defer></script>
   </body>
 </html>

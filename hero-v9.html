@@ -11,6 +11,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="shared/teaser.css" />
+    <script>
+      try { document.documentElement.dataset.theme = localStorage.getItem("fga-theme") === "light" ? "light" : "dark"; } catch (e) { document.documentElement.dataset.theme = "dark"; }
+    </script>
     <style>
       /* ============================================================
      v5 — "Marquee"
@@ -118,7 +121,7 @@
         );
         filter: blur(40px);
         opacity: 0.85;
-        animation: glowPulse 6s ease-in-out infinite;
+        animation: glowPulse 3.8s ease-in-out infinite;
       }
       @keyframes glowPulse {
         0%,
@@ -446,7 +449,7 @@
         height: 6px;
         border-radius: 50%;
         background: var(--accent-fga);
-        animation: accent-pulse 2.4s ease-in-out infinite;
+        animation: accent-pulse 1.6s ease-in-out infinite;
       }
 
       /* ── Reveal ─────────────────────────────────────────────── */

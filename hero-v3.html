@@ -11,12 +11,22 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="_shared.css" />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("fga-theme") === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
     <style>
       .v3-hero {
         flex: 1;
         display: grid;
         place-items: center;
         padding: clamp(40px, 6vh, 80px) 0;
+        position: relative;
+        z-index: 1;
       }
       .v3-grid {
         max-width: var(--container);
@@ -56,7 +66,65 @@
         background: var(--ink-2);
         border: 1px solid var(--hairline-strong);
         position: relative;
-        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+        box-shadow:
+          0 24px 80px rgba(0, 0, 0, 0.4),
+          0 0 0 1px color-mix(in srgb, var(--accent) 0%, transparent);
+        animation:
+          tcGlow 5.5s ease-in-out infinite,
+          revealUp 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s both;
+      }
+      @keyframes tcGlow {
+        0%,
+        100% {
+          box-shadow:
+            0 24px 80px rgba(0, 0, 0, 0.4),
+            0 0 0 1px color-mix(in srgb, var(--accent) 14%, transparent),
+            0 0 0 0 transparent;
+        }
+        50% {
+          box-shadow:
+            0 30px 90px rgba(0, 0, 0, 0.46),
+            0 0 0 1px color-mix(in srgb, var(--accent) 34%, transparent),
+            0 0 48px color-mix(in srgb, var(--accent) 18%, transparent);
+        }
+      }
+      /* Soft accent scan-line wiping down the card */
+      .trade-card::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 36%;
+        pointer-events: none;
+        mix-blend-mode: screen;
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          color-mix(in srgb, var(--accent) 9%, transparent) 50%,
+          transparent 100%
+        );
+        animation: tcScan 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      }
+      :root[data-theme="light"] .trade-card::after {
+        mix-blend-mode: multiply;
+      }
+      @keyframes tcScan {
+        0% {
+          transform: translateY(-110%);
+          opacity: 0;
+        }
+        12% {
+          opacity: 1;
+        }
+        88% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(390%);
+          opacity: 0;
+        }
       }
       .trade-card .stamp {
         position: absolute;
@@ -167,6 +235,39 @@
         height: 110px;
         display: block;
       }
+      .tc-line {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        animation: drawDash 3.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+        filter: drop-shadow(
+          0 0 6px color-mix(in srgb, var(--accent) 30%, transparent)
+        );
+      }
+      .tc-marker {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: markerPing 2.2s ease-out 4s infinite;
+      }
+      .tc-level {
+        animation: tcDash 1.6s linear infinite;
+      }
+      @keyframes tcDash {
+        to {
+          stroke-dashoffset: -14;
+        }
+      }
+      :root[data-theme="light"] .tc-line {
+        stroke: #5a4818;
+      }
+      :root[data-theme="light"] .tc-marker {
+        fill: #5a4818;
+      }
+      :root[data-theme="light"] .tc-chart text {
+        fill: #5a4818 !important;
+      }
+      :root[data-theme="light"] .tc-level {
+        stroke: rgba(42, 39, 34, 0.42) !important;
+      }
 
       @media (max-width: 920px) {
         .v3-grid {
@@ -178,6 +279,12 @@
   </head>
   <body>
     <div class="hero-page">
+      <div class="fx-layer" aria-hidden="true">
+        <div class="fx-aurora"></div>
+        <div class="fx-grid"></div>
+        <div class="fx-scan"></div>
+        <div class="fx-vignette"></div>
+      </div>
       <header class="topbar">
         <div class="topbar-inner">
           <div class="brand-mark">
@@ -208,18 +315,19 @@
       <section class="v3-hero">
         <div class="v3-grid">
           <div>
-            <span class="eyebrow"
+            <span class="eyebrow reveal d1"
               ><span class="pip"></span>This is what an idea looks like</span
             >
-            <h1 class="v3-title">
-              Research-grade trade ideas, for <em>independent investors</em>.
+            <h1 class="v3-title reveal d2">
+              Research-grade trade ideas, for
+              <em class="glow">independent investors</em>.
             </h1>
-            <p class="v3-sub">
+            <p class="v3-sub reveal d3">
               Same format every time: thesis, entry, stop, target, invalidation.
               Two pages. Read it with your morning coffee. The card on the right
               is a real archive example — redacted, not retouched.
             </p>
-            <form class="form-row" onsubmit="event.preventDefault()">
+            <form class="form-row reveal d4" onsubmit="event.preventDefault()">
               <input
                 type="email"
                 placeholder="you@firm.com"
@@ -229,11 +337,13 @@
                 Get Early Access
               </button>
             </form>
-            <p class="note">
+            <p class="note reveal d5">
               Founding members get <strong>40% off for life</strong> and the
               first idea before launch.
             </p>
-            <p class="fine">No spam · One preview drop before launch</p>
+            <p class="fine reveal d6">
+              No spam · One preview drop before launch
+            </p>
           </div>
 
           <article class="trade-card" aria-label="Sample trade idea">
@@ -287,6 +397,7 @@
               </div>
               <svg viewBox="0 0 600 110" preserveAspectRatio="none">
                 <line
+                  class="tc-level"
                   x1="0"
                   x2="600"
                   y1="20"
@@ -314,6 +425,7 @@
                   fill="rgba(212,197,169,0.04)"
                 />
                 <line
+                  class="tc-level"
                   x1="0"
                   x2="600"
                   y1="87"
@@ -334,6 +446,7 @@
                   ENTRY 218–224
                 </text>
                 <line
+                  class="tc-level"
                   x1="0"
                   x2="600"
                   y1="100"
@@ -354,12 +467,20 @@
                   STOP 209
                 </text>
                 <path
+                  class="tc-line"
+                  pathLength="1"
                   d="M0,72 L40,66 L70,76 L100,84 L130,88 L160,93 L190,90 L220,86 L250,90 L280,86 L310,82 L340,74 L370,68 L400,60 L430,52 L460,44 L490,38 L520,32 L550,26 L580,22 L600,20"
                   fill="none"
                   stroke="#D4C5A9"
                   stroke-width="1.4"
                 />
-                <circle cx="160" cy="93" r="3" fill="#D4C5A9" />
+                <circle
+                  class="tc-marker"
+                  cx="160"
+                  cy="93"
+                  r="3"
+                  fill="#D4C5A9"
+                />
               </svg>
             </div>
           </article>
@@ -380,5 +501,7 @@
       <a href="hero-v9.html">V9 Marquee</a>
       <a href="index.html">Index</a>
     </nav>
+
+    <script src="shared/theme-toggle.js" defer></script>
   </body>
 </html>
