@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Hero V9 · Marquee (Teaser) — Four Gate Alpha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="shared/teaser.css" />
+    <style>
+      /* ============================================================
+     v5 — "Marquee"
+     Dark stage with vertical grid columns, a central horizontal
+     glow, a floating liquid-glass card above the headline, and
+     an oversized uppercase wordmark with a gold accent period.
+     Mobile-first.
+     ============================================================ */
+      html,
+      body {
+        min-height: 100svh;
+        background: #070b0a;
+      }
+      body {
+        overflow-x: hidden;
+        font-family: "Inter", system-ui, sans-serif;
+        color: var(--bone-white);
+      }
+
+      .v5 {
+        position: relative;
+        min-height: 100svh;
+        width: 100%;
+        overflow: hidden;
+        isolation: isolate;
+        background: #070b0a;
+        --display: "Instrument Serif", serif;
+        --italic: "Newsreader", Georgia, serif;
+        --ui: "Inter", system-ui, sans-serif;
+        --jakarta: "Plus Jakarta Sans", var(--ui);
+        --mono: var(--font-mono);
+        --bg-deep: #070b0a;
+      }
+
+      /* ── Liquid glass ───────────────────────────────────────── */
+      .liquid {
+        position: relative;
+        background: rgba(255, 255, 255, 0.01);
+        background-blend-mode: luminosity;
+        backdrop-filter: blur(6px) saturate(115%);
+        -webkit-backdrop-filter: blur(6px) saturate(115%);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+      }
+      .liquid::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1.4px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.5) 0%,
+          rgba(255, 255, 255, 0.15) 22%,
+          rgba(255, 255, 255, 0) 45%,
+          rgba(255, 255, 255, 0) 60%,
+          rgba(255, 255, 255, 0.15) 82%,
+          rgba(255, 255, 255, 0.5) 100%
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+
+      /* ── Stage ──────────────────────────────────────────────── */
+      .stage {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .stage .base {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 50% 18%,
+            rgba(212, 197, 169, 0.1) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 100% 80% at 20% 80%,
+            rgba(199, 122, 110, 0.08) 0%,
+            transparent 65%
+          ),
+          linear-gradient(180deg, #0b1110 0%, #070b0a 65%);
+      }
+      /* Central horizontal glow */
+      .stage .glow {
+        position: absolute;
+        left: 50%;
+        top: 26%;
+        width: 1200px;
+        height: 280px;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+          ellipse 60% 40% at 50% 50%,
+          rgba(212, 197, 169, 0.45) 0%,
+          rgba(212, 197, 169, 0.18) 40%,
+          transparent 70%
+        );
+        filter: blur(40px);
+        opacity: 0.85;
+        animation: glowPulse 6s ease-in-out infinite;
+      }
+      @keyframes glowPulse {
+        0%,
+        100% {
+          opacity: 0.65;
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          opacity: 0.95;
+          transform: translate(-50%, -50%) scale(1.05);
+        }
+      }
+
+      /* Vertical grid columns at 25 / 50 / 75 (desktop) */
+      .stage .cols {
+        position: absolute;
+        inset: 0;
+        display: none;
+      }
+      .stage .cols i {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.1) 12%,
+          rgba(255, 255, 255, 0.1) 88%,
+          transparent 100%
+        );
+      }
+      .stage .cols i:nth-child(1) {
+        left: 25%;
+      }
+      .stage .cols i:nth-child(2) {
+        left: 50%;
+      }
+      .stage .cols i:nth-child(3) {
+        left: 75%;
+      }
+
+      /* Left-side dark gradient veil */
+      .stage .veil {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(7, 11, 10, 0.92) 0%,
+          rgba(7, 11, 10, 0) 55%
+        );
+      }
+      /* Bottom dark gradient for legibility */
+      .stage .floor {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 50%,
+          rgba(7, 11, 10, 0.75) 100%
+        );
+      }
+      /* Soft drifting chart line in the back */
+      .stage .ribbon {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.45;
+        mix-blend-mode: screen;
+      }
+
+      /* ── Top nav ────────────────────────────────────────────── */
+      .nav {
+        position: relative;
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 20px;
+      }
+      .nav .brand-mark .wordmark {
+        font-size: 12px;
+      }
+      .nav .links {
+        display: none;
+        gap: 28px;
+      }
+      .nav .links a {
+        font-family: var(--ui);
+        font-weight: 500;
+        font-size: 13px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--bone-white) 80%, transparent);
+        transition: color 0.18s ease;
+      }
+      .nav .links a:hover {
+        color: var(--accent-fga);
+      }
+      .nav .menu-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        color: var(--bone-white);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      /* ── Hero ───────────────────────────────────────────────── */
+      .hero {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        padding: 28px 22px 56px;
+        gap: 22px;
+        min-height: calc(100svh - 80px);
+        justify-content: center;
+      }
+
+      /* Floating liquid-glass card above the headline */
+      .gcard {
+        width: 200px;
+        aspect-ratio: 1 / 1;
+        border-radius: 18px;
+        padding: 18px 20px;
+        transform: translateY(-12px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-self: flex-start;
+      }
+      .gcard .tag {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        color: color-mix(in srgb, var(--bone-white) 75%, transparent);
+      }
+      .gcard .htitle {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 1.18;
+        color: var(--bone-white);
+        margin: 0;
+      }
+      .gcard .htitle em {
+        font-family: var(--italic);
+        font-style: italic;
+        color: var(--accent-fga);
+      }
+      .gcard .desc {
+        font-family: var(--ui);
+        font-size: 11px;
+        line-height: 1.45;
+        color: color-mix(in srgb, var(--bone-white) 60%, transparent);
+      }
+
+      /* Eyebrow */
+      .eye {
+        font-family: var(--jakarta);
+        font-weight: 700;
+        font-size: 11px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--accent-fga);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .eye::before {
+        content: "";
+        width: 18px;
+        height: 1px;
+        background: var(--accent-fga);
+      }
+
+      /* Headline — huge uppercase, accent period */
+      h1.head {
+        margin: 0;
+        font-family: var(--ui);
+        font-weight: 800;
+        font-size: clamp(38px, 11vw, 56px);
+        line-height: 0.96;
+        letter-spacing: -0.025em;
+        text-transform: uppercase;
+        color: var(--bone-white);
+        max-width: 16ch;
+        text-wrap: balance;
+      }
+      h1.head .accent-dot {
+        color: var(--accent-fga);
+      }
+      h1.head .ital {
+        font-family: var(--display);
+        font-style: italic;
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: -0.01em;
+        color: var(--accent-fga);
+      }
+
+      /* Description */
+      .desc {
+        margin: 0;
+        font-family: var(--ui);
+        font-size: 14px;
+        line-height: 1.6;
+        color: color-mix(in srgb, var(--bone-white) 70%, transparent);
+        max-width: 512px;
+      }
+
+      /* Action row */
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+      }
+      .cta-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--accent-fga);
+        color: var(--burnt-umber);
+        font-family: var(--jakarta);
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 14px 22px;
+        border-radius: 999px;
+        transition:
+          background 0.2s ease,
+          transform 0.18s ease;
+      }
+      .cta-primary:hover {
+        background: var(--bone-white);
+        transform: translateY(-1px);
+      }
+      .cta-primary .arr {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: rgba(7, 11, 10, 0.22);
+        transition: transform 0.2s ease;
+      }
+      .cta-primary:hover .arr {
+        transform: translateX(3px);
+      }
+
+      .cta-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 20px;
+        border-radius: 999px;
+        font-family: var(--jakarta);
+        font-weight: 500;
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--bone-white);
+      }
+
+      /* Lower meta strip */
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 18px;
+        margin-top: 8px;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--bone-white) 55%, transparent);
+      }
+      .meta strong {
+        color: var(--accent-fga);
+        font-weight: 500;
+      }
+      .meta .sep {
+        width: 18px;
+        height: 1px;
+        background: color-mix(in srgb, var(--accent-fga) 40%, transparent);
+      }
+
+      /* ── Edge sigils ───────────────────────────────────────── */
+      .sigil {
+        position: absolute;
+        z-index: 12;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--bone-white) 50%, transparent);
+        display: none;
+      }
+      .sigil.right {
+        right: 22px;
+        top: 50%;
+        transform: rotate(90deg) translateY(-50%);
+        transform-origin: right top;
+      }
+      .sigil.bottom {
+        left: 22px;
+        bottom: 22px;
+        display: flex;
+        gap: 18px;
+        align-items: center;
+      }
+      .sigil.bottom .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent-fga);
+        animation: accent-pulse 2.4s ease-in-out infinite;
+      }
+
+      /* ── Reveal ─────────────────────────────────────────────── */
+      .r {
+        animation: vFadeUp 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      }
+      .r-1 {
+        animation-delay: 0.05s;
+      }
+      .r-2 {
+        animation-delay: 0.18s;
+      }
+      .r-3 {
+        animation-delay: 0.32s;
+      }
+      .r-4 {
+        animation-delay: 0.48s;
+      }
+      .r-5 {
+        animation-delay: 0.62s;
+      }
+      .r-6 {
+        animation-delay: 0.78s;
+      }
+      @keyframes vFadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      /* Gcard preserves its -12px offset */
+      .gcard.r {
+        animation-name: vCardIn;
+      }
+      @keyframes vCardIn {
+        from {
+          opacity: 0;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(-12px);
+        }
+      }
+
+      /* ── Responsive ─────────────────────────────────────────── */
+      @media (min-width: 560px) {
+        .nav {
+          padding: 22px 32px;
+        }
+        .hero {
+          padding: 48px 32px 64px;
+          gap: 24px;
+        }
+        h1.head {
+          font-size: clamp(50px, 9vw, 72px);
+        }
+        .desc {
+          font-size: 15px;
+        }
+      }
+      @media (min-width: 820px) {
+        .nav {
+          padding: 24px 60px;
+        }
+        .nav .links {
+          display: inline-flex;
+        }
+        .nav .menu-btn {
+          display: none;
+        }
+        .stage .cols {
+          display: block;
+        }
+        .hero {
+          padding: 64px 60px 80px;
+          gap: 28px;
+        }
+        .gcard {
+          transform: translateY(-50px);
+          width: 210px;
+        }
+        .gcard.r {
+          animation-name: vCardInDesk;
+        }
+        @keyframes vCardInDesk {
+          from {
+            opacity: 0;
+            transform: translateY(0);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(-50px);
+          }
+        }
+        h1.head {
+          font-size: clamp(64px, 8vw, 84px);
+        }
+        .sigil {
+          display: block;
+        }
+      }
+      @media (min-width: 1080px) {
+        .nav {
+          padding: 26px 80px;
+        }
+        .hero {
+          padding: 80px 80px 100px;
+        }
+        h1.head {
+          font-size: clamp(76px, 7vw, 96px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="v5" data-screen-label="01 Teaser v5">
+      <!-- Stage -->
+      <div class="stage" aria-hidden="true">
+        <div class="base"></div>
+        <div class="glow"></div>
+        <div class="cols"><i></i><i></i><i></i></div>
+
+        <!-- soft ribbon (chart-like) -->
+        <svg class="ribbon" viewBox="0 0 1600 900" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="rg" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#d4c5a9" stop-opacity="0" />
+              <stop offset="50%" stop-color="#d4c5a9" stop-opacity="0.45" />
+              <stop offset="100%" stop-color="#d4c5a9" stop-opacity="0" />
+            </linearGradient>
+            <filter id="rb"><feGaussianBlur stdDeviation="1.4" /></filter>
+          </defs>
+          <path
+            d="M0,640 C160,580 280,720 460,660 C640,600 780,720 920,600 C1080,460 1260,560 1440,420 C1520,360 1560,360 1600,320"
+            fill="none"
+            stroke="url(#rg)"
+            stroke-width="1.8"
+            filter="url(#rb)"
+          />
+          <path
+            d="M0,720 C160,700 280,740 460,700 C640,660 780,720 920,680 C1080,640 1260,700 1440,620 C1520,580 1560,580 1600,560"
+            fill="none"
+            stroke="#d4c5a9"
+            stroke-opacity="0.16"
+            stroke-width="1"
+          />
+        </svg>
+
+        <div class="veil"></div>
+        <div class="floor"></div>
+      </div>
+
+      <!-- Right-edge sigil -->
+      <div class="sigil right">№ 001 · Letter Series · 2025</div>
+
+      <!-- Bottom-left sigil -->
+      <div class="sigil bottom">
+        <span class="dot"></span>
+        <span>Founding window — Open</span>
+      </div>
+
+      <!-- Nav -->
+      <nav class="nav r r-1" aria-label="Primary">
+        <a href="#" class="brand-mark" aria-label="Four Gate Alpha">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <rect
+              x="2.5"
+              y="2"
+              width="19"
+              height="20"
+              stroke="currentColor"
+              stroke-width="0.9"
+            />
+            <rect
+              x="5"
+              y="4.2"
+              width="14"
+              height="17.8"
+              stroke="currentColor"
+              stroke-width="0.9"
+            />
+            <rect
+              x="7.5"
+              y="6.4"
+              width="9"
+              height="15.6"
+              stroke="currentColor"
+              stroke-width="0.9"
+            />
+            <rect
+              x="10"
+              y="8.6"
+              width="4"
+              height="13.4"
+              stroke="currentColor"
+              stroke-width="0.9"
+            />
+          </svg>
+          <span class="wordmark">Four Gate <em>Alpha</em></span>
+        </a>
+        <div class="links">
+          <a href="#">Letter</a>
+          <a href="#">Method</a>
+          <a href="#">Archive</a>
+          <a href="#">Contact</a>
+        </div>
+        <button class="menu-btn" aria-label="Menu">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <line x1="3" y1="7" x2="21" y2="7" />
+            <line x1="3" y1="13" x2="21" y2="13" />
+            <line x1="3" y1="19" x2="21" y2="19" />
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Hero -->
+      <main class="hero" role="main">
+        <div class="gcard liquid r r-2">
+          <div class="tag">[ № 001 · 2025 ]</div>
+          <h3 class="htitle">Written by <em>practitioners.</em></h3>
+          <p class="desc">
+            A small research desk publishing four letters a month — thesis,
+            levels, invalidation.
+          </p>
+        </div>
+
+        <span class="eye r r-3">Founding members · Letter Series</span>
+
+        <h1 class="head r r-4">
+          Read the tape <span class="ital">before</span><br />
+          it reads you<span class="accent-dot">.</span>
+        </h1>
+
+        <p class="desc r r-5">
+          Four Gate Alpha publishes a small number of high‑conviction trade
+          ideas each month — thesis, levels, invalidation. We're opening the
+          doors to founding members only.
+        </p>
+
+        <div class="actions r r-6">
+          <a href="#" class="cta-primary">
+            Reserve a spot
+            <span class="arr" aria-hidden="true">
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="13 6 19 12 13 18" />
+              </svg>
+            </span>
+          </a>
+          <a href="#" class="cta-ghost liquid">Read a sample brief</a>
+        </div>
+
+        <div class="meta r r-6">
+          <span><strong>112</strong> on the list</span>
+          <span class="sep"></span>
+          <span>4 letters / month</span>
+          <span class="sep"></span>
+          <span>No spam, ever</span>
+        </div>
+      </main>
+    </div>
+
+    <style id="fga-light-overrides">
+      /* Light-mode overrides for hardcoded values across all teaser versions */
+      :root[data-theme="light"] body,
+      :root[data-theme="light"] html {
+        background: var(--ink);
+        color: var(--text);
+      }
+      :root[data-theme="light"] .v1,
+      :root[data-theme="light"] .v2,
+      :root[data-theme="light"] .v3,
+      :root[data-theme="light"] .v4,
+      :root[data-theme="light"] .v5 {
+        background: var(--ink);
+        color: var(--text);
+      }
+
+      /* Flip white tints on glass to subtle dark tints */
+      :root[data-theme="light"] .liquid,
+      :root[data-theme="light"] .glass,
+      :root[data-theme="light"] .lg-glass,
+      :root[data-theme="light"] .lg-glass-strong {
+        background: rgba(42, 39, 34, 0.04) !important;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.55) !important;
+      }
+      :root[data-theme="light"] .liquid::before,
+      :root[data-theme="light"] .glass::before {
+        background: linear-gradient(
+          180deg,
+          rgba(138, 111, 42, 0.55) 0%,
+          rgba(138, 111, 42, 0.18) 22%,
+          rgba(138, 111, 42, 0) 45%,
+          rgba(138, 111, 42, 0) 60%,
+          rgba(138, 111, 42, 0.18) 82%,
+          rgba(138, 111, 42, 0.55) 100%
+        ) !important;
+      }
+
+      /* Soften the dark vignettes / veils in light mode */
+      :root[data-theme="light"] .stage .vignette,
+      :root[data-theme="light"] .stage .veil,
+      :root[data-theme="light"] .stage .floor,
+      :root[data-theme="light"] .bg .vignette {
+        background: linear-gradient(
+          180deg,
+          rgba(244, 236, 219, 0.55) 0%,
+          transparent 25%,
+          transparent 75%,
+          rgba(244, 236, 219, 0.65) 100%
+        ) !important;
+        mix-blend-mode: normal !important;
+      }
+      :root[data-theme="light"] .stage .base,
+      :root[data-theme="light"] .bg .base {
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 15% 90%,
+            rgba(138, 111, 42, 0.18) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse 60% 70% at 90% 15%,
+            rgba(167, 70, 56, 0.12) 0%,
+            transparent 60%
+          ),
+          radial-gradient(ellipse 120% 80% at 50% 50%, #f4ecdb 0%, #e7dcc4 70%) !important;
+      }
+
+      /* Buttons that hardcode dark text on gold pill - keep contrast */
+      :root[data-theme="light"] .btn-primary,
+      :root[data-theme="light"] .cta-primary,
+      :root[data-theme="light"] .form-row .submit,
+      :root[data-theme="light"] .email-row .submit,
+      :root[data-theme="light"] .pill .badge,
+      :root[data-theme="light"] .tag-pill .new {
+        color: #f4ecdb !important;
+      }
+      :root[data-theme="light"] .email-row .submit {
+        background: var(--accent-fga-deep) !important;
+        color: #f4ecdb !important;
+      }
+
+      /* Headline text-shadow becomes too heavy on light bg */
+      :root[data-theme="light"] h1.title,
+      :root[data-theme="light"] h1.head {
+        text-shadow: none !important;
+      }
+
+      /* Ticker tape strip readability */
+      :root[data-theme="light"] .ticker .strip {
+        color: rgba(42, 39, 34, 0.7) !important;
+      }
+      :root[data-theme="light"] .ticker .strip .down {
+        color: #a74638 !important;
+      }
+      :root[data-theme="light"] .ticker .strip .up {
+        color: #8a6f2a !important;
+      }
+    </style>
+    <script src="shared/theme-toggle.js" defer></script>
+
+    <nav class="variant-badge">
+      <span class="label">Hero ·</span>
+      <a href="hero-v1.html">V1 Frames</a>
+      <a href="hero-v2.html">V2 Ticker</a>
+      <a href="hero-v3.html">V3 Trade Card</a>
+      <a href="hero-v4.html">V4 Typographic</a>
+      <a href="hero-v5.html">V5 Concentric</a>
+      <a href="hero-v6.html">V6 Glass Cabinet</a>
+      <a href="hero-v7.html">V7 Pop</a>
+      <a href="hero-v8.html">V8 Field of View</a>
+      <a href="hero-v9.html" class="is-active">V9 Marquee</a>
+      <a href="index.html">Index</a>
+    </nav>
+  </body>
+</html>

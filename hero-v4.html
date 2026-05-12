@@ -1,252 +1,330 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hero V4 · Typographic — Four Gate Alpha</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="_shared.css" />
-<style>
-  .v4-page {
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 35%, color-mix(in srgb, var(--accent) 4%, transparent), transparent 65%),
-      var(--ink);
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hero V4 · Typographic — Four Gate Alpha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Fira+Code:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="_shared.css" />
+    <style>
+      .v4-page {
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 50% 35%,
+            color-mix(in srgb, var(--accent) 4%, transparent),
+            transparent 65%
+          ),
+          var(--ink);
+      }
 
-  /* Newspaper-style rule */
-  .v4-rule {
-    border-top: 3px double var(--hairline-strong);
-    border-bottom: 1px solid var(--hairline-strong);
-    padding: 8px 0;
-    background: color-mix(in srgb, var(--ink-2) 50%, transparent);
-  }
-  .v4-rule-inner {
-    max-width: var(--container);
-    margin: 0 auto;
-    padding: 0 var(--gutter);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-  }
-  .v4-rule-inner .center {
-    color: var(--accent);
-    letter-spacing: 0.32em;
-  }
+      /* Newspaper-style rule */
+      .v4-rule {
+        border-top: 3px double var(--hairline-strong);
+        border-bottom: 1px solid var(--hairline-strong);
+        padding: 8px 0;
+        background: color-mix(in srgb, var(--ink-2) 50%, transparent);
+      }
+      .v4-rule-inner {
+        max-width: var(--container);
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+      .v4-rule-inner .center {
+        color: var(--accent);
+        letter-spacing: 0.32em;
+      }
 
-  .v4-hero {
-    flex: 1;
-    display: grid;
-    place-items: center;
-    padding: clamp(40px, 8vh, 100px) var(--gutter);
-    text-align: center;
-  }
-  .v4-inner {
-    max-width: 1100px;
-    width: 100%;
-  }
+      .v4-hero {
+        flex: 1;
+        display: grid;
+        place-items: center;
+        padding: clamp(40px, 8vh, 100px) var(--gutter);
+        text-align: center;
+      }
+      .v4-inner {
+        max-width: 1100px;
+        width: 100%;
+      }
 
-  /* The hero is the type itself */
-  .v4-line {
-    display: block;
-    font-family: var(--display);
-    font-weight: 700;
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    color: var(--text);
-  }
-  .v4-line.l1 {
-    font-size: clamp(56px, 11vw, 158px);
-  }
-  .v4-line.l2 {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
-    font-size: clamp(56px, 11vw, 158px);
-  }
-  .v4-line.l3 {
-    font-size: clamp(40px, 7.5vw, 110px);
-    margin-top: 6px;
-    color: var(--text);
-  }
-  .v4-line .amp {
-    font-style: italic;
-    font-weight: 400;
-    font-family: var(--display);
-    color: var(--accent);
-    margin: 0 .12em;
-    transform: translateY(-0.05em);
-    display: inline-block;
-  }
+      /* The hero is the type itself */
+      .v4-line {
+        display: block;
+        font-family: var(--display);
+        font-weight: 700;
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        color: var(--text);
+      }
+      .v4-line.l1 {
+        font-size: clamp(56px, 11vw, 158px);
+      }
+      .v4-line.l2 {
+        font-style: italic;
+        font-weight: 400;
+        color: var(--accent);
+        font-size: clamp(56px, 11vw, 158px);
+      }
+      .v4-line.l3 {
+        font-size: clamp(40px, 7.5vw, 110px);
+        margin-top: 6px;
+        color: var(--text);
+      }
+      .v4-line .amp {
+        font-style: italic;
+        font-weight: 400;
+        font-family: var(--display);
+        color: var(--accent);
+        margin: 0 0.12em;
+        transform: translateY(-0.05em);
+        display: inline-block;
+      }
 
-  /* Drop-cap intro paragraph */
-  .v4-pulled {
-    margin: clamp(36px, 6vh, 56px) auto 28px;
-    max-width: 62ch;
-    text-align: left;
-    font-size: 17.5px;
-    line-height: 1.65;
-    column-count: 1;
-    text-wrap: pretty;
-  }
-  .v4-pulled::first-letter {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 5em;
-    float: left;
-    line-height: 0.85;
-    margin: 0.05em 0.12em 0 0;
-    color: var(--accent);
-  }
-  .v4-pulled em { font-style: italic; color: var(--accent); }
+      /* Drop-cap intro paragraph */
+      .v4-pulled {
+        margin: clamp(36px, 6vh, 56px) auto 28px;
+        max-width: 62ch;
+        text-align: left;
+        font-size: 17.5px;
+        line-height: 1.65;
+        column-count: 1;
+        text-wrap: pretty;
+      }
+      .v4-pulled::first-letter {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 5em;
+        float: left;
+        line-height: 0.85;
+        margin: 0.05em 0.12em 0 0;
+        color: var(--accent);
+      }
+      .v4-pulled em {
+        font-style: italic;
+        color: var(--accent);
+      }
 
-  .v4-marks {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 22px;
-    color: var(--text-faint);
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    margin-bottom: clamp(28px, 4vh, 44px);
-  }
-  .v4-marks .star { color: var(--accent); font-size: 16px; line-height: 0; }
-  .v4-marks .ln { width: 36px; height: 1px; background: var(--hairline-strong); }
+      .v4-marks {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 22px;
+        color: var(--text-faint);
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        margin-bottom: clamp(28px, 4vh, 44px);
+      }
+      .v4-marks .star {
+        color: var(--accent);
+        font-size: 16px;
+        line-height: 0;
+      }
+      .v4-marks .ln {
+        width: 36px;
+        height: 1px;
+        background: var(--hairline-strong);
+      }
 
-  .v4-cta {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: clamp(20px, 3vh, 36px);
-  }
-  .v4-cta .form-row { width: 100%; max-width: 460px; }
-  .v4-cta .note, .v4-cta .fine { text-align: center; }
+      .v4-cta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: clamp(20px, 3vh, 36px);
+      }
+      .v4-cta .form-row {
+        width: 100%;
+        max-width: 460px;
+      }
+      .v4-cta .note,
+      .v4-cta .fine {
+        text-align: center;
+      }
 
-  /* Marginal annotations */
-  .v4-margin {
-    position: absolute;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    pointer-events: none;
-  }
-  .v4-margin.m1 { top: 38%; left: 6%; transform: rotate(-90deg); transform-origin: left center; }
-  .v4-margin.m2 { top: 38%; right: 6%; transform: rotate(90deg); transform-origin: right center; }
-  @media (max-width: 1100px) { .v4-margin { display: none; } }
+      /* Marginal annotations */
+      .v4-margin {
+        position: absolute;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        pointer-events: none;
+      }
+      .v4-margin.m1 {
+        top: 38%;
+        left: 6%;
+        transform: rotate(-90deg);
+        transform-origin: left center;
+      }
+      .v4-margin.m2 {
+        top: 38%;
+        right: 6%;
+        transform: rotate(90deg);
+        transform-origin: right center;
+      }
+      @media (max-width: 1100px) {
+        .v4-margin {
+          display: none;
+        }
+      }
 
-  /* Footer credits in newspaper-style */
-  .v4-foot {
-    border-top: 1px solid var(--hairline);
-    padding: 14px 0;
-    background: color-mix(in srgb, var(--ink-2) 50%, transparent);
-  }
-  .v4-foot-inner {
-    max-width: var(--container);
-    margin: 0 auto;
-    padding: 0 var(--gutter);
-    display: flex;
-    justify-content: space-between;
-    gap: 24px;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-  }
+      /* Footer credits in newspaper-style */
+      .v4-foot {
+        border-top: 1px solid var(--hairline);
+        padding: 14px 0;
+        background: color-mix(in srgb, var(--ink-2) 50%, transparent);
+      }
+      .v4-foot-inner {
+        max-width: var(--container);
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
 
-  @media (max-width: 640px) {
-    .v4-rule-inner { font-size: 9px; letter-spacing: 0.16em; gap: 12px; }
-    .v4-rule-inner .right { display: none; }
-    .v4-foot-inner { flex-wrap: wrap; gap: 8px; }
-  }
-</style>
-</head>
-<body>
+      @media (max-width: 640px) {
+        .v4-rule-inner {
+          font-size: 9px;
+          letter-spacing: 0.16em;
+          gap: 12px;
+        }
+        .v4-rule-inner .right {
+          display: none;
+        }
+        .v4-foot-inner {
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero-page v4-page">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brand-mark">
+            <span class="glyph">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="0.9"
+              >
+                <rect x="2.5" y="2" width="19" height="20" />
+                <rect x="5" y="4.2" width="14" height="17.8" />
+                <rect x="7.5" y="6.4" width="9" height="15.6" />
+                <rect x="10" y="8.6" width="4" height="13.4" />
+              </svg>
+            </span>
+            <span class="name">Four Gate <em>Alpha</em></span>
+          </div>
+          <div class="meta">
+            <span class="hide-mobile">Prelaunch · Founding Members</span>
+            <span><span class="dot"></span>&nbsp;&nbsp;Waitlist Open</span>
+          </div>
+        </div>
+      </header>
 
-<div class="hero-page v4-page">
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand-mark">
-        <span class="glyph">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.9">
-            <rect x="2.5" y="2" width="19" height="20"/><rect x="5" y="4.2" width="14" height="17.8"/>
-            <rect x="7.5" y="6.4" width="9" height="15.6"/><rect x="10" y="8.6" width="4" height="13.4"/>
-          </svg>
-        </span>
-        <span class="name">Four Gate <em>Alpha</em></span>
+      <div class="v4-rule">
+        <div class="v4-rule-inner">
+          <span class="left">Vol. 01 · Issue 00</span>
+          <span class="center">A Letter, Not a Service</span>
+          <span class="right">Launching September MMXXVI</span>
+        </div>
       </div>
-      <div class="meta">
-        <span class="hide-mobile">Prelaunch · Founding Members</span>
-        <span><span class="dot"></span>&nbsp;&nbsp;Waitlist Open</span>
-      </div>
+
+      <section class="v4-hero" style="position: relative">
+        <span class="v4-margin m1">Founding Members · Cohort I</span>
+        <span class="v4-margin m2">Sept MMXXVI · 40% Off for Life</span>
+
+        <div class="v4-inner">
+          <div class="v4-marks">
+            <span class="ln"></span><span class="star">✦</span
+            ><span>Four Gate Alpha</span><span class="star">✦</span
+            ><span class="ln"></span>
+          </div>
+
+          <h1>
+            <span class="v4-line l1">Fewer trades.</span>
+            <span class="v4-line l2">Higher conviction.</span>
+            <span class="v4-line l3"
+              >Written <span class="amp">&amp;</span> delivered.</span
+            >
+          </h1>
+
+          <p class="v4-pulled">
+            We are building the trading letter we wished existed when we ran our
+            own books — a quiet, monthly correspondence with a small number of
+            researched, <em>high-conviction</em> ideas, each with the thesis
+            written out, the levels named, and the reason to walk away put in
+            print before the trade is taken. No chat room. No signals. No
+            urgency manufactured for marketing.
+          </p>
+
+          <div class="v4-cta">
+            <form class="form-row" onsubmit="event.preventDefault()">
+              <input
+                type="email"
+                placeholder="you@firm.com"
+                aria-label="Email address"
+              />
+              <button type="submit" class="btn-primary">
+                Get Early Access
+              </button>
+            </form>
+            <p class="note">
+              Founding members get <strong>40% off for life</strong> · One
+              preview idea before launch.
+            </p>
+            <p class="fine">No spam · Unsubscribe anytime</p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="v4-foot">
+        <div class="v4-foot-inner">
+          <span>Est. MMXXVI</span>
+          <span>The Four Gate Desk</span>
+          <span>Research · Not Advice</span>
+        </div>
+      </footer>
     </div>
-  </header>
 
-  <div class="v4-rule">
-    <div class="v4-rule-inner">
-      <span class="left">Vol. 01 · Issue 00</span>
-      <span class="center">A Letter, Not a Service</span>
-      <span class="right">Launching September MMXXVI</span>
-    </div>
-  </div>
-
-  <section class="v4-hero" style="position:relative">
-    <span class="v4-margin m1">Founding Members · Cohort I</span>
-    <span class="v4-margin m2">Sept MMXXVI · 40% Off for Life</span>
-
-    <div class="v4-inner">
-      <div class="v4-marks">
-        <span class="ln"></span><span class="star">✦</span><span>Four Gate Alpha</span><span class="star">✦</span><span class="ln"></span>
-      </div>
-
-      <h1>
-        <span class="v4-line l1">Fewer trades.</span>
-        <span class="v4-line l2">Higher conviction.</span>
-        <span class="v4-line l3">Written <span class="amp">&amp;</span> delivered.</span>
-      </h1>
-
-      <p class="v4-pulled">
-        We are building the trading letter we wished existed when we ran our own books — a quiet, monthly correspondence with a small number of researched, <em>high-conviction</em> ideas, each with the thesis written out, the levels named, and the reason to walk away put in print before the trade is taken. No chat room. No signals. No urgency manufactured for marketing.
-      </p>
-
-      <div class="v4-cta">
-        <form class="form-row" onsubmit="event.preventDefault()">
-          <input type="email" placeholder="you@firm.com" aria-label="Email address"/>
-          <button type="submit" class="btn-primary">Get Early Access</button>
-        </form>
-        <p class="note">Founding members get <strong>40% off for life</strong> · One preview idea before launch.</p>
-        <p class="fine">No spam · Unsubscribe anytime</p>
-      </div>
-    </div>
-  </section>
-
-  <footer class="v4-foot">
-    <div class="v4-foot-inner">
-      <span>Est. MMXXVI</span>
-      <span>The Four Gate Desk</span>
-      <span>Research · Not Advice</span>
-    </div>
-  </footer>
-</div>
-
-<nav class="variant-badge">
-  <span class="label">Hero ·</span>
-  <a href="hero-v1.html">V1 Frames</a>
-  <a href="hero-v2.html">V2 Ticker</a>
-  <a href="hero-v3.html">V3 Trade Card</a>
-  <a href="hero-v4.html" class="is-active">V4 Typographic</a>
-</nav>
-
-</body>
+    <nav class="variant-badge">
+      <span class="label">Hero ·</span>
+      <a href="hero-v1.html">V1 Frames</a>
+      <a href="hero-v2.html">V2 Ticker</a>
+      <a href="hero-v3.html">V3 Trade Card</a>
+      <a href="hero-v4.html" class="is-active">V4 Typographic</a>
+      <a href="hero-v5.html">V5 Concentric</a>
+      <a href="hero-v6.html">V6 Glass Cabinet</a>
+      <a href="hero-v7.html">V7 Pop</a>
+      <a href="hero-v8.html">V8 Field of View</a>
+      <a href="hero-v9.html">V9 Marquee</a>
+      <a href="index.html">Index</a>
+    </nav>
+  </body>
 </html>

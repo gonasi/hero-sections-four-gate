@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Hero V8 · Field of View (Teaser) — Four Gate Alpha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="shared/teaser.css" />
+    <style>
+      /* ============================================================
+     v4 — "Field of View"
+     Pure black stage with a LIVE, popping market-data background:
+     a draw-on candle chart, an animated PnL line, drifting gold
+     particles, a rotating conic glow, and a soft scan sweep.
+     Liquid-glass primitives throughout. Mobile-first.
+     ============================================================ */
+
+      html,
+      body {
+        min-height: 100svh;
+        background: #000;
+      }
+      body {
+        overflow-x: hidden;
+        font-family: "Inter", system-ui, sans-serif;
+        color: var(--bone-white);
+      }
+      body::before {
+        opacity: 0.07;
+      } /* lift the shared grain slightly */
+
+      .v4 {
+        position: relative;
+        min-height: 100svh;
+        width: 100%;
+        overflow: hidden;
+        isolation: isolate;
+        background: #000;
+        --display: "Instrument Serif", "Libre Baskerville", Georgia, serif;
+        --italic: "Newsreader", Georgia, serif;
+        --ui: "Inter", system-ui, sans-serif;
+        --mono: var(--font-mono);
+      }
+
+      /* ── Liquid-glass primitive ───────────────────────────────── */
+      .liquid {
+        position: relative;
+        background: rgba(255, 255, 255, 0.018);
+        backdrop-filter: blur(8px) saturate(120%);
+        -webkit-backdrop-filter: blur(8px) saturate(120%);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+      }
+      .liquid::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1.4px;
+        background: linear-gradient(
+          180deg,
+          rgba(212, 197, 169, 0.55) 0%,
+          rgba(212, 197, 169, 0.18) 20%,
+          rgba(212, 197, 169, 0) 45%,
+          rgba(212, 197, 169, 0) 60%,
+          rgba(212, 197, 169, 0.18) 80%,
+          rgba(212, 197, 169, 0.55) 100%
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+
+      /* ── Stage ────────────────────────────────────────────────── */
+      .stage {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      /* 1 — slow rotating conic glow behind everything */
+      .stage .glow {
+        position: absolute;
+        left: 50%;
+        top: 52%;
+        width: 140vmax;
+        height: 140vmax;
+        transform: translate(-50%, -50%);
+        background: conic-gradient(
+          from 0deg at 50% 50%,
+          rgba(212, 197, 169, 0) 0deg,
+          rgba(212, 197, 169, 0.08) 60deg,
+          rgba(199, 122, 110, 0.06) 130deg,
+          rgba(212, 197, 169, 0) 200deg,
+          rgba(212, 197, 169, 0.1) 290deg,
+          rgba(212, 197, 169, 0) 360deg
+        );
+        filter: blur(80px);
+        animation: spin 60s linear infinite;
+        opacity: 0.9;
+      }
+      @keyframes spin {
+        0% {
+          transform: translate(-50%, -50%) rotate(0);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      /* 2 — drifting grid */
+      .stage .grid {
+        position: absolute;
+        inset: -10%;
+        background:
+          repeating-linear-gradient(
+            90deg,
+            transparent 0 96px,
+            rgba(212, 197, 169, 0.06) 96px 97px,
+            transparent 97px 192px
+          ),
+          repeating-linear-gradient(
+            0deg,
+            transparent 0 80px,
+            rgba(212, 197, 169, 0.04) 80px 81px,
+            transparent 81px 160px
+          );
+        mask-image: radial-gradient(
+          ellipse 70% 60% at 50% 50%,
+          #000 30%,
+          transparent 80%
+        );
+        -webkit-mask-image: radial-gradient(
+          ellipse 70% 60% at 50% 50%,
+          #000 30%,
+          transparent 80%
+        );
+        animation: gridDrift 70s linear infinite;
+        opacity: 0.36;
+      }
+      @keyframes gridDrift {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(-192px, -160px);
+        }
+      }
+
+      /* 3 — animated SVG chart (candles + sweeping line) */
+      .stage .chart {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.85;
+      }
+      .stage .chart .wick {
+        stroke: rgba(212, 197, 169, 0.55);
+        stroke-width: 1.2;
+      }
+      .stage .chart .body-up {
+        fill: rgba(212, 197, 169, 0.35);
+        stroke: rgba(212, 197, 169, 0.7);
+        stroke-width: 1;
+      }
+      .stage .chart .body-down {
+        fill: rgba(199, 122, 110, 0.3);
+        stroke: rgba(199, 122, 110, 0.65);
+        stroke-width: 1;
+      }
+      .stage .chart .pnl {
+        fill: none;
+        stroke: #d4c5a9;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        filter: drop-shadow(0 0 6px rgba(212, 197, 169, 0.55));
+        stroke-dasharray: 2400;
+        stroke-dashoffset: 2400;
+        animation: drawPnl 9s ease-in-out infinite;
+      }
+      @keyframes drawPnl {
+        0% {
+          stroke-dashoffset: 2400;
+          opacity: 0;
+        }
+        8% {
+          opacity: 0.95;
+        }
+        55% {
+          stroke-dashoffset: 0;
+          opacity: 0.95;
+        }
+        78% {
+          opacity: 0.95;
+        }
+        100% {
+          stroke-dashoffset: -2400;
+          opacity: 0;
+        }
+      }
+      .stage .chart .pnl-tip {
+        fill: #d4c5a9;
+        filter: drop-shadow(0 0 10px rgba(212, 197, 169, 0.85));
+        animation: tipMove 9s ease-in-out infinite;
+        opacity: 0;
+      }
+      @keyframes tipMove {
+        0% {
+          transform: translate(0px, 0px);
+          opacity: 0;
+        }
+        8% {
+          opacity: 1;
+        }
+        55% {
+          transform: translate(1480px, -340px);
+          opacity: 1;
+        }
+        78% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate(1600px, -360px);
+          opacity: 0;
+        }
+      }
+
+      /* 4 — floating particles */
+      .stage .dots {
+        position: absolute;
+        inset: 0;
+      }
+      .stage .dots i {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: rgba(212, 197, 169, 0.85);
+        box-shadow: 0 0 8px 1px rgba(212, 197, 169, 0.55);
+        animation: particleRise 14s linear infinite;
+        opacity: 0;
+      }
+      @keyframes particleRise {
+        0% {
+          transform: translateY(20vh) scale(0.6);
+          opacity: 0;
+        }
+        15% {
+          opacity: 0.9;
+        }
+        85% {
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateY(-110vh) scale(1);
+          opacity: 0;
+        }
+      }
+
+      /* 5 — scan sweep */
+      .stage .scan {
+        position: absolute;
+        inset: -20%;
+        background: linear-gradient(
+          110deg,
+          transparent 38%,
+          rgba(212, 197, 169, 0.14) 50%,
+          transparent 62%
+        );
+        mix-blend-mode: screen;
+        animation: scan 12s ease-in-out infinite;
+        opacity: 0.7;
+      }
+      @keyframes scan {
+        0% {
+          transform: translateX(-30%);
+          opacity: 0;
+        }
+        40% {
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateX(30%);
+          opacity: 0;
+        }
+      }
+
+      /* 6 — vignette */
+      .stage .vignette {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 90% 70% at 50% 50%,
+            transparent 45%,
+            rgba(0, 0, 0, 0.75) 100%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.45) 0%,
+            transparent 22%,
+            transparent 78%,
+            rgba(0, 0, 0, 0.55) 100%
+          );
+      }
+
+      /* ── Nav (glass pill, centered) ───────────────────────────── */
+      .nav-wrap {
+        position: relative;
+        z-index: 30;
+        padding: 18px 16px 0;
+        display: flex;
+        justify-content: center;
+      }
+      .nav {
+        width: 100%;
+        max-width: 980px;
+        border-radius: 999px;
+        padding: 8px 8px 8px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .nav-links {
+        display: none;
+        gap: 24px;
+      }
+      .nav-links a {
+        font-family: var(--ui);
+        font-weight: 500;
+        font-size: 13.5px;
+        color: color-mix(in srgb, var(--bone-white) 80%, transparent);
+        transition: color 0.18s ease;
+      }
+      .nav-links a:hover {
+        color: var(--bone-white);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .nav-actions .signup {
+        padding: 8px 14px;
+        font-family: var(--ui);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--bone-white);
+        border-radius: 999px;
+      }
+      .nav-actions .signup:hover {
+        color: var(--accent-fga);
+      }
+      .nav-actions .login {
+        padding: 9px 20px;
+        border-radius: 999px;
+        font-family: var(--ui);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--bone-white);
+        transition: background 0.2s ease;
+      }
+      .nav-actions .login:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .menu-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--bone-white);
+        background: transparent;
+        border: 0;
+      }
+      .nav-actions .signup {
+        display: none;
+      }
+      .nav-actions .login {
+        display: none;
+      }
+
+      /* ── Hero ─────────────────────────────────────────────────── */
+      .hero {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 32px 22px 24px;
+        gap: 22px;
+        min-height: calc(100svh - 120px);
+        justify-content: center;
+      }
+
+      /* Tagline glass pill with NEW badge */
+      .tag-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        height: 38px;
+        padding: 0 16px 0 6px;
+        border-radius: 999px;
+        font-family: var(--ui);
+        font-size: 13px;
+        color: color-mix(in srgb, var(--bone-white) 88%, transparent);
+      }
+      .tag-pill .new {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 26px;
+        padding: 0 10px;
+        border-radius: 999px;
+        background: var(--accent-fga);
+        color: var(--burnt-umber);
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .tag-pill .new::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--burnt-umber);
+        animation: accent-pulse 2.4s ease-in-out infinite;
+      }
+
+      /* Headline */
+      h1.head {
+        margin: 0;
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(56px, 16vw, 84px);
+        line-height: 1;
+        letter-spacing: -0.022em;
+        color: var(--bone-white);
+        max-width: 14ch;
+        text-shadow: 0 6px 40px rgba(0, 0, 0, 0.7);
+      }
+      h1.head em {
+        font-family: var(--italic);
+        font-style: italic;
+        font-weight: 400;
+        padding: 0 0.03em;
+        background: linear-gradient(
+          180deg,
+          var(--accent-fga) 0%,
+          #eedfba 50%,
+          var(--accent-fga-deep) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Subtext */
+      .sub {
+        margin: 0;
+        font-family: var(--ui);
+        font-size: 15px;
+        line-height: 1.55;
+        color: color-mix(in srgb, var(--bone-white) 72%, transparent);
+        max-width: 52ch;
+        padding: 0 8px;
+      }
+
+      /* Email pill */
+      .email-row {
+        width: 100%;
+        max-width: 520px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 6px 6px 20px;
+        border-radius: 999px;
+        margin-top: 4px;
+      }
+      .email-row input {
+        flex: 1;
+        min-width: 0;
+        background: transparent;
+        border: 0;
+        outline: 0;
+        color: var(--bone-white);
+        font-family: var(--ui);
+        font-size: 15px;
+        padding: 12px 0;
+      }
+      .email-row input::placeholder {
+        color: color-mix(in srgb, var(--bone-white) 38%, transparent);
+      }
+      .email-row .submit {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 0;
+        background: var(--bone-white);
+        color: var(--burnt-umber);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        transition:
+          background 0.2s ease,
+          transform 0.18s ease;
+      }
+      .email-row .submit:hover {
+        background: var(--accent-fga);
+        transform: translateX(2px);
+      }
+      .email-row .submit:active {
+        transform: translateX(0);
+      }
+
+      /* Manifesto button */
+      .manifesto {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 22px;
+        border-radius: 999px;
+        font-family: var(--ui);
+        font-weight: 500;
+        font-size: 13.5px;
+        color: var(--bone-white);
+        transition: background 0.2s ease;
+      }
+      .manifesto:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      /* Stats strip */
+      .stats {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 8px 18px;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--bone-white) 50%, transparent);
+        margin-top: 2px;
+      }
+      .stats strong {
+        color: var(--accent-fga);
+        font-weight: 500;
+      }
+      .stats .sep {
+        width: 18px;
+        height: 1px;
+        background: color-mix(in srgb, var(--accent-fga) 35%, transparent);
+      }
+
+      /* Socials footer */
+      .socials {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        padding: 16px 22px 32px;
+      }
+      .socials a {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: color-mix(in srgb, var(--bone-white) 80%, transparent);
+        transition:
+          color 0.18s ease,
+          background 0.2s ease,
+          transform 0.18s ease;
+      }
+      .socials a:hover {
+        color: var(--accent-fga);
+        background: rgba(255, 255, 255, 0.04);
+        transform: translateY(-2px);
+      }
+
+      /* Ticker tape under hero (mobile only — adds rhythm) */
+      .ticker {
+        position: relative;
+        z-index: 10;
+        overflow: hidden;
+        margin: 0 16px;
+        border-radius: 999px;
+        padding: 8px 0;
+        mask-image: linear-gradient(
+          90deg,
+          transparent 0,
+          #000 8%,
+          #000 92%,
+          transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+          90deg,
+          transparent 0,
+          #000 8%,
+          #000 92%,
+          transparent 100%
+        );
+      }
+      .ticker .strip {
+        display: inline-flex;
+        gap: 28px;
+        white-space: nowrap;
+        animation: tickerScroll 40s linear infinite;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--bone-white) 60%, transparent);
+        padding-left: 28px;
+      }
+      .ticker .strip span {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .ticker .strip .up {
+        color: var(--accent-fga);
+      }
+      .ticker .strip .down {
+        color: var(--neg);
+      }
+      .ticker .strip i {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: color-mix(in srgb, var(--accent-fga) 80%, transparent);
+      }
+      @keyframes tickerScroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ── Reveal stagger ───────────────────────────────────────── */
+      .rise {
+        animation-duration: 1s;
+      }
+      .rise-1 {
+        animation-delay: 0.05s;
+      }
+      .rise-2 {
+        animation-delay: 0.18s;
+      }
+      .rise-3 {
+        animation-delay: 0.32s;
+      }
+      .rise-4 {
+        animation-delay: 0.48s;
+      }
+      .rise-5 {
+        animation-delay: 0.62s;
+      }
+      .rise-6 {
+        animation-delay: 0.78s;
+      }
+
+      /* ── Responsive ───────────────────────────────────────────── */
+      @media (min-width: 560px) {
+        .nav-wrap {
+          padding: 22px 32px 0;
+        }
+        .hero {
+          padding: 56px 32px 28px;
+          gap: 26px;
+        }
+        h1.head {
+          font-size: clamp(68px, 11vw, 100px);
+        }
+        .sub {
+          font-size: 16px;
+        }
+      }
+      @media (min-width: 820px) {
+        .nav-wrap {
+          padding: 24px 60px 0;
+        }
+        .nav-links {
+          display: inline-flex;
+        }
+        .nav-actions .signup {
+          display: inline-flex;
+        }
+        .nav-actions .login {
+          display: inline-flex;
+        }
+        .menu-btn {
+          display: none;
+        }
+        .hero {
+          padding: 72px 60px 32px;
+          gap: 28px;
+        }
+        h1.head {
+          font-size: clamp(86px, 10vw, 124px);
+          white-space: nowrap;
+        }
+        .ticker {
+          margin: 0 60px;
+        }
+      }
+      @media (min-width: 1080px) {
+        h1.head {
+          font-size: clamp(108px, 9.5vw, 144px);
+        }
+        .hero {
+          gap: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="v4" data-screen-label="01 Teaser v4">
+      <!-- ── Stage background ── -->
+      <div class="stage" aria-hidden="true">
+        <div class="glow"></div>
+        <div class="grid"></div>
+
+        <svg
+          class="chart"
+          viewBox="0 0 1600 900"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <!-- Static candle row drawn loosely along the lower-middle of frame -->
+          <g class="candles">
+            <!-- Each candle = wick line + body rect. Up/down classes color them. -->
+            <g>
+              <line class="wick" x1="60" y1="540" x2="60" y2="700" />
+              <rect class="body-up" x="50" y="580" width="20" height="80" />
+            </g>
+            <g>
+              <line class="wick" x1="120" y1="500" x2="120" y2="690" />
+              <rect class="body-up" x="110" y="540" width="20" height="100" />
+            </g>
+            <g>
+              <line class="wick" x1="180" y1="520" x2="180" y2="680" />
+              <rect class="body-down" x="170" y="560" width="20" height="80" />
+            </g>
+            <g>
+              <line class="wick" x1="240" y1="480" x2="240" y2="660" />
+              <rect class="body-up" x="230" y="520" width="20" height="100" />
+            </g>
+            <g>
+              <line class="wick" x1="300" y1="460" x2="300" y2="640" />
+              <rect class="body-up" x="290" y="500" width="20" height="100" />
+            </g>
+            <g>
+              <line class="wick" x1="360" y1="500" x2="360" y2="620" />
+              <rect class="body-down" x="350" y="530" width="20" height="70" />
+            </g>
+            <g>
+              <line class="wick" x1="420" y1="440" x2="420" y2="600" />
+              <rect class="body-up" x="410" y="470" width="20" height="110" />
+            </g>
+            <g>
+              <line class="wick" x1="480" y1="420" x2="480" y2="580" />
+              <rect class="body-up" x="470" y="450" width="20" height="110" />
+            </g>
+            <g>
+              <line class="wick" x1="540" y1="460" x2="540" y2="560" />
+              <rect class="body-down" x="530" y="490" width="20" height="60" />
+            </g>
+            <g>
+              <line class="wick" x1="600" y1="400" x2="600" y2="540" />
+              <rect class="body-up" x="590" y="430" width="20" height="100" />
+            </g>
+            <g>
+              <line class="wick" x1="660" y1="380" x2="660" y2="520" />
+              <rect class="body-up" x="650" y="410" width="20" height="100" />
+            </g>
+            <g>
+              <line class="wick" x1="720" y1="420" x2="720" y2="500" />
+              <rect class="body-down" x="710" y="440" width="20" height="60" />
+            </g>
+            <g>
+              <line class="wick" x1="780" y1="360" x2="780" y2="480" />
+              <rect class="body-up" x="770" y="390" width="20" height="80" />
+            </g>
+            <g>
+              <line class="wick" x1="840" y1="340" x2="840" y2="460" />
+              <rect class="body-up" x="830" y="370" width="20" height="80" />
+            </g>
+            <g>
+              <line class="wick" x1="900" y1="380" x2="900" y2="440" />
+              <rect class="body-down" x="890" y="400" width="20" height="40" />
+            </g>
+            <g>
+              <line class="wick" x1="960" y1="320" x2="960" y2="420" />
+              <rect class="body-up" x="950" y="350" width="20" height="60" />
+            </g>
+            <g>
+              <line class="wick" x1="1020" y1="300" x2="1020" y2="400" />
+              <rect class="body-up" x="1010" y="330" width="20" height="60" />
+            </g>
+            <g>
+              <line class="wick" x1="1080" y1="340" x2="1080" y2="380" />
+              <rect class="body-down" x="1070" y="350" width="20" height="30" />
+            </g>
+            <g>
+              <line class="wick" x1="1140" y1="280" x2="1140" y2="360" />
+              <rect class="body-up" x="1130" y="310" width="20" height="50" />
+            </g>
+            <g>
+              <line class="wick" x1="1200" y1="260" x2="1200" y2="340" />
+              <rect class="body-up" x="1190" y="285" width="20" height="55" />
+            </g>
+            <g>
+              <line class="wick" x1="1260" y1="290" x2="1260" y2="330" />
+              <rect class="body-down" x="1250" y="300" width="20" height="25" />
+            </g>
+            <g>
+              <line class="wick" x1="1320" y1="240" x2="1320" y2="320" />
+              <rect class="body-up" x="1310" y="265" width="20" height="50" />
+            </g>
+            <g>
+              <line class="wick" x1="1380" y1="220" x2="1380" y2="300" />
+              <rect class="body-up" x="1370" y="245" width="20" height="50" />
+            </g>
+            <g>
+              <line class="wick" x1="1440" y1="250" x2="1440" y2="290" />
+              <rect class="body-down" x="1430" y="260" width="20" height="25" />
+            </g>
+            <g>
+              <line class="wick" x1="1500" y1="200" x2="1500" y2="280" />
+              <rect class="body-up" x="1490" y="220" width="20" height="55" />
+            </g>
+            <g>
+              <line class="wick" x1="1560" y1="180" x2="1560" y2="260" />
+              <rect class="body-up" x="1550" y="200" width="20" height="55" />
+            </g>
+          </g>
+
+          <!-- PnL line that draws across -->
+          <path
+            class="pnl"
+            d="M0,640 C140,580 220,710 360,650 C520,580 600,710 760,580 C920,460 1040,560 1200,420 C1360,300 1480,380 1600,260"
+          />
+          <circle class="pnl-tip" r="5" cx="0" cy="640" />
+        </svg>
+
+        <!-- Floating particles -->
+        <div class="dots">
+          <i style="left: 6%; animation-delay: 0s; animation-duration: 13s"></i>
+          <i
+            style="left: 14%; animation-delay: 5s; animation-duration: 18s"
+          ></i>
+          <i
+            style="left: 22%; animation-delay: 2s; animation-duration: 15s"
+          ></i>
+          <i
+            style="left: 30%; animation-delay: 8s; animation-duration: 16s"
+          ></i>
+          <i
+            style="left: 38%; animation-delay: 11s; animation-duration: 17s"
+          ></i>
+          <i
+            style="left: 46%; animation-delay: 3s; animation-duration: 14s"
+          ></i>
+          <i
+            style="left: 54%; animation-delay: 6s; animation-duration: 19s"
+          ></i>
+          <i
+            style="left: 62%; animation-delay: 9s; animation-duration: 15s"
+          ></i>
+          <i
+            style="left: 70%; animation-delay: 1s; animation-duration: 17s"
+          ></i>
+          <i
+            style="left: 78%; animation-delay: 7s; animation-duration: 14s"
+          ></i>
+          <i
+            style="left: 86%; animation-delay: 10s; animation-duration: 18s"
+          ></i>
+          <i
+            style="left: 94%; animation-delay: 4s; animation-duration: 16s"
+          ></i>
+        </div>
+
+        <div class="scan"></div>
+        <div class="vignette"></div>
+      </div>
+
+      <!-- ── Nav ── -->
+      <div class="nav-wrap rise rise-1">
+        <nav class="nav liquid" aria-label="Primary">
+          <a href="#" class="brand-mark" aria-label="Four Gate Alpha">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <rect
+                x="2.5"
+                y="2"
+                width="19"
+                height="20"
+                stroke="currentColor"
+                stroke-width="0.9"
+              />
+              <rect
+                x="5"
+                y="4.2"
+                width="14"
+                height="17.8"
+                stroke="currentColor"
+                stroke-width="0.9"
+              />
+              <rect
+                x="7.5"
+                y="6.4"
+                width="9"
+                height="15.6"
+                stroke="currentColor"
+                stroke-width="0.9"
+              />
+              <rect
+                x="10"
+                y="8.6"
+                width="4"
+                height="13.4"
+                stroke="currentColor"
+                stroke-width="0.9"
+              />
+            </svg>
+            <span class="wordmark">Four Gate <em>Alpha</em></span>
+          </a>
+
+          <div class="nav-links">
+            <a href="#">The Letter</a>
+            <a href="#">Method</a>
+            <a href="#">Archive</a>
+            <a href="#">Contact</a>
+          </div>
+
+          <div class="nav-actions">
+            <a href="#" class="signup">Sign in</a>
+            <a href="#waitlist" class="login liquid">Get access</a>
+            <button class="menu-btn liquid" aria-label="Menu">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              >
+                <line x1="3" y1="7" x2="21" y2="7" />
+                <line x1="3" y1="13" x2="21" y2="13" />
+                <line x1="3" y1="19" x2="21" y2="19" />
+              </svg>
+            </button>
+          </div>
+        </nav>
+      </div>
+
+      <!-- ── Hero ── -->
+      <main class="hero" role="main">
+        <span class="tag-pill liquid rise rise-2">
+          <span class="new">New</span>
+          Letter № 001 — Founding access open
+        </span>
+
+        <h1 class="head rise rise-3">Know the tape <em>then all.</em></h1>
+
+        <p class="sub rise rise-4">
+          Four Gate Alpha publishes a small number of high‑conviction trade
+          ideas each month — thesis, levels, invalidation. Leave your address
+          and we'll mark your place at the gate.
+        </p>
+
+        <form class="email-row liquid rise rise-5" id="waitlist" novalidate>
+          <input
+            type="email"
+            placeholder="you@firm.com"
+            aria-label="Email"
+            autocomplete="email"
+            required
+          />
+          <button type="submit" class="submit" aria-label="Reserve a spot">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="13 6 19 12 13 18" />
+            </svg>
+          </button>
+        </form>
+
+        <a href="#" class="manifesto liquid rise rise-6">Read the manifesto</a>
+
+        <div class="stats rise rise-6">
+          <span><strong>112</strong> on the list</span>
+          <span class="sep"></span>
+          <span>4 letters / month</span>
+          <span class="sep"></span>
+          <span>No spam, ever</span>
+        </div>
+      </main>
+
+      <!-- Ticker tape -->
+      <div class="ticker liquid" aria-hidden="true">
+        <div class="strip">
+          <span><i></i> ES <span class="up">+0.42%</span></span>
+          <span><i></i> NQ <span class="up">+0.71%</span></span>
+          <span><i></i> RTY <span class="down">−0.18%</span></span>
+          <span><i></i> CL <span class="down">−1.04%</span></span>
+          <span><i></i> GC <span class="up">+0.36%</span></span>
+          <span><i></i> DXY <span class="down">−0.22%</span></span>
+          <span><i></i> 10Y <span class="up">+2.4 bp</span></span>
+          <span><i></i> BTC <span class="up">+1.92%</span></span>
+          <!-- duplicate for seamless loop -->
+          <span><i></i> ES <span class="up">+0.42%</span></span>
+          <span><i></i> NQ <span class="up">+0.71%</span></span>
+          <span><i></i> RTY <span class="down">−0.18%</span></span>
+          <span><i></i> CL <span class="down">−1.04%</span></span>
+          <span><i></i> GC <span class="up">+0.36%</span></span>
+          <span><i></i> DXY <span class="down">−0.22%</span></span>
+          <span><i></i> 10Y <span class="up">+2.4 bp</span></span>
+          <span><i></i> BTC <span class="up">+1.92%</span></span>
+        </div>
+      </div>
+
+      <!-- ── Socials ── -->
+      <div class="socials">
+        <a href="#" class="liquid" aria-label="X / Twitter">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M18.244 2H21.5l-7.5 8.572L23 22h-6.86l-5.37-7.02L4.6 22H1.34l8.06-9.21L1 2h7.03l4.86 6.43L18.244 2Zm-1.2 18h1.79L7.06 4H5.16l11.884 16Z"
+            />
+          </svg>
+        </a>
+        <a href="#" class="liquid" aria-label="Instagram">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle
+              cx="17.5"
+              cy="6.5"
+              r="0.9"
+              fill="currentColor"
+              stroke="none"
+            />
+          </svg>
+        </a>
+        <a href="#" class="liquid" aria-label="Web">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <style id="fga-light-overrides">
+      /* Light-mode overrides for hardcoded values across all teaser versions */
+      :root[data-theme="light"] body,
+      :root[data-theme="light"] html {
+        background: var(--ink);
+        color: var(--text);
+      }
+      :root[data-theme="light"] .v1,
+      :root[data-theme="light"] .v2,
+      :root[data-theme="light"] .v3,
+      :root[data-theme="light"] .v4,
+      :root[data-theme="light"] .v5 {
+        background: var(--ink);
+        color: var(--text);
+      }
+
+      /* Flip white tints on glass to subtle dark tints */
+      :root[data-theme="light"] .liquid,
+      :root[data-theme="light"] .glass,
+      :root[data-theme="light"] .lg-glass,
+      :root[data-theme="light"] .lg-glass-strong {
+        background: rgba(42, 39, 34, 0.04) !important;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.55) !important;
+      }
+      :root[data-theme="light"] .liquid::before,
+      :root[data-theme="light"] .glass::before {
+        background: linear-gradient(
+          180deg,
+          rgba(138, 111, 42, 0.55) 0%,
+          rgba(138, 111, 42, 0.18) 22%,
+          rgba(138, 111, 42, 0) 45%,
+          rgba(138, 111, 42, 0) 60%,
+          rgba(138, 111, 42, 0.18) 82%,
+          rgba(138, 111, 42, 0.55) 100%
+        ) !important;
+      }
+
+      /* Soften the dark vignettes / veils in light mode */
+      :root[data-theme="light"] .stage .vignette,
+      :root[data-theme="light"] .stage .veil,
+      :root[data-theme="light"] .stage .floor,
+      :root[data-theme="light"] .bg .vignette {
+        background: linear-gradient(
+          180deg,
+          rgba(244, 236, 219, 0.55) 0%,
+          transparent 25%,
+          transparent 75%,
+          rgba(244, 236, 219, 0.65) 100%
+        ) !important;
+        mix-blend-mode: normal !important;
+      }
+      :root[data-theme="light"] .stage .base,
+      :root[data-theme="light"] .bg .base {
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 15% 90%,
+            rgba(138, 111, 42, 0.18) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse 60% 70% at 90% 15%,
+            rgba(167, 70, 56, 0.12) 0%,
+            transparent 60%
+          ),
+          radial-gradient(ellipse 120% 80% at 50% 50%, #f4ecdb 0%, #e7dcc4 70%) !important;
+      }
+
+      /* Buttons that hardcode dark text on gold pill - keep contrast */
+      :root[data-theme="light"] .btn-primary,
+      :root[data-theme="light"] .cta-primary,
+      :root[data-theme="light"] .form-row .submit,
+      :root[data-theme="light"] .email-row .submit,
+      :root[data-theme="light"] .pill .badge,
+      :root[data-theme="light"] .tag-pill .new {
+        color: #f4ecdb !important;
+      }
+      :root[data-theme="light"] .email-row .submit {
+        background: var(--accent-fga-deep) !important;
+        color: #f4ecdb !important;
+      }
+
+      /* Headline text-shadow becomes too heavy on light bg */
+      :root[data-theme="light"] h1.title,
+      :root[data-theme="light"] h1.head {
+        text-shadow: none !important;
+      }
+
+      /* Ticker tape strip readability */
+      :root[data-theme="light"] .ticker .strip {
+        color: rgba(42, 39, 34, 0.7) !important;
+      }
+      :root[data-theme="light"] .ticker .strip .down {
+        color: #a74638 !important;
+      }
+      :root[data-theme="light"] .ticker .strip .up {
+        color: #8a6f2a !important;
+      }
+    </style>
+    <script src="shared/theme-toggle.js" defer></script>
+
+    <nav class="variant-badge">
+      <span class="label">Hero ·</span>
+      <a href="hero-v1.html">V1 Frames</a>
+      <a href="hero-v2.html">V2 Ticker</a>
+      <a href="hero-v3.html">V3 Trade Card</a>
+      <a href="hero-v4.html">V4 Typographic</a>
+      <a href="hero-v5.html">V5 Concentric</a>
+      <a href="hero-v6.html">V6 Glass Cabinet</a>
+      <a href="hero-v7.html">V7 Pop</a>
+      <a href="hero-v8.html" class="is-active">V8 Field of View</a>
+      <a href="hero-v9.html">V9 Marquee</a>
+      <a href="index.html">Index</a>
+    </nav>
+  </body>
+</html>

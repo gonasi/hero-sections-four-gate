@@ -1,249 +1,378 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hero V2 · Ticker-Led — Four Gate Alpha</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="_shared.css" />
-<style>
-  .v2-page { position: relative; overflow: hidden; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hero V2 · Ticker-Led — Four Gate Alpha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Fira+Code:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="_shared.css" />
+    <style>
+      .v2-page {
+        position: relative;
+        overflow: hidden;
+      }
 
-  /* Multiple stacked tickers form the visual itself */
-  .ticker-stack {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 90px 0;
-  }
-  .t-row {
-    white-space: nowrap;
-    font-family: var(--mono);
-    font-size: clamp(44px, 7vw, 96px);
-    font-weight: 300;
-    letter-spacing: -0.01em;
-    color: rgba(212, 197, 169, 0.06);
-    line-height: 1;
-    will-change: transform;
-  }
-  .t-row.dim { color: rgba(212, 197, 169, 0.04); }
-  .t-row.bright { color: rgba(212, 197, 169, 0.10); }
-  .t-row .pos { color: rgba(212, 197, 169, 0.18); }
-  .t-row .neg { color: rgba(199, 122, 110, 0.12); }
-  .t-row .sym { color: rgba(224, 220, 213, 0.14); }
+      /* Multiple stacked tickers form the visual itself */
+      .ticker-stack {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 90px 0;
+      }
+      .t-row {
+        white-space: nowrap;
+        font-family: var(--mono);
+        font-size: clamp(44px, 7vw, 96px);
+        font-weight: 300;
+        letter-spacing: -0.01em;
+        color: rgba(212, 197, 169, 0.06);
+        line-height: 1;
+        will-change: transform;
+      }
+      .t-row.dim {
+        color: rgba(212, 197, 169, 0.04);
+      }
+      .t-row.bright {
+        color: rgba(212, 197, 169, 0.1);
+      }
+      .t-row .pos {
+        color: rgba(212, 197, 169, 0.18);
+      }
+      .t-row .neg {
+        color: rgba(199, 122, 110, 0.12);
+      }
+      .t-row .sym {
+        color: rgba(224, 220, 213, 0.14);
+      }
 
-  .t-track {
-    display: inline-flex;
-    gap: 56px;
-    padding-right: 56px;
-    animation-name: scroll;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-  }
-  .t-row.r1 .t-track { animation-duration: 95s; animation-direction: normal; }
-  .t-row.r2 .t-track { animation-duration: 140s; animation-direction: reverse; }
-  .t-row.r3 .t-track { animation-duration: 110s; animation-direction: normal; }
-  .t-row.r4 .t-track { animation-duration: 170s; animation-direction: reverse; }
-  .t-row.r5 .t-track { animation-duration: 80s;  animation-direction: normal; }
-  @keyframes scroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+      .t-track {
+        display: inline-flex;
+        gap: 56px;
+        padding-right: 56px;
+        animation-name: scroll;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+      .t-row.r1 .t-track {
+        animation-duration: 95s;
+        animation-direction: normal;
+      }
+      .t-row.r2 .t-track {
+        animation-duration: 140s;
+        animation-direction: reverse;
+      }
+      .t-row.r3 .t-track {
+        animation-duration: 110s;
+        animation-direction: normal;
+      }
+      .t-row.r4 .t-track {
+        animation-duration: 170s;
+        animation-direction: reverse;
+      }
+      .t-row.r5 .t-track {
+        animation-duration: 80s;
+        animation-direction: normal;
+      }
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
 
-  /* Vignette so center stays readable */
-  .v2-vignette {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background:
-      radial-gradient(ellipse 70% 60% at 50% 50%, var(--ink) 0%, transparent 70%);
-  }
+      /* Vignette so center stays readable */
+      .v2-vignette {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: radial-gradient(
+          ellipse 70% 60% at 50% 50%,
+          var(--ink) 0%,
+          transparent 70%
+        );
+      }
 
-  /* Grid overlay */
-  .v2-grid-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background-image:
-      linear-gradient(to right, rgba(212,197,169,0.04) 1px, transparent 1px);
-    background-size: 12.5% 100%;
-  }
+      /* Grid overlay */
+      .v2-grid-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background-image: linear-gradient(
+          to right,
+          rgba(212, 197, 169, 0.04) 1px,
+          transparent 1px
+        );
+        background-size: 12.5% 100%;
+      }
 
-  .v2-hero {
-    position: relative;
-    z-index: 2;
-    flex: 1;
-    display: grid;
-    place-items: center;
-    padding: clamp(48px, 10vh, 120px) var(--gutter);
-    text-align: center;
-  }
-  .v2-inner {
-    max-width: 920px;
-    width: 100%;
-  }
-  .v2-eyebrow {
-    margin-bottom: 32px;
-    justify-content: center;
-  }
-  .v2-title {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: clamp(40px, 6.4vw, 88px);
-    line-height: 1.02;
-    letter-spacing: -0.022em;
-    margin: 0 0 28px;
-    text-wrap: pretty;
-  }
-  .v2-title em { font-style: italic; font-weight: 400; color: var(--accent); }
-  .v2-sub {
-    font-size: clamp(17px, 1.6vw, 19px);
-    line-height: 1.55;
-    opacity: 0.86;
-    max-width: 56ch;
-    margin: 0 auto 36px;
-  }
-  .v2-form-wrap { display: flex; flex-direction: column; align-items: center; }
-  .v2-form-wrap .form-row { width: 100%; max-width: 460px; }
-  .v2-form-wrap .note, .v2-form-wrap .fine { text-align: center; }
+      .v2-hero {
+        position: relative;
+        z-index: 2;
+        flex: 1;
+        display: grid;
+        place-items: center;
+        padding: clamp(48px, 10vh, 120px) var(--gutter);
+        text-align: center;
+      }
+      .v2-inner {
+        max-width: 920px;
+        width: 100%;
+      }
+      .v2-eyebrow {
+        margin-bottom: 32px;
+        justify-content: center;
+      }
+      .v2-title {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(40px, 6.4vw, 88px);
+        line-height: 1.02;
+        letter-spacing: -0.022em;
+        margin: 0 0 28px;
+        text-wrap: pretty;
+      }
+      .v2-title em {
+        font-style: italic;
+        font-weight: 400;
+        color: var(--accent);
+      }
+      .v2-sub {
+        font-size: clamp(17px, 1.6vw, 19px);
+        line-height: 1.55;
+        opacity: 0.86;
+        max-width: 56ch;
+        margin: 0 auto 36px;
+      }
+      .v2-form-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .v2-form-wrap .form-row {
+        width: 100%;
+        max-width: 460px;
+      }
+      .v2-form-wrap .note,
+      .v2-form-wrap .fine {
+        text-align: center;
+      }
 
-  /* Compact mini-ticker beneath form */
-  .v2-mini {
-    margin-top: 40px;
-    border-top: 1px solid var(--hairline);
-    border-bottom: 1px solid var(--hairline);
-    background: color-mix(in srgb, var(--ink-2) 60%, transparent);
-    overflow: hidden;
-    position: relative;
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-  }
-  .v2-mini::before, .v2-mini::after {
-    content: ""; position: absolute; top: 0; bottom: 0; width: 100px;
-    z-index: 2; pointer-events: none;
-  }
-  .v2-mini::before { left: 0; background: linear-gradient(to right, var(--ink), transparent); }
-  .v2-mini::after  { right: 0; background: linear-gradient(to left, var(--ink), transparent); }
-  .v2-mini-track {
-    display: inline-flex;
-    gap: 40px;
-    padding: 12px 24px;
-    animation: scroll 90s linear infinite;
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-  }
-  .v2-mini-track .item { display: inline-flex; align-items: center; gap: 10px; color: var(--text-dim); }
-  .v2-mini-track .item .sym { color: var(--text); font-weight: 500; }
-  .v2-mini-track .item .pos { color: var(--accent); }
-  .v2-mini-track .item .neg { color: #C77A6E; }
-  .v2-mini-track .item .sep { width: 4px; height: 4px; background: var(--text-faint); border-radius: 50%; }
-</style>
-</head>
-<body>
+      /* Compact mini-ticker beneath form */
+      .v2-mini {
+        margin-top: 40px;
+        border-top: 1px solid var(--hairline);
+        border-bottom: 1px solid var(--hairline);
+        background: color-mix(in srgb, var(--ink-2) 60%, transparent);
+        overflow: hidden;
+        position: relative;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+      }
+      .v2-mini::before,
+      .v2-mini::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100px;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .v2-mini::before {
+        left: 0;
+        background: linear-gradient(to right, var(--ink), transparent);
+      }
+      .v2-mini::after {
+        right: 0;
+        background: linear-gradient(to left, var(--ink), transparent);
+      }
+      .v2-mini-track {
+        display: inline-flex;
+        gap: 40px;
+        padding: 12px 24px;
+        animation: scroll 90s linear infinite;
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+      }
+      .v2-mini-track .item {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text-dim);
+      }
+      .v2-mini-track .item .sym {
+        color: var(--text);
+        font-weight: 500;
+      }
+      .v2-mini-track .item .pos {
+        color: var(--accent);
+      }
+      .v2-mini-track .item .neg {
+        color: #c77a6e;
+      }
+      .v2-mini-track .item .sep {
+        width: 4px;
+        height: 4px;
+        background: var(--text-faint);
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero-page v2-page">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brand-mark">
+            <span class="glyph">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="0.9"
+              >
+                <rect x="2.5" y="2" width="19" height="20" />
+                <rect x="5" y="4.2" width="14" height="17.8" />
+                <rect x="7.5" y="6.4" width="9" height="15.6" />
+                <rect x="10" y="8.6" width="4" height="13.4" />
+              </svg>
+            </span>
+            <span class="name">Four Gate <em>Alpha</em></span>
+          </div>
+          <div class="meta">
+            <span class="hide-mobile">Prelaunch · Founding Members</span>
+            <span><span class="dot"></span>&nbsp;&nbsp;Waitlist Open</span>
+          </div>
+        </div>
+      </header>
 
-<div class="hero-page v2-page">
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand-mark">
-        <span class="glyph">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.9">
-            <rect x="2.5" y="2" width="19" height="20"/><rect x="5" y="4.2" width="14" height="17.8"/>
-            <rect x="7.5" y="6.4" width="9" height="15.6"/><rect x="10" y="8.6" width="4" height="13.4"/>
-          </svg>
-        </span>
-        <span class="name">Four Gate <em>Alpha</em></span>
+      <div class="v2-grid-bg"></div>
+
+      <div class="ticker-stack" aria-hidden="true">
+        <div class="t-row r1 dim"><span class="t-track" id="t1"></span></div>
+        <div class="t-row r2 bright"><span class="t-track" id="t2"></span></div>
+        <div class="t-row r3"><span class="t-track" id="t3"></span></div>
+        <div class="t-row r4 bright"><span class="t-track" id="t4"></span></div>
+        <div class="t-row r5 dim"><span class="t-track" id="t5"></span></div>
       </div>
-      <div class="meta">
-        <span class="hide-mobile">Prelaunch · Founding Members</span>
-        <span><span class="dot"></span>&nbsp;&nbsp;Waitlist Open</span>
+
+      <div class="v2-vignette"></div>
+
+      <section class="v2-hero">
+        <div class="v2-inner">
+          <span class="eyebrow v2-eyebrow"
+            ><span class="pip"></span>Launching September 2026 · Founding
+            members only</span
+          >
+          <h1 class="v2-title">
+            Stop guessing what to <em>trade this week</em>.
+          </h1>
+          <p class="v2-sub">
+            A small number of researched ideas, delivered the way a real desk
+            would write them — thesis, levels, invalidation. Built for
+            independent investors who'd rather think than scroll.
+          </p>
+          <div class="v2-form-wrap">
+            <form class="form-row" onsubmit="event.preventDefault()">
+              <input
+                type="email"
+                placeholder="you@firm.com"
+                aria-label="Email address"
+              />
+              <button type="submit" class="btn-primary">
+                Get Early Access
+              </button>
+            </form>
+            <p class="note">
+              Founding members get <strong>40% off for life</strong> and first
+              access when we open.
+            </p>
+            <p class="fine">No spam · One preview drop before launch</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="v2-mini" aria-hidden="true">
+        <span class="v2-mini-track" id="mini"></span>
       </div>
     </div>
-  </header>
 
-  <div class="v2-grid-bg"></div>
+    <nav class="variant-badge">
+      <span class="label">Hero ·</span>
+      <a href="hero-v1.html">V1 Frames</a>
+      <a href="hero-v2.html" class="is-active">V2 Ticker</a>
+      <a href="hero-v3.html">V3 Trade Card</a>
+      <a href="hero-v4.html">V4 Typographic</a>
+      <a href="hero-v5.html">V5 Concentric</a>
+      <a href="hero-v6.html">V6 Glass Cabinet</a>
+      <a href="hero-v7.html">V7 Pop</a>
+      <a href="hero-v8.html">V8 Field of View</a>
+      <a href="hero-v9.html">V9 Marquee</a>
+      <a href="index.html">Index</a>
+    </nav>
 
-  <div class="ticker-stack" aria-hidden="true">
-    <div class="t-row r1 dim"><span class="t-track" id="t1"></span></div>
-    <div class="t-row r2 bright"><span class="t-track" id="t2"></span></div>
-    <div class="t-row r3"><span class="t-track" id="t3"></span></div>
-    <div class="t-row r4 bright"><span class="t-track" id="t4"></span></div>
-    <div class="t-row r5 dim"><span class="t-track" id="t5"></span></div>
-  </div>
+    <script>
+      const SYMBOLS = [
+        ["SPX", "5,287.41", "+0.42%", "pos"],
+        ["NDX", "18,492.10", "+0.61%", "pos"],
+        ["VIX", "13.18", "−1.24%", "neg"],
+        ["DXY", "104.62", "+0.08%", "pos"],
+        ["10Y", "4.317%", "+2.1bp", "pos"],
+        ["BRENT", "82.04", "−0.71%", "neg"],
+        ["GOLD", "2,338.50", "+0.18%", "pos"],
+        ["BTC", "61,402", "+1.92%", "pos"],
+        ["SMH", "238.91", "+1.04%", "pos"],
+        ["XLE", "92.76", "−0.34%", "neg"],
+        ["TLT", "91.20", "−0.29%", "neg"],
+        ["QQQ", "451.18", "+0.58%", "pos"],
+        ["IWM", "204.31", "+0.22%", "pos"],
+        ["EUR/USD", "1.0851", "−0.11%", "neg"],
+        ["AAPL", "218.40", "+0.71%", "pos"],
+        ["NVDA", "118.92", "+2.04%", "pos"],
+      ];
 
-  <div class="v2-vignette"></div>
+      function bigRow(reverse = false) {
+        const arr = reverse ? [...SYMBOLS].reverse() : SYMBOLS;
+        return arr
+          .map(
+            ([s, p, c, d]) =>
+              `<span class="sym">${s}</span> <span>${p}</span> <span class="${d}">${c}</span>`,
+          )
+          .join("  ·  ");
+      }
+      function setBig(id, reverse = false) {
+        const t = document.getElementById(id);
+        const html = bigRow(reverse);
+        t.innerHTML = html + "  ·  " + html;
+      }
+      setBig("t1", false);
+      setBig("t2", true);
+      setBig("t3", false);
+      setBig("t4", true);
+      setBig("t5", false);
 
-  <section class="v2-hero">
-    <div class="v2-inner">
-      <span class="eyebrow v2-eyebrow"><span class="pip"></span>Launching September 2026 · Founding members only</span>
-      <h1 class="v2-title">Stop guessing what to <em>trade this week</em>.</h1>
-      <p class="v2-sub">A small number of researched ideas, delivered the way a real desk would write them — thesis, levels, invalidation. Built for independent investors who'd rather think than scroll.</p>
-      <div class="v2-form-wrap">
-        <form class="form-row" onsubmit="event.preventDefault()">
-          <input type="email" placeholder="you@firm.com" aria-label="Email address"/>
-          <button type="submit" class="btn-primary">Get Early Access</button>
-        </form>
-        <p class="note">Founding members get <strong>40% off for life</strong> and first access when we open.</p>
-        <p class="fine">No spam · One preview drop before launch</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="v2-mini" aria-hidden="true">
-    <span class="v2-mini-track" id="mini"></span>
-  </div>
-</div>
-
-<nav class="variant-badge">
-  <span class="label">Hero ·</span>
-  <a href="hero-v1.html">V1 Frames</a>
-  <a href="hero-v2.html" class="is-active">V2 Ticker</a>
-  <a href="hero-v3.html">V3 Trade Card</a>
-  <a href="hero-v4.html">V4 Typographic</a>
-</nav>
-
-<script>
-  const SYMBOLS = [
-    ["SPX","5,287.41","+0.42%","pos"],["NDX","18,492.10","+0.61%","pos"],
-    ["VIX","13.18","−1.24%","neg"],["DXY","104.62","+0.08%","pos"],
-    ["10Y","4.317%","+2.1bp","pos"],["BRENT","82.04","−0.71%","neg"],
-    ["GOLD","2,338.50","+0.18%","pos"],["BTC","61,402","+1.92%","pos"],
-    ["SMH","238.91","+1.04%","pos"],["XLE","92.76","−0.34%","neg"],
-    ["TLT","91.20","−0.29%","neg"],["QQQ","451.18","+0.58%","pos"],
-    ["IWM","204.31","+0.22%","pos"],["EUR/USD","1.0851","−0.11%","neg"],
-    ["AAPL","218.40","+0.71%","pos"],["NVDA","118.92","+2.04%","pos"],
-  ];
-
-  function bigRow(reverse=false) {
-    const arr = reverse ? [...SYMBOLS].reverse() : SYMBOLS;
-    return arr.map(([s,p,c,d]) => `<span class="sym">${s}</span> <span>${p}</span> <span class="${d}">${c}</span>`).join("  ·  ");
-  }
-  function setBig(id, reverse=false) {
-    const t = document.getElementById(id);
-    const html = bigRow(reverse);
-    t.innerHTML = html + "  ·  " + html;
-  }
-  setBig("t1", false);
-  setBig("t2", true);
-  setBig("t3", false);
-  setBig("t4", true);
-  setBig("t5", false);
-
-  // Mini ticker
-  const mini = SYMBOLS.map(([s,p,c,d]) =>
-    `<span class="item"><span class="sym">${s}</span><span>${p}</span><span class="${d}">${c}</span><span class="sep"></span></span>`
-  ).join("");
-  document.getElementById("mini").innerHTML = mini + mini;
-</script>
-
-</body>
+      // Mini ticker
+      const mini = SYMBOLS.map(
+        ([s, p, c, d]) =>
+          `<span class="item"><span class="sym">${s}</span><span>${p}</span><span class="${d}">${c}</span><span class="sep"></span></span>`,
+      ).join("");
+      document.getElementById("mini").innerHTML = mini + mini;
+    </script>
+  </body>
 </html>
