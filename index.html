@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hero & Teaser Variations — Four Gate Alpha</title>
+    <title>Studies — Four Gate Alpha</title>
     <meta
       name="description"
-      content="Nine hero and launch-teaser variations for Four Gate Alpha. Open each to review."
+      content="Four Gate Alpha — nine hero & launch-teaser variations plus four prelaunch landing-page treatments. Open any to review."
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -96,6 +96,38 @@
         .grid {
           grid-template-columns: 1fr;
         }
+      }
+
+      .grid-divider {
+        max-width: var(--container);
+        margin: clamp(56px, 9vh, 100px) auto 0;
+        padding: 0 var(--gutter);
+        position: relative;
+        z-index: 1;
+      }
+      .grid-divider .eyebrow {
+        margin-bottom: 14px;
+      }
+      .grid-divider h2 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(26px, 3.6vw, 42px);
+        line-height: 1.12;
+        letter-spacing: -0.01em;
+        margin: 0 0 16px;
+        max-width: 22ch;
+        color: var(--text);
+      }
+      .grid-divider h2 em {
+        font-style: italic;
+        color: var(--accent);
+      }
+      .grid-divider p {
+        max-width: 60ch;
+        color: var(--text);
+        opacity: 0.78;
+        font-size: 16px;
+        margin: 0;
       }
 
       .card {
@@ -344,8 +376,8 @@
           </div>
           <div class="meta">
             <span class="dot" aria-hidden="true"></span>
-            <span class="label">Hero · Index</span>
-            <span class="hide-mobile">9 variations</span>
+            <span class="label">Studies · Index</span>
+            <span class="hide-mobile">9 heroes · 4 landings</span>
           </div>
         </div>
       </header>
@@ -355,21 +387,25 @@
           ><span class="pip"></span>For review</span
         >
         <h1 class="reveal d2">
-          Nine hero &amp; teaser studies, <em class="glow">one product</em>.
+          Studies for <em class="glow">one product</em> — heroes, teasers &amp;
+          landing pages.
         </h1>
         <p class="reveal d3">
-          Each page below is a self-contained treatment for Four Gate Alpha —
+          Every page below is a self-contained treatment for Four Gate Alpha —
           same copy intent, different structure and emphasis. V1–V4 are hero
-          sections; V5–V9 are full-bleed launch teasers with cinematic chrome
-          and a countdown. Every page now carries a light/dark toggle and a
-          heavier dose of motion. Open any to review the full layout, type, and
-          motion in context.
+          sections; V5–V9 are full-bleed launch teasers with cinematic chrome;
+          and L1–L4 are complete prelaunch landing pages built on the spec (hero
+          → problem → approach → trade idea → who's behind → founding offer →
+          FAQ → final CTA → footer). Every page carries a light/dark toggle and
+          a healthy dose of motion. Open any to review the full layout, type,
+          and motion in context.
         </p>
         <div class="meta-row reveal d4">
-          <span><strong>Variants</strong> 9</span>
+          <span><strong>Heroes</strong> 9</span>
+          <span><strong>Landing pages</strong> 4</span>
           <span
-            ><strong>Shared system</strong> _shared.css ·
-            shared/teaser.css</span
+            ><strong>Shared system</strong> _shared.css · shared/teaser.css ·
+            shared/landing.css</span
           >
           <span><strong>Status</strong> Review</span>
         </div>
@@ -532,9 +568,96 @@
         </a>
       </main>
 
+      <section class="grid-divider">
+        <span class="eyebrow"
+          ><span class="pip"></span>Prelaunch landing pages</span
+        >
+        <h2>Four full landing pages, <em>one waitlist</em>.</h2>
+        <p>
+          Built on the spec — same nine-section structure, four very different
+          treatments. Mobile-responsive, animated background illustrations,
+          light/dark toggle, the signature trade-idea card, a launch countdown,
+          and an accordion FAQ on each.
+        </p>
+      </section>
+
+      <main class="grid" aria-label="Prelaunch landing pages">
+        <a class="card" href="landing-v1.html">
+          <div class="card-head">
+            <span class="card-tag"><span class="pip"></span>L1 · Terminal</span>
+            <span class="card-num">01 / 04</span>
+          </div>
+          <h2 class="card-title">
+            Bloomberg-terminal <em>chrome</em> — data panels, mono labels, a
+            self-drawing chart.
+          </h2>
+          <div class="card-foot">
+            <span class="card-note">Landing · terminal aesthetic</span>
+            <span class="card-cta"
+              >View<span class="arrow" aria-hidden="true">→</span></span
+            >
+          </div>
+        </a>
+
+        <a class="card" href="landing-v2.html">
+          <div class="card-head">
+            <span class="card-tag"
+              ><span class="pip"></span>L2 · The Letter</span
+            >
+            <span class="card-num">02 / 04</span>
+          </div>
+          <h2 class="card-title">
+            An <em>investment letter</em> — masthead, drop caps, a signed
+            founder note.
+          </h2>
+          <div class="card-foot">
+            <span class="card-note">Landing · editorial</span>
+            <span class="card-cta"
+              >View<span class="arrow" aria-hidden="true">→</span></span
+            >
+          </div>
+        </a>
+
+        <a class="card" href="landing-v3.html">
+          <div class="card-head">
+            <span class="card-tag"
+              ><span class="pip"></span>L3 · The Brief</span
+            >
+            <span class="card-num">03 / 04</span>
+          </div>
+          <h2 class="card-title">
+            Modern, sleek <em>SaaS</em> — frosted glass, gradient washes,
+            scroll-reveal, count-ups.
+          </h2>
+          <div class="card-foot">
+            <span class="card-note">Landing · modern / "pops"</span>
+            <span class="card-cta"
+              >View<span class="arrow" aria-hidden="true">→</span></span
+            >
+          </div>
+        </a>
+
+        <a class="card" href="landing-v4.html">
+          <div class="card-head">
+            <span class="card-tag"><span class="pip"></span>L4 · The Tape</span>
+            <span class="card-num">04 / 04</span>
+          </div>
+          <h2 class="card-title">
+            Cinematic — a live <em>candle field</em> and scrolling tape behind
+            every panel.
+          </h2>
+          <div class="card-foot">
+            <span class="card-note">Landing · maximalist</span>
+            <span class="card-cta"
+              >View<span class="arrow" aria-hidden="true">→</span></span
+            >
+          </div>
+        </a>
+      </main>
+
       <footer class="footer">
-        <span>Four Gate Alpha · Hero &amp; teaser studies</span>
-        <span>Best viewed on desktop</span>
+        <span>Four Gate Alpha · Hero, teaser &amp; landing studies</span>
+        <span><a href="legal.html">Legal</a> · Best viewed on desktop</span>
       </footer>
     </div>
 

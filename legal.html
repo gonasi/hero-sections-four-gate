@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Four Gate Alpha — Terms · Privacy · Risk Disclosure</title>
+    <meta
+      name="description"
+      content="Four Gate Alpha — Terms of Service, Privacy Policy, and Risk Disclosure. Placeholder language pending legal review."
+    />
+    <meta name="robots" content="noindex" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Fira+Code:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="_shared.css" />
+    <link rel="stylesheet" href="shared/landing.css" />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("fga-theme") === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+      document.documentElement.classList.add("has-js");
+    </script>
+    <style>
+      .legal-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        width: 100%;
+        padding: clamp(40px, 8vh, 96px) var(--gutter);
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: clamp(28px, 5vw, 64px);
+        align-items: start;
+      }
+      .legal-nav {
+        position: sticky;
+        top: 90px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        border-left: 1px solid var(--hairline);
+        padding-left: 18px;
+      }
+      .legal-nav .lbl {
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+      .legal-nav a {
+        color: var(--text-faint);
+        transition: color 0.2s ease;
+      }
+      .legal-nav a:hover {
+        color: var(--text);
+      }
+      .legal-head {
+        margin-bottom: clamp(36px, 6vh, 56px);
+      }
+      .legal-head .eyebrow {
+        margin-bottom: 16px;
+      }
+      .legal-head h1 {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(30px, 4.4vw, 50px);
+        line-height: 1.1;
+        letter-spacing: -0.015em;
+        margin: 0 0 14px;
+      }
+      .legal-head h1 em {
+        font-style: italic;
+        font-weight: 400;
+        color: var(--accent);
+      }
+      .legal-head p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--text);
+        opacity: 0.8;
+        max-width: 60ch;
+        margin: 0;
+      }
+      .legal-draft {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        color: var(--text-faint);
+        border: 1px dashed var(--hairline-strong);
+        border-radius: 6px;
+        padding: 12px 16px;
+        margin-top: 22px;
+        line-height: 1.6;
+      }
+      .legal-draft b {
+        color: var(--accent);
+        font-weight: 500;
+      }
+      .legal-section {
+        padding: clamp(28px, 5vh, 44px) 0;
+        border-top: 1px solid var(--hairline);
+        scroll-margin-top: 90px;
+      }
+      .legal-section:first-of-type {
+        border-top: none;
+        padding-top: 0;
+      }
+      .legal-section .secnum {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        margin-bottom: 12px;
+      }
+      .legal-section .secnum b {
+        color: var(--accent);
+      }
+      .legal-section h2 {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(24px, 3vw, 34px);
+        line-height: 1.15;
+        margin: 0 0 18px;
+        color: var(--text);
+      }
+      .legal-section h3 {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(16px, 1.7vw, 19px);
+        margin: 26px 0 8px;
+        color: var(--text);
+      }
+      .legal-section p,
+      .legal-section li {
+        font-size: 15.5px;
+        line-height: 1.72;
+        color: var(--text);
+        opacity: 0.88;
+        max-width: 74ch;
+        text-wrap: pretty;
+      }
+      .legal-section p {
+        margin: 0 0 14px;
+      }
+      .legal-section ul {
+        margin: 0 0 14px;
+        padding-left: 20px;
+      }
+      .legal-section li {
+        margin-bottom: 8px;
+      }
+      .legal-section .strong-note {
+        border-left: 2px solid var(--accent);
+        padding: 4px 0 4px 20px;
+        font-size: 15px;
+        color: var(--text);
+        opacity: 0.95;
+      }
+      .legal-section a {
+        color: var(--accent);
+        border-bottom: 1px solid var(--hairline-strong);
+      }
+      @media (max-width: 820px) {
+        .legal-wrap {
+          grid-template-columns: 1fr;
+        }
+        .legal-nav {
+          position: static;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 18px;
+          border-left: none;
+          border-top: 1px solid var(--hairline);
+          border-bottom: 1px solid var(--hairline);
+          padding: 14px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero-page lp-page">
+      <div class="fx-layer" aria-hidden="true">
+        <div class="fx-aurora"></div>
+        <div class="fx-vignette"></div>
+      </div>
+
+      <header class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="brand-mark">
+            <span class="glyph" aria-hidden="true">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="0.9"
+              >
+                <rect x="2.5" y="2" width="19" height="20" />
+                <rect x="5" y="4.2" width="14" height="17.8" />
+                <rect x="7.5" y="6.4" width="9" height="15.6" />
+                <rect x="10" y="8.6" width="4" height="13.4" />
+              </svg>
+            </span>
+            <span class="name">Four Gate <em>Alpha</em></span>
+          </a>
+          <div class="meta">
+            <span class="dot" aria-hidden="true"></span>
+            <span class="label" style="color: var(--accent)">Legal</span>
+            <span class="hide-mobile">Prelaunch · draft</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="legal-wrap">
+        <nav class="legal-nav" aria-label="Legal sections">
+          <span class="lbl">Contents</span>
+          <a href="#terms">Terms of Service</a>
+          <a href="#privacy">Privacy Policy</a>
+          <a href="#disclosure">Risk Disclosure</a>
+          <a href="index.html" style="margin-top: 8px; color: var(--accent)"
+            >← All studies</a
+          >
+        </nav>
+
+        <div>
+          <div class="legal-head">
+            <span class="eyebrow"><span class="pip"></span>Legal</span>
+            <h1>Terms, privacy &amp; <em>risk disclosure</em>.</h1>
+            <p>
+              Four Gate Alpha is a research and publishing service — not an
+              investment adviser, broker-dealer, or fiduciary. The pages below
+              govern how you may use the site and what you can and can't expect
+              from us.
+            </p>
+            <p class="legal-draft">
+              <b>Draft / placeholder.</b> This page exists so the prelaunch site
+              has working legal links. Before launch, replace this with versions
+              drafted by a securities lawyer — these are part of the brand, not
+              an afterthought.
+            </p>
+          </div>
+
+          <!-- ───────── TERMS ───────── -->
+          <section class="legal-section" id="terms">
+            <p class="secnum"><b>§ 01</b> · Terms of Service</p>
+            <h2>Terms of Service</h2>
+            <p>
+              By accessing this website or joining the founding-members
+              waitlist, you agree to these terms. If you don't agree, don't use
+              the site.
+            </p>
+            <h3>What Four Gate Alpha is — and isn't</h3>
+            <p>
+              Four Gate Alpha publishes general market research and trade ideas
+              for educational and informational purposes. Nothing on this site
+              is, or should be construed as, personalised investment advice, a
+              recommendation to buy or sell any security, or an offer to provide
+              advisory services. We are not registered as an investment adviser
+              and we do not enter into a fiduciary relationship with subscribers
+              or visitors.
+            </p>
+            <h3>No guarantees</h3>
+            <p>
+              We make no guarantee of any result. Trade ideas may be wrong.
+              Markets are uncertain and you may lose money — potentially all of
+              the capital you put at risk. You are solely responsible for your
+              own trading and investment decisions, including position sizing,
+              order entry, and risk management.
+            </p>
+            <h3>Acceptable use</h3>
+            <ul>
+              <li>
+                Don't redistribute, resell, or republish our research without
+                written permission.
+              </li>
+              <li>
+                Don't scrape, frame, or systematically harvest content from the
+                site.
+              </li>
+              <li>
+                Don't represent that Four Gate Alpha endorses your trading, your
+                fund, or your products.
+              </li>
+            </ul>
+            <h3>Changes &amp; termination</h3>
+            <p>
+              We may update these terms, change or discontinue the service, or
+              terminate access at any time. Continued use after a change means
+              you accept the updated terms.
+            </p>
+            <h3>Disputes</h3>
+            <p>
+              These terms are governed by the laws of the jurisdiction stated in
+              the final, lawyer-drafted version. Disputes will be resolved as
+              set out there (e.g., binding arbitration; class-action waiver).
+              This placeholder does not constitute the final agreement.
+            </p>
+          </section>
+
+          <!-- ───────── PRIVACY ───────── -->
+          <section class="legal-section" id="privacy">
+            <p class="secnum"><b>§ 02</b> · Privacy Policy</p>
+            <h2>Privacy Policy</h2>
+            <p>
+              We keep data collection to what the site actually needs. Here's
+              the short version; the final policy will spell out the legal
+              bases, retention periods, and your rights in detail.
+            </p>
+            <h3>What we collect</h3>
+            <ul>
+              <li>
+                <strong>Your email address</strong>, when you join the
+                founding-members waitlist — tagged so we can send the one
+                preview drop and the launch announcement.
+              </li>
+              <li>
+                <strong>Basic analytics</strong> — pages viewed, scroll depth,
+                referral source / UTM parameters — to understand how people find
+                and use the site.
+              </li>
+              <li>
+                <strong>Marketing pixels</strong> (e.g., Meta, Google) for
+                remarketing the prelaunch campaign. A cookie banner will let you
+                opt out.
+              </li>
+            </ul>
+            <h3>What we don't do</h3>
+            <p>
+              We don't sell your data. We don't ask for, store, or want your
+              brokerage credentials or account details — we never see your
+              positions. We don't send you anything you didn't ask for.
+            </p>
+            <h3>Your choices</h3>
+            <p>
+              Every email includes a one-click unsubscribe. You can request a
+              copy of, or deletion of, the data we hold on you by emailing the
+              address listed in the launch version of this policy. We honour "Do
+              Not Track" and standard cookie-consent signals.
+            </p>
+          </section>
+
+          <!-- ───────── RISK DISCLOSURE ───────── -->
+          <section class="legal-section" id="disclosure">
+            <p class="secnum"><b>§ 03</b> · Risk Disclosure</p>
+            <h2>Risk Disclosure</h2>
+            <p class="strong-note">
+              Four Gate Alpha provides general investment research and
+              commentary. Nothing on this website is personalised investment
+              advice. Trading involves substantial risk of loss and is not
+              suitable for every investor. Past performance is not indicative of
+              future results.
+            </p>
+            <h3>Trading is risky</h3>
+            <p>
+              The value of securities can go down as well as up. You can lose
+              some or all of the money you put at risk, and in leveraged
+              instruments you can lose more than your initial capital. Only
+              trade with money you can afford to lose.
+            </p>
+            <h3>About the trade ideas we publish</h3>
+            <p>
+              Our ideas are opinions, formed from publicly available
+              information, about how a given setup might play out. They can be —
+              and sometimes will be — wrong. We may hold, or later take,
+              positions in the securities we write about. We are not obligated
+              to update an idea after it's published, and we may close or change
+              our own view without notice.
+            </p>
+            <h3>About any performance figures</h3>
+            <p>
+              Where we show results of past ideas, those figures are
+              <em>hypothetical</em> performance of published ideas, assuming
+              entry and exit at the levels we published. They do not reflect
+              trading costs, slippage, taxes, or the timing and sizing decisions
+              of any individual subscriber. Actual member results will differ —
+              often materially.
+            </p>
+            <h3>Do your own work</h3>
+            <p>
+              You are responsible for evaluating any idea against your own
+              objectives, risk tolerance, time horizon, and circumstances —
+              ideally with a licensed professional who knows your situation.
+              Using this site or our research is not a substitute for that.
+            </p>
+          </section>
+        </div>
+      </main>
+
+      <footer class="lp-footer">
+        <div class="lp-footer-inner">
+          <div class="lp-footer-top">
+            <a href="index.html" class="brand-mark">
+              <span class="glyph" aria-hidden="true">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="0.9"
+                >
+                  <rect x="2.5" y="2" width="19" height="20" />
+                  <rect x="5" y="4.2" width="14" height="17.8" />
+                  <rect x="7.5" y="6.4" width="9" height="15.6" />
+                  <rect x="10" y="8.6" width="4" height="13.4" />
+                </svg>
+              </span>
+              <span class="name">Four Gate <em>Alpha</em></span>
+            </a>
+            <div class="lp-footer-links">
+              <a href="legal.html#terms">Terms</a>
+              <a href="legal.html#privacy">Privacy</a>
+              <a href="legal.html#disclosure">Risk Disclosure</a>
+            </div>
+          </div>
+          <p class="lp-disclosure">
+            Four Gate Alpha is a research and publishing service. Nothing on
+            this site is personalised investment advice. Trading involves
+            substantial risk of loss; past performance is not indicative of
+            future results.
+          </p>
+          <div class="lp-footer-top">
+            <span class="lp-footer-meta"
+              >© 2026 Four Gate Alpha · Prelaunch</span
+            >
+            <span class="lp-footer-meta"
+              >Placeholder language · pending legal review</span
+            >
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <nav class="variant-badge">
+      <span class="label">Legal ·</span>
+      <a href="legal.html#terms">Terms</a>
+      <a href="legal.html#privacy">Privacy</a>
+      <a href="legal.html#disclosure">Disclosure</a>
+      <a href="index.html">Index</a>
+    </nav>
+
+    <script src="shared/theme-toggle.js" defer></script>
+  </body>
+</html>

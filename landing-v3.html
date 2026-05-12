@@ -1,0 +1,1428 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Four Gate Alpha — Get Early Access · The Brief</title>
+    <meta
+      name="description"
+      content="Research-grade trade ideas for independent investors — thesis, entry, exit, invalidation. Launching September 2026. Founding members get 40% off for life."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Four Gate Alpha — Get Early Access" />
+    <meta
+      property="og:description"
+      content="Research-grade trade ideas for independent investors. Founding members get 40% off for life."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Fira+Code:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="_shared.css" />
+    <link rel="stylesheet" href="shared/landing.css" />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("fga-theme") === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+      document.documentElement.classList.add("has-js");
+    </script>
+    <style>
+      /* ===========================================================
+         L3 — "The Brief":  modern, sleek SaaS. Frosted glass, gradient
+         washes, big confident type, scroll-reveal & hover-lift. The
+         one built to make a stakeholder say "yeah, that pops."
+         =========================================================== */
+
+      /* sticky frosted bar with anchor nav */
+      .b3 .topbar {
+        background: color-mix(in srgb, var(--ink) 78%, transparent);
+      }
+      .b3-nav {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+      .b3-nav a {
+        transition: color 0.2s ease;
+      }
+      .b3-nav a:hover {
+        color: var(--text);
+      }
+      .b3-nav .b3-pill {
+        background: var(--accent);
+        color: var(--burnt-umber);
+        border-radius: 999px;
+        padding: 8px 16px;
+        font-weight: 500;
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.25s ease;
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+      }
+      .b3-nav .b3-pill:hover {
+        color: var(--burnt-umber);
+        transform: translateY(-1px);
+        box-shadow: 0 8px 22px
+          color-mix(in srgb, var(--accent) 40%, transparent);
+      }
+      @media (max-width: 920px) {
+        .b3-nav .b3-link {
+          display: none;
+        }
+      }
+
+      /* a frosted card primitive */
+      .b3-glass {
+        position: relative;
+        border: 1px solid var(--hairline-strong);
+        border-radius: 16px;
+        background: color-mix(in srgb, var(--ink-2) 52%, transparent);
+        backdrop-filter: blur(14px) saturate(140%);
+        -webkit-backdrop-filter: blur(14px) saturate(140%);
+        overflow: hidden;
+      }
+      .b3-glass::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          150deg,
+          color-mix(in srgb, var(--accent) 8%, transparent),
+          transparent 42%
+        );
+        pointer-events: none;
+      }
+      .b3-lift {
+        transition:
+          transform 0.32s cubic-bezier(0.2, 0.7, 0.2, 1),
+          box-shadow 0.32s ease,
+          border-color 0.32s ease;
+      }
+      .b3-lift:hover {
+        transform: translateY(-7px);
+        border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+        box-shadow:
+          0 26px 60px rgba(0, 0, 0, 0.34),
+          0 0 44px color-mix(in srgb, var(--accent) 13%, transparent);
+      }
+
+      /* eyebrow / chips */
+      .b3-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        border: 1px solid var(--hairline-strong);
+        border-radius: 999px;
+        padding: 7px 13px;
+        background: color-mix(in srgb, var(--ink-2) 50%, transparent);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .b3-chip .dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+      }
+      .b3-chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      /* hero */
+      .b3-hero {
+        padding-top: clamp(40px, 8vh, 96px);
+        padding-bottom: clamp(48px, 9vh, 112px);
+      }
+      .b3-hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: clamp(36px, 5vw, 72px);
+        align-items: center;
+      }
+      .b3 .lp-hero-title {
+        margin: 22px 0 22px;
+        font-size: clamp(40px, 5.6vw, 78px);
+      }
+      .b3 .lp-hero-sub {
+        margin-bottom: 26px;
+      }
+      .b3-hero-cta {
+        margin-bottom: 18px;
+      }
+      .b3-hero-cd {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 4px;
+      }
+      .b3-hero-cd .cd-label {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+      .b3-hero-card {
+        padding: 0;
+      }
+      .b3-hero-card .lp-trade-card {
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        border-radius: 16px;
+      }
+      .b3-hero-card .b3-card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 18px;
+        border-bottom: 1px solid var(--hairline);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+      .b3-hero-card .b3-card-top .live {
+        color: var(--accent);
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .b3-hero-card .b3-card-top .live .d {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: b3Ping 2.4s ease-in-out infinite;
+      }
+      @keyframes b3Ping {
+        50% {
+          opacity: 0.3;
+        }
+      }
+      @media (max-width: 960px) {
+        .b3-hero-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+      }
+
+      /* sections */
+      .b3 .lp-section + .lp-section {
+        border-top: none;
+      }
+      .b3-floats {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      /* problem grid (glass cards) */
+      .b3-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(16px, 2.4vw, 26px);
+      }
+      .b3-card {
+        padding: clamp(24px, 3vw, 34px);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .b3-card .tag {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+      }
+      .b3-card .tag .pip {
+        width: 16px;
+        height: 1px;
+        background: var(--accent);
+      }
+      .b3-card .icon {
+        width: 30px;
+        height: 30px;
+        color: var(--accent);
+        display: block;
+      }
+      .b3-card h3 {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(18px, 1.9vw, 22px);
+        line-height: 1.22;
+        margin: 0;
+        color: var(--text);
+      }
+      .b3-card p {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.62;
+        color: var(--text);
+        opacity: 0.85;
+      }
+      .b3-card p .hl {
+        color: var(--accent);
+        font-weight: 500;
+      }
+      @media (max-width: 860px) {
+        .b3-grid-3 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* stat strip */
+      .b3-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: clamp(14px, 2vw, 22px);
+        margin-top: clamp(24px, 4vh, 36px);
+      }
+      .b3-stat {
+        padding: clamp(20px, 2.6vw, 30px);
+        text-align: left;
+      }
+      .b3-stat .v {
+        font-family: var(--mono);
+        font-size: clamp(28px, 3.6vw, 46px);
+        font-weight: 500;
+        color: var(--accent);
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+        display: block;
+      }
+      .b3-stat .l {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        margin-top: 12px;
+        display: block;
+        line-height: 1.5;
+      }
+      @media (max-width: 760px) {
+        .b3-stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* trade idea — front and center */
+      .b3-sample {
+        max-width: 860px;
+        margin: 0 auto;
+      }
+      .b3 .lp-trade-card {
+        border-radius: 16px;
+      }
+      .b3-invalidation {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-dim);
+        padding: 16px 26px;
+        border-top: 1px solid var(--hairline);
+        background: color-mix(in srgb, var(--accent) 5%, transparent);
+      }
+      .b3-invalidation b {
+        color: var(--accent);
+        font-weight: 500;
+      }
+
+      /* founder */
+      .b3-founder {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: clamp(28px, 5vw, 60px);
+        align-items: center;
+      }
+      .b3-founder-card {
+        padding: clamp(28px, 3.5vw, 44px);
+      }
+      .b3-founder-quote {
+        font-family: var(--display);
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(20px, 2.4vw, 30px);
+        line-height: 1.42;
+        color: var(--text);
+        margin: 0;
+      }
+      .b3-founder-attr {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        margin-top: 20px;
+      }
+      .b3-founder-creds {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .b3-founder-cred .k {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        display: block;
+        margin-bottom: 6px;
+      }
+      .b3-founder-cred .v {
+        font-size: 15px;
+        line-height: 1.55;
+        color: var(--text);
+        opacity: 0.9;
+      }
+      .b3-founder-tag {
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.7;
+        color: var(--text-dim);
+        margin-top: 4px;
+      }
+      .b3-founder-tag b {
+        color: var(--accent);
+        font-weight: 500;
+      }
+      @media (max-width: 880px) {
+        .b3-founder {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* founding perks — 2x2 glass cards */
+      .b3-perks {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(16px, 2.4vw, 24px);
+        counter-reset: bperk;
+      }
+      .b3-perk {
+        padding: clamp(24px, 3vw, 36px);
+        counter-increment: bperk;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .b3-perk::before {
+        content: counter(bperk, decimal-leading-zero);
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        color: var(--accent);
+        margin-bottom: 6px;
+      }
+      .b3-perk h3 {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(18px, 1.9vw, 22px);
+        margin: 0;
+        color: var(--text);
+      }
+      .b3-perk p {
+        margin: 0;
+        font-size: 14.5px;
+        line-height: 1.6;
+        color: var(--text);
+        opacity: 0.85;
+      }
+      @media (max-width: 700px) {
+        .b3-perks {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* faq */
+      .b3 .lp-faq {
+        max-width: 800px;
+        margin: 0 auto;
+        border-top: none;
+      }
+      .b3 .lp-faq-item {
+        border: 1px solid var(--hairline);
+        border-radius: 12px;
+        margin-bottom: 10px;
+        background: color-mix(in srgb, var(--ink-2) 38%, transparent);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition: border-color 0.25s ease;
+      }
+      .b3 .lp-faq-item:hover,
+      .b3 .lp-faq-item.is-open {
+        border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+      }
+      .b3 .lp-faq-q {
+        padding: 20px 22px;
+      }
+      .b3 .lp-faq-answer-inner {
+        padding: 0 22px;
+      }
+      .b3 .lp-faq-answer p {
+        padding-right: 22px;
+      }
+
+      /* final cta */
+      .b3-final {
+        text-align: center;
+        position: relative;
+      }
+      .b3-final-card {
+        max-width: 760px;
+        margin: clamp(28px, 5vh, 40px) auto 0;
+        padding: clamp(36px, 5vw, 56px) clamp(24px, 4vw, 48px);
+        text-align: center;
+      }
+      .b3-final-card .lp-cta {
+        align-items: center;
+      }
+      .b3-final-card .form-row {
+        margin: 0 auto;
+      }
+      .b3-final-cd {
+        margin-top: 24px;
+        padding-top: 20px;
+        border-top: 1px solid var(--hairline);
+      }
+      .b3-final-cd .cd-label {
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        display: block;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero-page lp-page b3">
+      <div class="fx-layer" aria-hidden="true">
+        <div class="fx-aurora"></div>
+        <div class="fx-grid"></div>
+        <div class="fx-scan"></div>
+        <div class="fx-vignette"></div>
+      </div>
+
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brand-mark">
+            <span class="glyph" aria-hidden="true">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="0.9"
+              >
+                <rect x="2.5" y="2" width="19" height="20" />
+                <rect x="5" y="4.2" width="14" height="17.8" />
+                <rect x="7.5" y="6.4" width="9" height="15.6" />
+                <rect x="10" y="8.6" width="4" height="13.4" />
+              </svg>
+            </span>
+            <span class="name">Four Gate <em>Alpha</em></span>
+          </div>
+          <nav class="b3-nav" aria-label="Page sections">
+            <a class="b3-link" href="#how">How it works</a>
+            <a class="b3-link" href="#sample">Sample idea</a>
+            <a class="b3-link" href="#faq">FAQ</a>
+            <a class="b3-pill" href="#waitlist">Get Early Access</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <!-- ───────── HERO ───────── -->
+        <section
+          class="lp-section b3-hero"
+          id="waitlist"
+          aria-label="Get early access"
+        >
+          <div class="b3-hero-grid">
+            <div class="b3-hero-copy reveal-on-scroll">
+              <span class="b3-chip"
+                ><span class="dot"></span>Launching September 2026 · Founding
+                members only</span
+              >
+              <h1 class="lp-hero-title">
+                Research-grade trade ideas for <em>independent investors</em>.
+              </h1>
+              <p class="lp-hero-sub">
+                Four Gate Alpha sends a small number of researched,
+                high-conviction trade ideas every month — each with the thesis,
+                the entry, the exit, and the reason to walk away. No noise. No
+                chat room.
+              </p>
+              <div class="b3-hero-cta lp-cta">
+                <form class="form-row" onsubmit="event.preventDefault()">
+                  <input
+                    type="email"
+                    placeholder="you@firm.com"
+                    aria-label="Email address"
+                  />
+                  <button type="submit" class="btn-primary">
+                    Get Early Access
+                  </button>
+                </form>
+                <p class="note">
+                  Founding members get <strong>40% off for life</strong> and
+                  first access when we open.
+                </p>
+                <p class="fine">No spam · One preview drop before launch</p>
+              </div>
+              <div class="b3-hero-cd">
+                <span class="cd-label">Founding cohort opens in</span>
+                <span
+                  class="lp-countdown"
+                  data-countdown="2026-09-15T09:30:00-04:00"
+                  data-units="dhms"
+                  >—</span
+                >
+              </div>
+              <div class="b3-chip-row" style="margin-top: 22px">
+                <span class="b3-chip">Not a chat room</span>
+                <span class="b3-chip">Not a signal service</span>
+                <span class="b3-chip">Not a course</span>
+              </div>
+            </div>
+
+            <div
+              class="b3-hero-card b3-glass b3-lift reveal-on-scroll r2"
+              aria-label="Sample trade idea"
+            >
+              <div class="b3-card-top">
+                <span>Sample idea · Archive 2025</span>
+                <span class="live"
+                  ><span class="d"></span>Closed · Target hit</span
+                >
+              </div>
+              <article class="lp-trade-card">
+                <div class="lp-tc-head">
+                  <div class="lp-tc-ticker">
+                    NYSE · ████ · CONSUMER CYCLICALS
+                  </div>
+                  <h3 class="lp-tc-name">
+                    A mid-cap retailer testing the prior-quarter low.
+                  </h3>
+                  <div class="lp-tc-tag">
+                    Swing · 4–8 weeks · Mean-reversion long
+                  </div>
+                </div>
+                <div class="lp-tc-grid">
+                  <div class="lp-tc-cell">
+                    <div class="lp-tc-k">Entry</div>
+                    <div class="lp-tc-v accent">218 — 224</div>
+                  </div>
+                  <div class="lp-tc-cell">
+                    <div class="lp-tc-k">Stop</div>
+                    <div class="lp-tc-v">209</div>
+                  </div>
+                  <div class="lp-tc-cell">
+                    <div class="lp-tc-k">Target</div>
+                    <div class="lp-tc-v accent">264</div>
+                  </div>
+                  <div class="lp-tc-cell">
+                    <div class="lp-tc-k">Risk / Reward</div>
+                    <div class="lp-tc-v">1 : 3.4</div>
+                  </div>
+                  <div class="lp-tc-cell">
+                    <div class="lp-tc-k">Conviction</div>
+                    <div class="lp-tc-v">Med–High</div>
+                  </div>
+                  <div class="lp-tc-cell">
+                    <div class="lp-tc-k">Sizing</div>
+                    <div class="lp-tc-v">0.75% risk</div>
+                  </div>
+                </div>
+                <div class="lp-tc-chart">
+                  <div class="lp-tc-chart-meta">
+                    <span>Weekly · 18 mo</span><span>Levels marked · T−3</span>
+                  </div>
+                  <svg viewBox="0 0 600 116" preserveAspectRatio="none">
+                    <line
+                      x1="0"
+                      x2="600"
+                      y1="20"
+                      y2="20"
+                      stroke="rgba(212,197,169,0.35)"
+                      stroke-dasharray="3 4"
+                      stroke-width="1"
+                      class="lp-tc-level"
+                    />
+                    <text
+                      x="592"
+                      y="16"
+                      text-anchor="end"
+                      font-family="Fira Code"
+                      font-size="8"
+                      fill="#D4C5A9"
+                      letter-spacing="2"
+                    >
+                      TARGET 264
+                    </text>
+                    <rect
+                      x="0"
+                      y="80"
+                      width="600"
+                      height="20"
+                      fill="rgba(212,197,169,0.05)"
+                    />
+                    <line
+                      x1="0"
+                      x2="600"
+                      y1="90"
+                      y2="90"
+                      stroke="rgba(212,197,169,0.35)"
+                      stroke-dasharray="3 4"
+                      stroke-width="1"
+                      class="lp-tc-level"
+                    />
+                    <text
+                      x="592"
+                      y="86"
+                      text-anchor="end"
+                      font-family="Fira Code"
+                      font-size="8"
+                      fill="#D4C5A9"
+                      letter-spacing="2"
+                    >
+                      ENTRY 218–224
+                    </text>
+                    <line
+                      x1="0"
+                      x2="600"
+                      y1="106"
+                      y2="106"
+                      stroke="rgba(199,122,110,0.45)"
+                      stroke-dasharray="3 4"
+                      stroke-width="1"
+                    />
+                    <text
+                      x="592"
+                      y="114"
+                      text-anchor="end"
+                      font-family="Fira Code"
+                      font-size="8"
+                      fill="#C77A6E"
+                      letter-spacing="2"
+                    >
+                      STOP 209
+                    </text>
+                    <path
+                      class="lp-tc-line"
+                      pathLength="1"
+                      d="M0,74 L40,68 L70,78 L100,86 L130,90 L160,96 L190,92 L220,88 L250,92 L280,88 L310,82 L340,74 L370,66 L400,58 L430,50 L460,42 L490,36 L520,30 L550,26 L580,22 L600,20"
+                      fill="none"
+                      stroke="#D4C5A9"
+                      stroke-width="1.5"
+                      stroke-linejoin="round"
+                    />
+                    <circle
+                      class="lp-tc-marker"
+                      cx="160"
+                      cy="96"
+                      r="3"
+                      fill="#D4C5A9"
+                    />
+                  </svg>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <div class="lp-ticker-strip" aria-hidden="true">
+          <span class="lp-ticker-track" data-ticker></span>
+        </div>
+
+        <!-- ───────── PROBLEM ───────── -->
+        <section class="lp-section reveal-on-scroll" id="problem">
+          <div class="lp-section-head">
+            <span class="lp-eyebrow"><span class="pip"></span>The problem</span>
+            <h2 class="lp-heading">
+              Most trading content is built to be <em>scrolled</em>, not traded.
+            </h2>
+            <p class="lp-lede">
+              By the time an idea reaches your feed, the edge has already moved.
+              Here's the gap Four Gate Alpha exists to close.
+            </p>
+          </div>
+          <div class="b3-grid-3">
+            <article class="b3-card b3-glass b3-lift reveal-on-scroll r1">
+              <span class="tag"
+                ><span class="pip"></span>The noise problem</span
+              >
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+              >
+                <path d="M3 12h3l2-6 4 12 3-9 2 3h4" />
+              </svg>
+              <h3>Content, not trades</h3>
+              <p>
+                Most retail trading content is <span class="hl">content</span> —
+                produced to be consumed, not acted on. By the time a "pick"
+                reaches you, ten thousand other accounts have already seen it.
+              </p>
+            </article>
+            <article class="b3-card b3-glass b3-lift reveal-on-scroll r2">
+              <span class="tag"
+                ><span class="pip"></span>The volume problem</span
+              >
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M3 4h18l-7 8.5V20l-4 1v-8.5L3 4z" />
+              </svg>
+              <h3>Fewer, better ideas</h3>
+              <p>
+                You don't need another watchlist. You need
+                <span class="hl">fewer, better ideas</span> — research done,
+                levels drawn, exit defined before you're in the trade.
+              </p>
+            </article>
+            <article class="b3-card b3-glass b3-lift reveal-on-scroll r3">
+              <span class="tag"
+                ><span class="pip"></span>The conviction problem</span
+              >
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M12 3l2.5 6 6.5.5-5 4.3 1.6 6.4L12 17l-5.6 3.6L8 14.3 3 10l6.5-.5L12 3z"
+                />
+              </svg>
+              <h3>Conviction you can act on</h3>
+              <p>
+                You want conviction you can
+                <span class="hl">actually act on</span> — not forty-seven "picks
+                of the week," not a Discord ping at 9:31. A thesis you can read
+                in five minutes.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- ───────── APPROACH + STATS ───────── -->
+        <section class="lp-section reveal-on-scroll" id="how">
+          <div class="lp-section-head">
+            <span class="lp-eyebrow"
+              ><span class="pip"></span>The approach</span
+            >
+            <h2 class="lp-heading">What the product actually <em>is</em>.</h2>
+            <p class="lp-lede">
+              Not signals. Not a chat room. Not a course. A short, written
+              letter of researched ideas — on a schedule — with the reasoning
+              attached.
+            </p>
+          </div>
+          <div class="b3-grid-3">
+            <article class="b3-card b3-glass b3-lift reveal-on-scroll r1">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <line x1="15.5" y1="15.5" x2="21" y2="21" />
+                <line x1="8" y1="10.5" x2="13" y2="10.5" />
+              </svg>
+              <h3>Researched, not reactive</h3>
+              <p>
+                Every idea ships with a written thesis, a defined entry range, a
+                hard stop, and the specific signal that invalidates it. If the
+                setup breaks, you'll know before your P&amp;L does.
+              </p>
+            </article>
+            <article class="b3-card b3-glass b3-lift reveal-on-scroll r2">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M4 6h16M7 12h10M10 18h4" />
+              </svg>
+              <h3>Fewer trades, higher conviction</h3>
+              <p>
+                Three to five ideas a month — sometimes fewer. If there's
+                nothing worth trading, we say so. Cash is a position; we treat
+                it like one.
+              </p>
+            </article>
+            <article class="b3-card b3-glass b3-lift reveal-on-scroll r3">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3.5 2" />
+              </svg>
+              <h3>Built for part-time traders</h3>
+              <p>
+                Check your email once a day. Fifteen minutes a week is enough to
+                act on everything we send — no screens, no chat room, no FOMO
+                engineered for marketing.
+              </p>
+            </article>
+          </div>
+          <div class="b3-stats">
+            <div class="b3-stat b3-glass reveal-on-scroll r1">
+              <span class="v"
+                ><span data-count="3">3</span>–<span data-count="5"
+                  >5</span
+                ></span
+              ><span class="l">Ideas per month — sometimes fewer</span>
+            </div>
+            <div class="b3-stat b3-glass reveal-on-scroll r2">
+              <span class="v" data-count="1">1</span
+              ><span class="l">Written thesis per idea</span>
+            </div>
+            <div class="b3-stat b3-glass reveal-on-scroll r3">
+              <span class="v"><span data-count="15">15</span>&nbsp;min</span
+              ><span class="l">A week is enough to act on it all</span>
+            </div>
+            <div class="b3-stat b3-glass reveal-on-scroll r4">
+              <span class="v" data-count="0">0</span
+              ><span class="l">Chat rooms · upsells · "masterminds"</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ───────── INSIDE A TRADE IDEA ───────── -->
+        <section class="lp-section reveal-on-scroll" id="sample">
+          <div class="lp-section-head is-centered">
+            <span class="lp-eyebrow"
+              ><span class="pip"></span>Inside a trade idea</span
+            >
+            <h2 class="lp-heading">This is <em>exactly</em> what you get.</h2>
+            <p class="lp-lede">
+              Same format, every time. An anonymised example from the research
+              archive — redacted, not retouched.
+            </p>
+          </div>
+          <div class="b3-sample reveal-on-scroll">
+            <article
+              class="lp-trade-card b3-glass"
+              aria-label="Sample trade idea"
+            >
+              <div class="lp-tc-head">
+                <div class="lp-tc-ticker">NYSE · ████ · CONSUMER CYCLICALS</div>
+                <h3 class="lp-tc-name">
+                  A mid-cap retailer testing the prior-quarter low.
+                </h3>
+                <div class="lp-tc-tag">
+                  Swing · 4–8 weeks · Mean-reversion long
+                </div>
+              </div>
+              <div class="lp-tc-grid">
+                <div class="lp-tc-cell">
+                  <div class="lp-tc-k">Entry</div>
+                  <div class="lp-tc-v accent">218 — 224</div>
+                </div>
+                <div class="lp-tc-cell">
+                  <div class="lp-tc-k">Stop</div>
+                  <div class="lp-tc-v">209</div>
+                </div>
+                <div class="lp-tc-cell">
+                  <div class="lp-tc-k">Target</div>
+                  <div class="lp-tc-v accent">264</div>
+                </div>
+                <div class="lp-tc-cell">
+                  <div class="lp-tc-k">Risk / Reward</div>
+                  <div class="lp-tc-v">1 : 3.4</div>
+                </div>
+                <div class="lp-tc-cell">
+                  <div class="lp-tc-k">Conviction</div>
+                  <div class="lp-tc-v">Med–High</div>
+                </div>
+                <div class="lp-tc-cell">
+                  <div class="lp-tc-k">Time horizon</div>
+                  <div class="lp-tc-v">4–8 weeks</div>
+                </div>
+              </div>
+              <div class="lp-tc-body">
+                <h4>— Thesis</h4>
+                <p>
+                  Inventory has cleaned up over two consecutive quarters and
+                  gross margin is reverting toward its five-year mean — while
+                  the tape still prices the name as if the destock cycle were
+                  ongoing. Sentiment is washed out; insiders bought the last
+                  drawdown.
+                </p>
+                <p>
+                  The setup is a re-test of the prior earnings-day low on
+                  declining volume. We're a buyer on the test, not the breakout
+                  — entry staggered across the band, stop under the structural
+                  low.
+                </p>
+              </div>
+              <div class="b3-invalidation">
+                <b>What invalidates it:</b> a weekly close below 207, or a
+                guide-down that resets the gross-margin story. If either prints,
+                the idea is dead — no averaging down.
+              </div>
+              <div class="lp-tc-chart">
+                <div class="lp-tc-chart-meta">
+                  <span>Weekly · 18 mo</span><span>Levels marked · T−3</span>
+                </div>
+                <svg viewBox="0 0 600 116" preserveAspectRatio="none">
+                  <line
+                    x1="0"
+                    x2="600"
+                    y1="20"
+                    y2="20"
+                    stroke="rgba(212,197,169,0.35)"
+                    stroke-dasharray="3 4"
+                    stroke-width="1"
+                    class="lp-tc-level"
+                  />
+                  <text
+                    x="592"
+                    y="16"
+                    text-anchor="end"
+                    font-family="Fira Code"
+                    font-size="8"
+                    fill="#D4C5A9"
+                    letter-spacing="2"
+                  >
+                    TARGET 264
+                  </text>
+                  <rect
+                    x="0"
+                    y="80"
+                    width="600"
+                    height="20"
+                    fill="rgba(212,197,169,0.05)"
+                  />
+                  <line
+                    x1="0"
+                    x2="600"
+                    y1="90"
+                    y2="90"
+                    stroke="rgba(212,197,169,0.35)"
+                    stroke-dasharray="3 4"
+                    stroke-width="1"
+                    class="lp-tc-level"
+                  />
+                  <text
+                    x="592"
+                    y="86"
+                    text-anchor="end"
+                    font-family="Fira Code"
+                    font-size="8"
+                    fill="#D4C5A9"
+                    letter-spacing="2"
+                  >
+                    ENTRY 218–224
+                  </text>
+                  <line
+                    x1="0"
+                    x2="600"
+                    y1="106"
+                    y2="106"
+                    stroke="rgba(199,122,110,0.45)"
+                    stroke-dasharray="3 4"
+                    stroke-width="1"
+                  />
+                  <text
+                    x="592"
+                    y="114"
+                    text-anchor="end"
+                    font-family="Fira Code"
+                    font-size="8"
+                    fill="#C77A6E"
+                    letter-spacing="2"
+                  >
+                    STOP 209
+                  </text>
+                  <path
+                    class="lp-tc-line"
+                    pathLength="1"
+                    d="M0,74 L40,68 L70,78 L100,86 L130,90 L160,96 L190,92 L220,88 L250,92 L280,88 L310,82 L340,74 L370,66 L400,58 L430,50 L460,42 L490,36 L520,30 L550,26 L580,22 L600,20"
+                    fill="none"
+                    stroke="#D4C5A9"
+                    stroke-width="1.6"
+                    stroke-linejoin="round"
+                  />
+                  <circle
+                    class="lp-tc-marker"
+                    cx="160"
+                    cy="96"
+                    r="3"
+                    fill="#D4C5A9"
+                  />
+                </svg>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ───────── WHO'S BEHIND THIS ───────── -->
+        <section class="lp-section reveal-on-scroll" id="who">
+          <div class="lp-section-head">
+            <span class="lp-eyebrow"
+              ><span class="pip"></span>Who's behind this</span
+            >
+            <h2 class="lp-heading">
+              Built by traders, <em>not influencers</em>.
+            </h2>
+          </div>
+          <div class="b3-founder">
+            <div class="b3-founder-card b3-glass reveal-on-scroll r1">
+              <blockquote class="b3-founder-quote">
+                "I spent eleven years on the buy side watching good ideas get
+                buried under bad ones. Four Gate Alpha is the letter I wanted to
+                receive — short, written down, and honest about what I don't
+                know."
+              </blockquote>
+              <p class="b3-founder-attr">
+                — Founding partner · ex–multi-strategy desk · public at launch
+              </p>
+            </div>
+            <div class="b3-founder-creds reveal-on-scroll r2">
+              <div class="b3-founder-cred">
+                <span class="k">In markets</span
+                ><span class="v"
+                  >11 years — equities &amp; equity volatility, buy side.</span
+                >
+              </div>
+              <div class="b3-founder-cred">
+                <span class="k">Background</span
+                ><span class="v"
+                  >Sector coverage, then a sleeve at a multi-strategy fund.
+                  Process built around catalyst-driven mean reversion and
+                  risk-defined entries.</span
+                >
+              </div>
+              <div class="b3-founder-cred">
+                <span class="k">Anonymous, for now</span
+                ><span class="v"
+                  >The name goes on the masthead at launch — until then, judge
+                  the thinking from the sample above.</span
+                >
+              </div>
+              <p class="b3-founder-tag">
+                No webinar funnel. No <b>"$5,000 mastermind."</b> No screenshots
+                of a sports car. Just the research, on a schedule.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ───────── FOUNDING MEMBERS ───────── -->
+        <section class="lp-section reveal-on-scroll" id="founding">
+          <div class="lp-section-head">
+            <span class="lp-eyebrow"
+              ><span class="pip"></span>Founding members</span
+            >
+            <h2 class="lp-heading">Why join <em>now</em> instead of later.</h2>
+            <p class="lp-lede">
+              The asymmetric offer — advantages that only exist before launch,
+              plus one (the price) that lasts as long as you do.
+            </p>
+          </div>
+          <div class="b3-perks">
+            <article class="b3-perk b3-glass b3-lift reveal-on-scroll r1">
+              <h3>40% off, locked for life</h3>
+              <p>
+                The founding rate never resets. As long as you stay a member you
+                pay 40% less than everyone who joins after launch — annual or
+                monthly.
+              </p>
+            </article>
+            <article class="b3-perk b3-glass b3-lift reveal-on-scroll r2">
+              <h3>First through the door</h3>
+              <p>
+                Founding members get access a full enrollment window before the
+                public waitlist. We open once a month; you're in the first room.
+              </p>
+            </article>
+            <article class="b3-perk b3-glass b3-lift reveal-on-scroll r3">
+              <h3>One free idea before launch</h3>
+              <p>
+                A complete, real trade idea — thesis, levels, invalidation,
+                chart — sent to founding members before we go live. See exactly
+                how we think before you pay anything.
+              </p>
+            </article>
+            <article class="b3-perk b3-glass b3-lift reveal-on-scroll r4">
+              <h3>A direct line, month one</h3>
+              <p>
+                For your first month, replies reach the desk — not a help-desk
+                queue. Ask how an idea was sized or why a stop sits where it
+                does, and you'll get an answer.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- ───────── FAQ ───────── -->
+        <section class="lp-section reveal-on-scroll" id="faq">
+          <div class="lp-section-head is-centered">
+            <span class="lp-eyebrow"><span class="pip"></span>FAQ</span>
+            <h2 class="lp-heading">Questions, answered <em>straight</em>.</h2>
+          </div>
+          <div class="lp-faq">
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                What does a typical trade idea look like?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    One name, one direction. You get a two-page note: the thesis
+                    in plain English, an entry range, a hard stop, a target, the
+                    time horizon, and the exact signal that would make us walk
+                    away — plus the chart with the levels drawn on it. The
+                    redacted example above is the real format.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                How much capital do I need to trade this?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    Ideas are sized in percent-of-risk, not dollars, so you
+                    scale them to your account — it works at almost any size.
+                    That said, very small accounts feel commissions and
+                    round-lot friction; if you're trading a few hundred dollars,
+                    this probably isn't for you yet. We'd rather tell you that
+                    than take your money.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                What's the timeframe — day, swing, long-term?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    Mostly swing — positions that play out over four to eight
+                    weeks, occasionally a few days, occasionally a few months.
+                    No intraday scalping, no day-trading alerts. If you can
+                    check your email once a day, the cadence works for you.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                Is this investment advice?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    No. Four Gate Alpha publishes research and trade ideas for
+                    educational purposes. We don't know your situation and we're
+                    not your adviser — you make every decision. Full risk
+                    disclosure on the
+                    <a href="legal.html#disclosure">disclosure page</a>.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                When do you launch, and what will it cost?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    September 2026. Pricing starts at $79/month (or $790/year).
+                    Founding members lock in 40% off for life — $47/month or
+                    $474/year — and that rate never goes up. Join the waitlist
+                    and you'll be first in line when enrollment opens.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ───────── FINAL CTA ───────── -->
+        <section class="lp-section b3-final reveal-on-scroll" id="join">
+          <div class="lp-section-head is-centered">
+            <span class="lp-eyebrow"
+              ><span class="pip"></span>One preview drop · before launch</span
+            >
+            <h2 class="lp-heading">
+              Get the first idea <em>before anyone else</em>.
+            </h2>
+            <p class="lp-lede">
+              One real trade idea, sent to founding members before launch. After
+              that, three to five a month — and the founding rate, for life.
+            </p>
+          </div>
+          <div class="b3-final-card b3-glass">
+            <div class="lp-cta is-centered">
+              <form class="form-row" onsubmit="event.preventDefault()">
+                <input
+                  type="email"
+                  placeholder="you@firm.com"
+                  aria-label="Email address"
+                />
+                <button type="submit" class="btn-primary">
+                  Get Early Access
+                </button>
+              </form>
+              <p class="note">
+                Founding members get <strong>40% off for life</strong> and first
+                access when we open.
+              </p>
+              <p class="fine">
+                No spam · One preview drop before launch · Unsubscribe anytime
+              </p>
+            </div>
+            <div class="b3-final-cd">
+              <span class="cd-label">Founding cohort opens in</span>
+              <span
+                class="lp-countdown"
+                data-countdown="2026-09-15T09:30:00-04:00"
+                data-units="dhms"
+                >—</span
+              >
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="lp-footer">
+        <div class="lp-footer-inner">
+          <div class="lp-footer-top">
+            <div class="brand-mark">
+              <span class="glyph" aria-hidden="true">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="0.9"
+                >
+                  <rect x="2.5" y="2" width="19" height="20" />
+                  <rect x="5" y="4.2" width="14" height="17.8" />
+                  <rect x="7.5" y="6.4" width="9" height="15.6" />
+                  <rect x="10" y="8.6" width="4" height="13.4" />
+                </svg>
+              </span>
+              <span class="name">Four Gate <em>Alpha</em></span>
+            </div>
+            <div class="lp-footer-links">
+              <a href="legal.html#terms">Terms</a>
+              <a href="legal.html#privacy">Privacy</a>
+              <a href="legal.html#disclosure">Risk Disclosure</a>
+            </div>
+          </div>
+          <p class="lp-disclosure">
+            Four Gate Alpha is a research and publishing service. Nothing on
+            this site is personalised investment advice. Trading involves
+            substantial risk of loss; past performance is not indicative of
+            future results. The sample trade idea shown is a redacted historical
+            example for illustration only.
+          </p>
+          <div class="lp-footer-top">
+            <span class="lp-footer-meta"
+              >© 2026 Four Gate Alpha · Prelaunch</span
+            >
+            <span class="lp-footer-meta"
+              >Built by traders, not influencers</span
+            >
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <nav class="variant-badge">
+      <span class="label">Landing ·</span>
+      <a href="landing-v1.html">L1 Terminal</a>
+      <a href="landing-v2.html">L2 Letter</a>
+      <a href="landing-v3.html" class="is-active">L3 Brief</a>
+      <a href="landing-v4.html">L4 Tape</a>
+      <a href="index.html">Index</a>
+    </nav>
+
+    <script src="shared/landing.js" defer></script>
+    <script src="shared/theme-toggle.js" defer></script>
+  </body>
+</html>

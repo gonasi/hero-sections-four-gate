@@ -1,0 +1,1666 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Four Gate Alpha — Get Early Access · The Letter</title>
+    <meta
+      name="description"
+      content="A quiet, monthly letter of researched trade ideas — thesis, entry, exit, and the reason to walk away. Launching September 2026. Founding members get 40% off for life."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Four Gate Alpha — Get Early Access" />
+    <meta
+      property="og:description"
+      content="A research letter, not a service. Founding members get 40% off for life."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Fira+Code:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="_shared.css" />
+    <link rel="stylesheet" href="shared/landing.css" />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("fga-theme") === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+      document.documentElement.classList.add("has-js");
+    </script>
+    <style>
+      /* ===========================================================
+         L2 — "The Letter":  an investment-letter / editorial treatment.
+         Masthead, double rules, drop caps, marginalia, a signed
+         founder note. Reads its best in light mode (it becomes paper).
+         =========================================================== */
+      .lp-page.l2 {
+        --rule: 3px double var(--hairline-strong);
+      }
+
+      /* warm paper texture overlay inside .fx-layer — slow "ink-spreading" breathe */
+      .l2-paper {
+        background-image: radial-gradient(
+          ellipse 70% 50% at 50% 30%,
+          color-mix(in srgb, var(--accent) 6%, transparent),
+          transparent 70%
+        );
+        opacity: 1;
+        animation: l2Paper 22s ease-in-out infinite;
+      }
+      @keyframes l2Paper {
+        0%,
+        100% {
+          transform: scale(1) translate(0, 0);
+          opacity: 0.82;
+        }
+        50% {
+          transform: scale(1.16) translate(1.6%, -1%);
+          opacity: 1;
+        }
+      }
+
+      /* ── a chart being sketched by an invisible pen — drawn, held, faded, redrawn.
+         etched candle outlines sit behind, breathing; a roughen filter gives the
+         pencil-wobble; a nib traces the trend line. The "pop", editorially. ── */
+      .l2-chartfx {
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        top: 17%;
+        bottom: auto;
+        height: 44%;
+        opacity: 0.24;
+      }
+      :root[data-theme="light"] .l2-chartfx {
+        opacity: 0.32;
+      }
+      .l2-chartfx svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        overflow: visible;
+      }
+      .l2-chartfx .axis {
+        stroke: var(--hairline-strong);
+        stroke-width: 1;
+        vector-effect: non-scaling-stroke;
+      }
+      .l2-chartfx .lvl {
+        stroke: color-mix(in srgb, var(--accent) 48%, transparent);
+        stroke-width: 1;
+        stroke-dasharray: 3 4;
+        vector-effect: non-scaling-stroke;
+        animation: lpDash 2.1s linear infinite;
+      }
+      .l2-chartfx .lvl-label {
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        fill: color-mix(in srgb, var(--accent) 72%, transparent);
+      }
+      .l2-chartfx .ec-wick,
+      .l2-chartfx .ec-rect {
+        stroke: var(--accent);
+        stroke-width: 1;
+        fill: none;
+        vector-effect: non-scaling-stroke;
+      }
+      .l2-chartfx .ec-rect {
+        fill: color-mix(in srgb, var(--accent) 9%, transparent);
+      }
+      .l2-chartfx .ec {
+        transform-box: fill-box;
+        transform-origin: bottom center;
+        animation: l2Ec 7s ease-in-out infinite;
+      }
+      .l2-chartfx .ec:nth-child(3n) {
+        animation-duration: 9s;
+        animation-delay: -2.4s;
+      }
+      .l2-chartfx .ec:nth-child(3n + 1) {
+        animation-delay: -1.1s;
+      }
+      .l2-chartfx .ec:nth-child(4n + 2) {
+        animation-duration: 8s;
+        animation-delay: -3.6s;
+      }
+      @keyframes l2Ec {
+        0%,
+        100% {
+          transform: scaleY(1);
+        }
+        50% {
+          transform: scaleY(1.18);
+        }
+      }
+      .l2-chart-line {
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 2;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        filter: url(#l2rough);
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        animation: l2Draw 13s ease-in-out infinite;
+      }
+      @keyframes l2Draw {
+        0% {
+          stroke-dashoffset: 1;
+          opacity: 0;
+        }
+        3% {
+          opacity: 1;
+        }
+        46% {
+          stroke-dashoffset: 0;
+          opacity: 1;
+        }
+        84% {
+          stroke-dashoffset: 0;
+          opacity: 1;
+        }
+        100% {
+          stroke-dashoffset: 0;
+          opacity: 0;
+        }
+      }
+      .l2-chart-marks path {
+        stroke: var(--accent);
+        stroke-width: 1.5px;
+        vector-effect: non-scaling-stroke;
+        filter: url(#l2rough);
+        opacity: 0;
+        animation: l2Marks 13s linear infinite;
+      }
+      .l2-chart-marks path:nth-child(1) {
+        animation-delay: 1.3s;
+      }
+      .l2-chart-marks path:nth-child(2) {
+        animation-delay: 3s;
+      }
+      .l2-chart-marks path:nth-child(3) {
+        animation-delay: 4.8s;
+      }
+      @keyframes l2Marks {
+        0%,
+        6% {
+          opacity: 0;
+        }
+        9% {
+          opacity: 0.95;
+        }
+        84% {
+          opacity: 0.95;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      .l2-chart-nib {
+        fill: var(--accent);
+        filter: drop-shadow(
+          0 0 7px color-mix(in srgb, var(--accent) 60%, transparent)
+        );
+        animation: l2Nib 13s linear infinite;
+      }
+      @keyframes l2Nib {
+        0% {
+          opacity: 0;
+        }
+        3%,
+        46% {
+          opacity: 1;
+        }
+        54% {
+          opacity: 1;
+        }
+        60%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* faint drifting numeral watermark — market data behind the letter */
+      .l2-bgtape {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 62%;
+        bottom: auto;
+        overflow: hidden;
+        white-space: nowrap;
+        font-family: var(--mono);
+        font-weight: 400;
+        line-height: 1;
+        font-size: clamp(28px, 4vw, 56px);
+        opacity: 0.045;
+        color: var(--text);
+      }
+      :root[data-theme="light"] .l2-bgtape {
+        opacity: 0.05;
+      }
+      .l2-bgtape .lp-ticker-track {
+        display: inline-flex;
+        gap: 3vw;
+        padding: 0;
+        will-change: transform;
+        animation: lpTicker 52s linear infinite;
+      }
+      .l2-bgtape .lp-ticker-item .sym {
+        color: var(--text);
+      }
+      .l2-bgtape .lp-ticker-item .pos {
+        color: color-mix(in srgb, var(--accent) 70%, var(--text));
+      }
+      .l2-bgtape .lp-ticker-item .neg {
+        color: color-mix(in srgb, var(--dark-earth) 60%, var(--text));
+      }
+      .l2-bgtape .lp-ticker-item .dot {
+        display: none;
+      }
+
+      /* masthead */
+      .l2 .topbar {
+        position: static;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-bottom: none;
+        background: transparent;
+        padding-top: clamp(20px, 4vh, 36px);
+      }
+      .l2 .topbar-inner {
+        flex-direction: column;
+        gap: 14px;
+        text-align: center;
+      }
+      .l2-masthead {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(22px, 3.4vw, 38px);
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text);
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .l2-masthead em {
+        font-style: italic;
+        font-weight: 400;
+        color: var(--accent);
+        text-transform: none;
+        letter-spacing: 0;
+      }
+      .l2-masthead .glyph {
+        color: var(--accent);
+        display: inline-flex;
+      }
+      .l2-subhead {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+      .l2-rule {
+        border-top: var(--rule);
+        border-bottom: 1px solid var(--hairline-strong);
+        background: color-mix(in srgb, var(--ink-2) 45%, transparent);
+        position: relative;
+        z-index: 2;
+      }
+      .l2-rule-inner {
+        max-width: var(--container);
+        margin: 0 auto;
+        padding: 9px var(--gutter);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+      .l2-rule-inner .center {
+        color: var(--accent);
+        letter-spacing: 0.3em;
+      }
+      .l2-rule-inner a {
+        color: var(--accent);
+        border-bottom: 1px solid
+          color-mix(in srgb, var(--accent) 40%, transparent);
+        padding-bottom: 1px;
+      }
+
+      /* sections — ruled, centered heads */
+      .l2 .lp-section + .lp-section {
+        border-top: var(--rule);
+      }
+      .l2-secnum {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        text-align: center;
+        margin-bottom: 18px;
+      }
+      .l2-secnum .roman {
+        color: var(--accent);
+      }
+      .l2 .lp-section-head {
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        align-items: center;
+      }
+      .l2 .lp-heading {
+        font-size: clamp(30px, 4.6vw, 56px);
+        font-weight: 400;
+      }
+      .l2 .lp-heading em {
+        font-weight: 400;
+      }
+      .l2-marks {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        color: var(--text-faint);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        margin: 0 auto clamp(22px, 4vh, 36px);
+      }
+      .l2-marks .star {
+        color: var(--accent);
+        font-size: 14px;
+        line-height: 0;
+        animation: l2Twinkle 3.6s ease-in-out infinite;
+      }
+      .l2-marks .star.b {
+        animation-delay: 1.8s;
+      }
+      @keyframes l2Twinkle {
+        0%,
+        100% {
+          transform: scale(1) rotate(0);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.45) rotate(180deg);
+          opacity: 0.5;
+        }
+      }
+      .l2-marks .ln {
+        width: 40px;
+        height: 1px;
+        background: var(--hairline-strong);
+      }
+
+      /* marginalia (rotated, hidden on small screens) */
+      .l2-margin {
+        position: absolute;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        pointer-events: none;
+        animation: l2MarginPulse 5.5s ease-in-out infinite;
+      }
+      @keyframes l2MarginPulse {
+        0%,
+        100% {
+          opacity: 0.4;
+        }
+        50% {
+          opacity: 0.95;
+        }
+      }
+      .l2-margin.left {
+        left: 14px;
+        top: 50%;
+        transform: rotate(-90deg);
+        transform-origin: left center;
+      }
+      .l2-margin.right {
+        right: 14px;
+        top: 50%;
+        transform: rotate(90deg);
+        transform-origin: right center;
+        animation-delay: 2.75s;
+      }
+      @media (max-width: 1180px) {
+        .l2-margin {
+          display: none;
+        }
+      }
+
+      /* hero */
+      .l2-hero {
+        text-align: center;
+        position: relative;
+      }
+      .l2-hero .lp-hero-eyebrow {
+        justify-content: center;
+        margin-bottom: clamp(24px, 4vh, 36px);
+      }
+      .l2 .lp-hero-title {
+        font-weight: 400;
+        font-size: clamp(40px, 6vw, 86px);
+        line-height: 1.04;
+        margin: 0 auto clamp(28px, 4vh, 40px);
+        max-width: 16ch;
+      }
+      .l2 .lp-hero-title em {
+        font-weight: 400;
+      }
+      .l2-pulled {
+        max-width: 60ch;
+        margin: 0 auto clamp(30px, 5vh, 44px);
+        text-align: left;
+        font-size: clamp(16.5px, 1.6vw, 18.5px);
+        line-height: 1.7;
+        color: var(--text);
+        opacity: 0.92;
+        text-wrap: pretty;
+      }
+      .l2-pulled::first-letter {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 4.6em;
+        float: left;
+        line-height: 0.82;
+        margin: 0.06em 0.1em 0 0;
+        color: var(--accent);
+      }
+      .l2-pulled em {
+        font-style: italic;
+        color: var(--accent);
+      }
+      /* subscription card */
+      .l2-subcard {
+        max-width: 540px;
+        margin: 0 auto;
+        border: var(--rule);
+        padding: clamp(22px, 3.5vw, 34px) clamp(20px, 3.5vw, 36px);
+        background: color-mix(in srgb, var(--ink-2) 40%, transparent);
+        text-align: center;
+      }
+      .l2-subcard .l2-subcard-title {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 18px;
+      }
+      .l2-subcard .lp-cta {
+        align-items: center;
+      }
+      .l2-subcard .form-row {
+        margin: 0 auto;
+      }
+      .l2-cd {
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid var(--hairline);
+      }
+      .l2-cd .cd-label {
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      /* problem — newspaper columns */
+      .l2-cols {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        border-top: 1px solid var(--hairline);
+        border-bottom: 1px solid var(--hairline);
+      }
+      .l2-col {
+        padding: clamp(24px, 3vw, 36px);
+        border-right: 1px solid var(--hairline);
+      }
+      .l2-col:last-child {
+        border-right: none;
+      }
+      .l2-col .lead {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 14px;
+      }
+      .l2-col p {
+        margin: 0;
+        font-size: clamp(15px, 1.45vw, 17.5px);
+        line-height: 1.62;
+        color: var(--text);
+        text-wrap: pretty;
+      }
+      .l2-col p::first-letter {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 2.6em;
+        float: left;
+        line-height: 0.8;
+        margin: 0.08em 0.08em 0 0;
+        color: var(--accent);
+      }
+      .l2-col em {
+        font-style: italic;
+        color: var(--accent);
+      }
+      @media (max-width: 820px) {
+        .l2-cols {
+          grid-template-columns: 1fr;
+        }
+        .l2-col {
+          border-right: none;
+          border-bottom: 1px solid var(--hairline);
+        }
+        .l2-col:last-child {
+          border-bottom: none;
+        }
+      }
+
+      /* pillars — editorial numbered blocks */
+      .l2-pillars {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .l2-pillar {
+        display: grid;
+        grid-template-columns: 1fr 1.7fr;
+        gap: clamp(24px, 4vw, 56px);
+        padding: clamp(28px, 4vh, 44px) 0;
+        border-bottom: 1px solid var(--hairline);
+        align-items: baseline;
+      }
+      .l2-pillar:last-child {
+        border-bottom: none;
+      }
+      .l2-pillar .ord {
+        font-family: var(--display);
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(24px, 3.4vw, 40px);
+        color: var(--accent);
+        line-height: 1.1;
+      }
+      .l2-pillar .ord small {
+        display: block;
+        font-style: normal;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        margin-top: 8px;
+      }
+      .l2-pillar h3 {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(20px, 2.2vw, 26px);
+        line-height: 1.2;
+        margin: 0 0 12px;
+        color: var(--text);
+      }
+      .l2-pillar p {
+        margin: 0;
+        font-size: clamp(15.5px, 1.5vw, 18px);
+        line-height: 1.65;
+        color: var(--text);
+        opacity: 0.9;
+      }
+      @media (max-width: 760px) {
+        .l2-pillar {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+      }
+
+      /* trade-idea facsimile */
+      .l2-facsimile {
+        max-width: 760px;
+        margin: 0 auto;
+        position: relative;
+        border: 1px solid var(--hairline-strong);
+        background: color-mix(in srgb, var(--ink-2) 40%, transparent);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.32);
+        padding: 8px;
+      }
+      .l2-facsimile::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 1px solid var(--hairline);
+        margin: 4px;
+        pointer-events: none;
+      }
+      .l2-stamp {
+        position: absolute;
+        top: 18px;
+        right: -10px;
+        transform: rotate(7deg);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--dark-earth);
+        border: 1.5px solid
+          color-mix(in srgb, var(--dark-earth) 55%, transparent);
+        border-radius: 3px;
+        padding: 7px 12px;
+        background: color-mix(in srgb, var(--ink) 70%, transparent);
+        z-index: 3;
+      }
+      .l2 .lp-trade-card {
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+      .l2 .lp-tc-head {
+        text-align: center;
+        border-bottom: 3px double var(--hairline-strong);
+        padding: 36px 26px 22px;
+      }
+      .l2 .lp-tc-ticker {
+        margin-bottom: 10px;
+      }
+      .l2 .lp-tc-name {
+        font-weight: 400;
+        font-size: clamp(20px, 2.2vw, 26px);
+      }
+      .l2-fac-thesis {
+        column-count: 2;
+        column-gap: 32px;
+        padding: 22px 26px;
+        border-bottom: 1px solid var(--hairline);
+      }
+      .l2-fac-thesis h4 {
+        column-span: all;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: 0 0 12px;
+        text-align: center;
+      }
+      .l2-fac-thesis p {
+        margin: 0 0 12px;
+        font-size: 14px;
+        line-height: 1.62;
+        color: var(--text);
+        opacity: 0.9;
+        text-wrap: pretty;
+      }
+      @media (max-width: 640px) {
+        .l2-fac-thesis {
+          column-count: 1;
+        }
+      }
+      .l2-fac-note {
+        text-align: center;
+        font-style: italic;
+        font-size: 13.5px;
+        color: var(--text-dim);
+        padding: 14px 26px 0;
+      }
+
+      /* founder — signed letter */
+      .l2-letter {
+        max-width: 720px;
+        margin: 0 auto;
+        text-align: left;
+      }
+      .l2-letter .salutation {
+        font-family: var(--display);
+        font-style: italic;
+        font-size: clamp(18px, 1.9vw, 22px);
+        color: var(--text-dim);
+        margin-bottom: 18px;
+      }
+      .l2-letter p {
+        font-size: clamp(16px, 1.55vw, 18.5px);
+        line-height: 1.72;
+        color: var(--text);
+        margin: 0 0 18px;
+        text-wrap: pretty;
+      }
+      .l2-letter p em {
+        font-style: italic;
+        color: var(--accent);
+      }
+      .l2-letter .l2-creds {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 24px;
+        margin: 24px 0;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.06em;
+        color: var(--text-faint);
+        text-transform: uppercase;
+        border-top: 1px solid var(--hairline);
+        border-bottom: 1px solid var(--hairline);
+        padding: 14px 0;
+      }
+      .l2-letter .l2-creds b {
+        color: var(--text-dim);
+        font-weight: 500;
+      }
+      .l2-sign {
+        font-family: var(--display);
+        font-style: italic;
+        font-size: clamp(22px, 2.6vw, 30px);
+        color: var(--accent);
+        margin-top: 28px;
+      }
+      .l2-sign small {
+        display: block;
+        font-style: normal;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        margin-top: 10px;
+      }
+
+      /* founding perks — roman list */
+      .l2-perks-list {
+        max-width: 760px;
+        margin: 0 auto;
+        list-style: none;
+        padding: 0;
+        counter-reset: rperk;
+      }
+      .l2-perk {
+        display: grid;
+        grid-template-columns: 64px 1fr;
+        gap: clamp(16px, 3vw, 32px);
+        padding: clamp(22px, 3vh, 32px) 0;
+        border-bottom: 1px solid var(--hairline);
+        counter-increment: rperk;
+        align-items: baseline;
+      }
+      .l2-perk:last-child {
+        border-bottom: none;
+      }
+      .l2-perk::before {
+        content: counter(rperk, upper-roman) ".";
+        font-family: var(--display);
+        font-style: italic;
+        font-size: clamp(22px, 2.8vw, 34px);
+        color: var(--accent);
+      }
+      .l2-perk h3 {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(18px, 2vw, 23px);
+        margin: 0 0 8px;
+        color: var(--text);
+      }
+      .l2-perk p {
+        margin: 0;
+        font-size: clamp(15px, 1.5vw, 17.5px);
+        line-height: 1.65;
+        color: var(--text);
+        opacity: 0.9;
+      }
+      @media (max-width: 640px) {
+        .l2-perk {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+      }
+
+      /* faq — editorial Q&A */
+      .l2 .lp-faq {
+        max-width: 760px;
+        margin: 0 auto;
+        border-top: 3px double var(--hairline-strong);
+      }
+      .l2 .lp-faq-q {
+        font-family: var(--display);
+        font-style: italic;
+        font-weight: 400;
+        justify-content: flex-start;
+        gap: 14px;
+      }
+      .l2 .lp-faq-q .q-icon {
+        margin-left: auto;
+      }
+      .l2 .lp-faq-q::before {
+        content: "Q.";
+        font-style: normal;
+        font-weight: 700;
+        color: var(--accent);
+        flex-shrink: 0;
+      }
+      .l2 .lp-faq-answer p::before {
+        content: "A. ";
+        font-family: var(--display);
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      /* final word */
+      .l2-final {
+        text-align: center;
+      }
+      .l2-final .l2-subcard {
+        margin-top: clamp(28px, 5vh, 40px);
+      }
+
+      /* footer colophon */
+      .l2 .lp-footer {
+        background: color-mix(in srgb, var(--ink-2) 35%, transparent);
+        border-top: 3px double var(--hairline-strong);
+      }
+      .l2-colophon {
+        font-family: var(--display);
+        font-style: italic;
+        font-size: 13.5px;
+        color: var(--text-faint);
+        text-align: center;
+        max-width: 60ch;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero-page lp-page l2">
+      <div class="fx-layer" aria-hidden="true">
+        <div class="l2-paper" style="position: absolute; inset: 0"></div>
+        <div class="fx-aurora"></div>
+        <div class="l2-chartfx">
+          <svg viewBox="0 0 1200 360" preserveAspectRatio="none">
+            <defs>
+              <filter id="l2rough" x="-5%" y="-20%" width="110%" height="140%">
+                <feTurbulence
+                  type="fractalNoise"
+                  baseFrequency="0.012 0.02"
+                  numOctaves="2"
+                  seed="7"
+                  result="n"
+                />
+                <feDisplacementMap
+                  in="SourceGraphic"
+                  in2="n"
+                  scale="5"
+                  xChannelSelector="R"
+                  yChannelSelector="G"
+                />
+              </filter>
+            </defs>
+            <line class="axis" x1="0" y1="344" x2="1200" y2="344" />
+            <line class="lvl" x1="0" y1="58" x2="1200" y2="58" />
+            <text x="1196" y="50" text-anchor="end" class="lvl-label">
+              TARGET
+            </text>
+            <!-- etched candle outlines (behind the trend line) -->
+            <g class="ec">
+              <line class="ec-wick" x1="60" y1="232" x2="60" y2="296" />
+              <rect class="ec-rect" x="49" y="244" width="22" height="36" />
+            </g>
+            <g class="ec">
+              <line class="ec-wick" x1="138" y1="248" x2="138" y2="312" />
+              <rect class="ec-rect" x="127" y="262" width="22" height="34" />
+            </g>
+            <g class="ec">
+              <line class="ec-wick" x1="216" y1="222" x2="216" y2="300" />
+              <rect class="ec-rect" x="205" y="240" width="22" height="42" />
+            </g>
+            <g class="ec">
+              <line class="ec-wick" x1="300" y1="206" x2="300" y2="284" />
+              <rect class="ec-rect" x="289" y="224" width="22" height="40" />
+            </g>
+            <g class="ec">
+              <line class="ec-wick" x1="384" y1="232" x2="384" y2="300" />
+              <rect class="ec-rect" x="373" y="248" width="22" height="34" />
+            </g>
+            <g class="ec">
+              <line class="ec-wick" x1="470" y1="200" x2="470" y2="272" />
+              <rect class="ec-rect" x="459" y="216" width="22" height="38" />
+            </g>
+            <g class="ec">
+              <line class="ec-wick" x1="556" y1="186" x2="556" y2="258" />
+              <rect class="ec-rect" x="545" y="202" width="22" height="36" />
+            </g>
+            <g class="ec">
+              <line class="ec-wick" x1="650" y1="170" x2="650" y2="246" />
+              <rect class="ec-rect" x="639" y="188" width="22" height="40" />
+            </g>
+            <g class="ec">
+              <line class="ec-wick" x1="744" y1="150" x2="744" y2="224" />
+              <rect class="ec-rect" x="733" y="166" width="22" height="38" />
+            </g>
+            <g class="ec">
+              <line class="ec-wick" x1="840" y1="128" x2="840" y2="200" />
+              <rect class="ec-rect" x="829" y="144" width="22" height="36" />
+            </g>
+            <g class="ec">
+              <line class="ec-wick" x1="936" y1="110" x2="936" y2="184" />
+              <rect class="ec-rect" x="925" y="126" width="22" height="40" />
+            </g>
+            <g class="ec">
+              <line class="ec-wick" x1="1030" y1="86" x2="1030" y2="158" />
+              <rect class="ec-rect" x="1019" y="100" width="22" height="40" />
+            </g>
+            <g class="ec">
+              <line class="ec-wick" x1="1124" y1="58" x2="1124" y2="128" />
+              <rect class="ec-rect" x="1113" y="72" width="22" height="42" />
+            </g>
+            <!-- the hand-sketched trend line (drawn over the candles) -->
+            <path
+              class="l2-chart-line"
+              pathLength="1"
+              d="M0,278 L70,262 L138,288 L216,262 L300,250 L384,272 L470,238 L556,222 L650,206 L744,182 L840,160 L936,140 L1030,112 L1124,84 L1200,62"
+            />
+            <!-- × marks at a few points -->
+            <g class="l2-chart-marks">
+              <path d="M211,257 l10,10 M221,257 l-10,10" />
+              <path d="M551,217 l10,10 M561,217 l-10,10" />
+              <path d="M931,135 l10,10 M941,135 l-10,10" />
+            </g>
+            <!-- the nib — traces the trend line -->
+            <circle class="l2-chart-nib" r="3.5" cx="0" cy="0">
+              <animateMotion
+                dur="13s"
+                repeatCount="indefinite"
+                keyPoints="0;0;1;1;1"
+                keyTimes="0;0.03;0.46;0.6;1"
+                calcMode="linear"
+                path="M0,278 L70,262 L138,288 L216,262 L300,250 L384,272 L470,238 L556,222 L650,206 L744,182 L840,160 L936,140 L1030,112 L1124,84 L1200,62"
+              />
+            </circle>
+          </svg>
+        </div>
+        <div class="l2-bgtape">
+          <span class="lp-ticker-track" data-ticker></span>
+        </div>
+        <div class="fx-vignette"></div>
+      </div>
+
+      <header class="topbar">
+        <div class="topbar-inner">
+          <span class="l2-masthead">
+            <span class="glyph" aria-hidden="true">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="0.9"
+              >
+                <rect x="2.5" y="2" width="19" height="20" />
+                <rect x="5" y="4.2" width="14" height="17.8" />
+                <rect x="7.5" y="6.4" width="9" height="15.6" />
+                <rect x="10" y="8.6" width="4" height="13.4" />
+              </svg>
+            </span>
+            Four Gate <em>Alpha</em>
+          </span>
+          <span class="l2-subhead">A research letter · not a service</span>
+        </div>
+      </header>
+
+      <div class="l2-rule">
+        <div class="l2-rule-inner">
+          <span class="left">Vol. 00 · Prelaunch Edition</span>
+          <span class="center">Founding Members Only</span>
+          <span class="right"><a href="#waitlist">Get Early Access →</a></span>
+        </div>
+      </div>
+
+      <main>
+        <!-- ───────── SECTION 1 — HERO ───────── -->
+        <section
+          class="lp-section lp-hero l2-hero"
+          id="waitlist"
+          aria-label="Get early access"
+        >
+          <span class="l2-margin left">Founding Cohort · MMXXVI</span>
+          <span class="l2-margin right">Sept MMXXVI · 40% Off for Life</span>
+          <div class="l2-marks">
+            <span class="ln"></span><span class="star">✦</span
+            ><span>Launching September 2026</span><span class="star b">✦</span
+            ><span class="ln"></span>
+          </div>
+          <h1 class="lp-hero-title">
+            The trade ideas <em>institutional desks</em> already have.
+          </h1>
+          <p class="l2-pulled">
+            Four Gate Alpha is the trading letter we wished existed when we ran
+            our own books — a quiet, monthly correspondence with a small number
+            of researched, <em>high-conviction</em> ideas, each with the thesis
+            written out, the levels named, and the reason to walk away put in
+            print before the trade is taken. No noise. No chat room. No urgency
+            manufactured for marketing.
+          </p>
+          <div class="l2-subcard">
+            <div class="l2-subcard-title">— Reserve your seat —</div>
+            <div class="lp-cta is-centered">
+              <form class="form-row" onsubmit="event.preventDefault()">
+                <input
+                  type="email"
+                  placeholder="you@firm.com"
+                  aria-label="Email address"
+                />
+                <button type="submit" class="btn-primary">
+                  Get Early Access
+                </button>
+              </form>
+              <p class="note">
+                Founding members get <strong>40% off for life</strong> and first
+                access when we open.
+              </p>
+              <p class="fine">No spam · One preview drop before launch</p>
+            </div>
+            <div class="l2-cd">
+              <span class="cd-label">— First edition mails in —</span>
+              <span
+                class="lp-countdown"
+                data-countdown="2026-09-15T09:30:00-04:00"
+                data-units="dhms"
+                >—</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <div class="lp-ticker-strip" aria-hidden="true">
+          <span class="lp-ticker-track" data-ticker></span>
+        </div>
+
+        <!-- ───────── SECTION 2 — THE PROBLEM ───────── -->
+        <section class="lp-section reveal-on-scroll" id="problem">
+          <p class="l2-secnum">§ <span class="roman">II</span> · The Problem</p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">
+              Most trading content is built to be <em>scrolled</em>.
+            </h2>
+            <p class="lp-lede">
+              By the time an idea reaches your feed, the edge has already moved.
+              Three frustrations this letter exists to resolve.
+            </p>
+          </div>
+          <div class="l2-cols">
+            <div class="l2-col">
+              <div class="lead">— The noise</div>
+              <p>
+                Most retail trading content is content — produced to be
+                consumed, not acted on. By the time a "pick" reaches you, it has
+                been seen by ten thousand other accounts and the easy part of
+                the move is gone.
+              </p>
+            </div>
+            <div class="l2-col">
+              <div class="lead">— The volume</div>
+              <p>
+                You do not need another watchlist. You need fewer,
+                <em>better</em> ideas — with the research already done, the
+                levels already drawn, and the exit defined before you are in the
+                trade.
+              </p>
+            </div>
+            <div class="l2-col">
+              <div class="lead">— The conviction</div>
+              <p>
+                You want conviction you can act on — not forty-seven "picks of
+                the week," not a Discord ping at half past nine. A thesis you
+                can read in five minutes and stand behind.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ───────── SECTION 3 — THE APPROACH ───────── -->
+        <section class="lp-section is-narrow reveal-on-scroll" id="how">
+          <p class="l2-secnum">
+            § <span class="roman">III</span> · The Approach
+          </p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">What this letter actually <em>is</em>.</h2>
+            <p class="lp-lede">
+              Not signals. Not a chat room. Not a course. A short, written
+              letter of researched ideas — on a schedule — with the reasoning
+              attached.
+            </p>
+          </div>
+          <div class="l2-pillars">
+            <article class="l2-pillar reveal-on-scroll">
+              <div class="ord">
+                First.<small>Researched, not reactive</small>
+              </div>
+              <div>
+                <h3>Every idea is written down.</h3>
+                <p>
+                  Each comes with a written thesis, a defined entry range, a
+                  hard stop, and the specific signal that invalidates it. If the
+                  setup breaks, you will know before your P&amp;L does.
+                </p>
+              </div>
+            </article>
+            <article class="l2-pillar reveal-on-scroll">
+              <div class="ord">
+                Second.<small>Fewer trades, higher conviction</small>
+              </div>
+              <div>
+                <h3>Three to five ideas a month.</h3>
+                <p>
+                  Sometimes fewer. If there is nothing worth trading, we say so.
+                  Cash is a position; we treat it like one — and we would rather
+                  skip a month than manufacture a trade.
+                </p>
+              </div>
+            </article>
+            <article class="l2-pillar reveal-on-scroll">
+              <div class="ord">
+                Third.<small>Built for part-time traders</small>
+              </div>
+              <div>
+                <h3>Fifteen minutes a week.</h3>
+                <p>
+                  Check your email once a day. Fifteen minutes a week is enough
+                  to act on everything we send — no screens, no chat room, no
+                  FOMO engineered for marketing.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ───────── SECTION 4 — INSIDE A TRADE IDEA ───────── -->
+        <section class="lp-section is-wide reveal-on-scroll" id="sample">
+          <p class="l2-secnum">
+            § <span class="roman">IV</span> · A Page From the Archive
+          </p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">This is <em>exactly</em> what you get.</h2>
+            <p class="lp-lede">
+              Same format, every time. An anonymised page from the research
+              archive — redacted, not retouched.
+            </p>
+          </div>
+          <div class="l2-facsimile" aria-label="Sample trade idea">
+            <span class="l2-stamp">Sample · Archive 2025</span>
+            <article class="lp-trade-card">
+              <div class="lp-tc-head">
+                <div class="lp-tc-ticker">NYSE · ████ · CONSUMER CYCLICALS</div>
+                <h3 class="lp-tc-name">
+                  A mid-cap retailer testing the prior-quarter low.
+                </h3>
+                <div class="lp-tc-tag">
+                  Swing · 4–8 weeks · Mean-reversion long
+                </div>
+              </div>
+              <div class="lp-tc-grid">
+                <div class="lp-tc-cell">
+                  <div class="lp-tc-k">Entry</div>
+                  <div class="lp-tc-v accent">218 — 224</div>
+                </div>
+                <div class="lp-tc-cell">
+                  <div class="lp-tc-k">Stop</div>
+                  <div class="lp-tc-v">209</div>
+                </div>
+                <div class="lp-tc-cell">
+                  <div class="lp-tc-k">Target</div>
+                  <div class="lp-tc-v accent">264</div>
+                </div>
+                <div class="lp-tc-cell">
+                  <div class="lp-tc-k">Risk / Reward</div>
+                  <div class="lp-tc-v">1 : 3.4</div>
+                </div>
+                <div class="lp-tc-cell">
+                  <div class="lp-tc-k">Conviction</div>
+                  <div class="lp-tc-v">Med–High</div>
+                </div>
+                <div class="lp-tc-cell">
+                  <div class="lp-tc-k">Sizing</div>
+                  <div class="lp-tc-v">0.75% risk</div>
+                </div>
+              </div>
+              <div class="l2-fac-thesis">
+                <h4>— Thesis —</h4>
+                <p>
+                  Inventory has cleaned up over two consecutive quarters and
+                  gross margin is reverting toward its five-year mean — while
+                  the tape still prices the name as if the destock cycle were
+                  ongoing. Sentiment is washed out; insiders bought the last
+                  drawdown.
+                </p>
+                <p>
+                  The setup is a re-test of the prior earnings-day low on
+                  declining volume. We are a buyer on the test, not the breakout
+                  — entry staggered across the band, stop set under the
+                  structural low. Invalidates on a weekly close below 207, or a
+                  guide-down that resets the margin story.
+                </p>
+              </div>
+              <div class="lp-tc-chart">
+                <div class="lp-tc-chart-meta">
+                  <span>Weekly · 18 mo</span><span>Levels marked · T−3</span>
+                </div>
+                <svg viewBox="0 0 600 116" preserveAspectRatio="none">
+                  <line
+                    x1="0"
+                    x2="600"
+                    y1="20"
+                    y2="20"
+                    stroke="rgba(212,197,169,0.35)"
+                    stroke-dasharray="3 4"
+                    stroke-width="1"
+                    class="lp-tc-level"
+                  />
+                  <text
+                    x="592"
+                    y="16"
+                    text-anchor="end"
+                    font-family="Fira Code"
+                    font-size="8"
+                    fill="#D4C5A9"
+                    letter-spacing="2"
+                  >
+                    TARGET 264
+                  </text>
+                  <rect
+                    x="0"
+                    y="80"
+                    width="600"
+                    height="20"
+                    fill="rgba(212,197,169,0.05)"
+                  />
+                  <line
+                    x1="0"
+                    x2="600"
+                    y1="90"
+                    y2="90"
+                    stroke="rgba(212,197,169,0.35)"
+                    stroke-dasharray="3 4"
+                    stroke-width="1"
+                    class="lp-tc-level"
+                  />
+                  <text
+                    x="592"
+                    y="86"
+                    text-anchor="end"
+                    font-family="Fira Code"
+                    font-size="8"
+                    fill="#D4C5A9"
+                    letter-spacing="2"
+                  >
+                    ENTRY 218–224
+                  </text>
+                  <line
+                    x1="0"
+                    x2="600"
+                    y1="106"
+                    y2="106"
+                    stroke="rgba(199,122,110,0.45)"
+                    stroke-dasharray="3 4"
+                    stroke-width="1"
+                  />
+                  <text
+                    x="592"
+                    y="114"
+                    text-anchor="end"
+                    font-family="Fira Code"
+                    font-size="8"
+                    fill="#C77A6E"
+                    letter-spacing="2"
+                  >
+                    STOP 209
+                  </text>
+                  <path
+                    class="lp-tc-line"
+                    pathLength="1"
+                    d="M0,74 L40,68 L70,78 L100,86 L130,90 L160,96 L190,92 L220,88 L250,92 L280,88 L310,82 L340,74 L370,66 L400,58 L430,50 L460,42 L490,36 L520,30 L550,26 L580,22 L600,20"
+                    fill="none"
+                    stroke="#D4C5A9"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                  />
+                  <circle
+                    class="lp-tc-marker"
+                    cx="160"
+                    cy="96"
+                    r="3"
+                    fill="#D4C5A9"
+                  />
+                </svg>
+              </div>
+            </article>
+          </div>
+          <p class="l2-fac-note">
+            Redacted for confidentiality. The format is the deliverable — yours
+            arrives the same way, every time.
+          </p>
+        </section>
+
+        <!-- ───────── SECTION 5 — WHO'S BEHIND THIS ───────── -->
+        <section class="lp-section reveal-on-scroll" id="who">
+          <p class="l2-secnum">
+            § <span class="roman">V</span> · Who's Behind This
+          </p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">
+              Built by traders, <em>not influencers</em>.
+            </h2>
+          </div>
+          <div class="l2-letter">
+            <p class="salutation">A note from the desk —</p>
+            <p>
+              I spent eleven years on the buy side watching good ideas get
+              buried under bad ones — and watching "trading education" become a
+              content business that has very little to do with trading. Four
+              Gate Alpha is the letter I wanted to receive: short, written down,
+              and honest about what I <em>don't</em> know.
+            </p>
+            <p>
+              There is no webinar funnel here. No "$5,000 mastermind." No
+              screenshots of a sports car. Just the research, on a schedule,
+              with the reasoning attached — and a name on the masthead the day
+              we go live. Until then, the work speaks: read the sample page
+              above and judge the thinking, not the marketing.
+            </p>
+            <div class="l2-creds">
+              <span
+                ><b>In markets:</b> 11 years — equities &amp; equity vol, buy
+                side</span
+              >
+              <span
+                ><b>Background:</b> sector coverage → multi-strategy
+                sleeve</span
+              >
+              <span
+                ><b>Process:</b> catalyst-driven mean reversion, risk-defined
+                entries</span
+              >
+            </div>
+            <div class="l2-sign">
+              — The Founding Partner<small
+                >Public at launch · Four Gate Alpha</small
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- ───────── SECTION 6 — WHAT FOUNDING MEMBERS GET ───────── -->
+        <section class="lp-section is-narrow reveal-on-scroll" id="founding">
+          <p class="l2-secnum">
+            § <span class="roman">VI</span> · The Founding Offer
+          </p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">Why join <em>now</em> instead of later.</h2>
+            <p class="lp-lede">
+              The asymmetric offer: advantages that only exist before launch —
+              and one (the price) that lasts as long as you do.
+            </p>
+          </div>
+          <ol class="l2-perks-list">
+            <li class="l2-perk reveal-on-scroll">
+              <h3>40% off, locked for life</h3>
+              <p>
+                The founding rate never resets. As long as you stay a member you
+                pay 40% less than everyone who joins after launch — annual or
+                monthly.
+              </p>
+            </li>
+            <li class="l2-perk reveal-on-scroll">
+              <h3>First through the door</h3>
+              <p>
+                Founding members get access a full enrollment window before the
+                public waitlist. We open once a month; you are in the first
+                room.
+              </p>
+            </li>
+            <li class="l2-perk reveal-on-scroll">
+              <h3>One free idea before launch</h3>
+              <p>
+                A complete, real trade idea — thesis, levels, invalidation,
+                chart — sent to founding members before we go live. See exactly
+                how we think before you pay anything.
+              </p>
+            </li>
+            <li class="l2-perk reveal-on-scroll">
+              <h3>A direct line, month one</h3>
+              <p>
+                For your first month, replies reach the desk — not a help-desk
+                queue. Ask how an idea was sized or why a stop sits where it
+                does, and you will get an answer.
+              </p>
+            </li>
+          </ol>
+        </section>
+
+        <!-- ───────── SECTION 7 — FAQ ───────── -->
+        <section class="lp-section is-narrow reveal-on-scroll" id="faq">
+          <p class="l2-secnum">§ <span class="roman">VII</span> · Questions</p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">Asked &amp; <em>answered</em>.</h2>
+          </div>
+          <div class="lp-faq">
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                What does a typical trade idea look like?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    One name, one direction. You receive a two-page note: the
+                    thesis in plain English, an entry range, a hard stop, a
+                    target, the time horizon, and the exact signal that would
+                    make us walk away — plus the chart with the levels drawn on
+                    it. The redacted page above is the real format.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                How much capital do I need to trade this?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    Ideas are sized in percent-of-risk, not dollars, so you
+                    scale them to your account — it works at almost any size.
+                    Very small accounts will feel commissions and round-lot
+                    friction, though; if you are trading a few hundred dollars,
+                    this probably is not for you yet. We would rather say so
+                    than take your money.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                What is the timeframe — day, swing, long-term?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    Mostly swing — positions that play out over four to eight
+                    weeks, occasionally a few days, occasionally a few months.
+                    No intraday scalping, no day-trading alerts. If you can
+                    check your email once a day, the cadence works.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                Is this investment advice?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    No. Four Gate Alpha publishes research and trade ideas for
+                    educational purposes. We do not know your situation and we
+                    are not your adviser — you make every decision. Full risk
+                    disclosure on the
+                    <a href="legal.html#disclosure">disclosure page</a>.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                When do you launch, and what will it cost?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    September 2026. Pricing starts at $79/month (or $790/year).
+                    Founding members lock in 40% off for life — $47/month or
+                    $474/year — and that rate never goes up. Join the waitlist
+                    and you will be first in line when enrollment opens.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ───────── SECTION 8 — FINAL WORD ───────── -->
+        <section class="lp-section l2-final reveal-on-scroll" id="join">
+          <p class="l2-secnum">
+            § <span class="roman">VIII</span> · A Final Word
+          </p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">
+              Get the first idea <em>before anyone else</em>.
+            </h2>
+            <p class="lp-lede">
+              One real trade idea, sent to founding members before launch. After
+              that, three to five a month — and the founding rate, for life.
+            </p>
+          </div>
+          <div class="l2-subcard">
+            <div class="l2-subcard-title">— Reserve your seat —</div>
+            <div class="lp-cta is-centered">
+              <form class="form-row" onsubmit="event.preventDefault()">
+                <input
+                  type="email"
+                  placeholder="you@firm.com"
+                  aria-label="Email address"
+                />
+                <button type="submit" class="btn-primary">
+                  Get Early Access
+                </button>
+              </form>
+              <p class="fine">
+                No spam · One preview drop before launch · Unsubscribe anytime
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="lp-footer">
+        <div class="lp-footer-inner">
+          <div class="lp-footer-top">
+            <div class="brand-mark">
+              <span class="glyph" aria-hidden="true">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="0.9"
+                >
+                  <rect x="2.5" y="2" width="19" height="20" />
+                  <rect x="5" y="4.2" width="14" height="17.8" />
+                  <rect x="7.5" y="6.4" width="9" height="15.6" />
+                  <rect x="10" y="8.6" width="4" height="13.4" />
+                </svg>
+              </span>
+              <span class="name">Four Gate <em>Alpha</em></span>
+            </div>
+            <div class="lp-footer-links">
+              <a href="legal.html#terms">Terms</a>
+              <a href="legal.html#privacy">Privacy</a>
+              <a href="legal.html#disclosure">Risk Disclosure</a>
+            </div>
+          </div>
+          <p class="l2-colophon">
+            Set in Libre Baskerville &amp; Fira Code. A research letter, not a
+            service — established MMXXVI.
+          </p>
+          <p class="lp-disclosure">
+            Four Gate Alpha is a research and publishing service. Nothing on
+            this site is personalised investment advice. Trading involves
+            substantial risk of loss; past performance is not indicative of
+            future results. The sample trade idea shown is a redacted historical
+            example for illustration only.
+          </p>
+          <div class="lp-footer-top">
+            <span class="lp-footer-meta"
+              >© 2026 Four Gate Alpha · Prelaunch</span
+            >
+            <span class="lp-footer-meta"
+              >Built by traders, not influencers</span
+            >
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <nav class="variant-badge">
+      <span class="label">Landing ·</span>
+      <a href="landing-v1.html">L1 Terminal</a>
+      <a href="landing-v2.html" class="is-active">L2 Letter</a>
+      <a href="landing-v3.html">L3 Brief</a>
+      <a href="landing-v4.html">L4 Tape</a>
+      <a href="index.html">Index</a>
+    </nav>
+
+    <script src="shared/landing.js" defer></script>
+    <script src="shared/theme-toggle.js" defer></script>
+  </body>
+</html>

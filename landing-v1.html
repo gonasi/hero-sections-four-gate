@@ -1,0 +1,1248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Four Gate Alpha — Get Early Access · Terminal</title>
+    <meta
+      name="description"
+      content="Researched, high-conviction trade ideas — the thesis, the entry, the exit, and the reason to walk away. Launching September 2026. Founding members get 40% off for life."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Four Gate Alpha — Get Early Access" />
+    <meta
+      property="og:description"
+      content="The trade ideas institutional desks already have. Delivered before the move. Founding members get 40% off for life."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Fira+Code:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="_shared.css" />
+    <link rel="stylesheet" href="shared/landing.css" />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("fga-theme") === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+      document.documentElement.classList.add("has-js");
+    </script>
+    <style>
+      /* ===========================================================
+         L1 — "Terminal":  Bloomberg-terminal chrome meets modern SaaS.
+         Mono everywhere it counts (chrome, data, labels) — serif kept
+         for headlines per the brand system.
+         =========================================================== */
+      .lp-page.t1 {
+        --t1-line: color-mix(in srgb, var(--accent) 16%, transparent);
+      }
+
+      /* scanline overlay (sits inside .fx-layer) */
+      .t1-scanlines {
+        background-image: repeating-linear-gradient(
+          to bottom,
+          rgba(212, 197, 169, 0.045) 0px,
+          rgba(212, 197, 169, 0.045) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+        opacity: 0.6;
+      }
+      :root[data-theme="light"] .t1-scanlines {
+        background-image: repeating-linear-gradient(
+          to bottom,
+          rgba(42, 39, 34, 0.04) 0px,
+          rgba(42, 39, 34, 0.04) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      }
+
+      /* command-line topbar */
+      .t1 .topbar-inner {
+        font-family: var(--mono);
+      }
+      .t1 .topbar .brand-mark .name {
+        font-family: var(--mono);
+        font-weight: 500;
+        text-transform: none;
+        letter-spacing: 0.02em;
+      }
+      .t1 .topbar .brand-mark .name em {
+        font-style: normal;
+        color: var(--text-faint);
+      }
+      .t1 .topbar .brand-mark .name b {
+        color: var(--accent);
+        font-weight: 500;
+      }
+      .t1-bar-right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        color: var(--text-dim);
+      }
+      .t1-bar-right .blink {
+        color: var(--accent);
+        animation: t1Blink 1.1s steps(1) infinite;
+      }
+      @keyframes t1Blink {
+        50% {
+          opacity: 0;
+        }
+      }
+      .t1-bar-cta {
+        color: var(--accent);
+        border: 1px solid var(--t1-line);
+        border-radius: 4px;
+        padding: 5px 11px;
+        transition:
+          border-color 0.2s ease,
+          background 0.2s ease;
+      }
+      .t1-bar-cta:hover {
+        border-color: var(--accent);
+        background: color-mix(in srgb, var(--accent) 9%, transparent);
+      }
+      @media (max-width: 720px) {
+        .t1-bar-right .t1-bar-status {
+          display: none;
+        }
+      }
+
+      /* generic mono section marker for this treatment */
+      .t1 .lp-section-marker {
+        margin-bottom: 28px;
+      }
+
+      /* ---- hero ---- */
+      .t1-hero {
+        padding-top: clamp(40px, 7vh, 80px);
+      }
+      .t1-hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: clamp(36px, 5vw, 72px);
+        align-items: center;
+      }
+      .t1-hero-eyebrow {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        color: var(--text-dim);
+        margin-bottom: 24px;
+      }
+      .t1-hero-eyebrow .k {
+        color: var(--accent);
+      }
+      .t1 .lp-hero-title {
+        margin-bottom: 24px;
+      }
+      .t1 .lp-hero-sub {
+        margin-bottom: 28px;
+      }
+      .t1-statline {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: 0.06em;
+        color: var(--text-dim);
+        border: 1px solid var(--hairline-strong);
+        border-radius: 6px;
+        padding: 12px 16px;
+        margin-bottom: 28px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 22px;
+        background: color-mix(in srgb, var(--ink-2) 55%, transparent);
+      }
+      .t1-statline span b {
+        color: var(--text);
+        font-weight: 500;
+        margin-left: 6px;
+      }
+      .t1-statline .acc b {
+        color: var(--accent);
+      }
+      .t1-bar-meter {
+        display: inline-flex;
+        gap: 2px;
+        vertical-align: middle;
+        margin-left: 6px;
+      }
+      .t1-bar-meter i {
+        width: 7px;
+        height: 9px;
+        display: inline-block;
+        background: var(--hairline-strong);
+        border-radius: 1px;
+      }
+      .t1-bar-meter i.on {
+        background: var(--accent);
+      }
+      .t1 .lp-cta .form-row {
+        max-width: 480px;
+        border-radius: 4px;
+      }
+      .t1-hero-panel {
+        border: 1px solid var(--hairline-strong);
+        border-radius: 6px;
+        background: color-mix(in srgb, var(--ink-2) 50%, transparent);
+        overflow: hidden;
+      }
+      .t1-panel-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--hairline);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+      .t1-panel-bar .dots {
+        display: inline-flex;
+        gap: 5px;
+      }
+      .t1-panel-bar .dots i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        border: 1px solid var(--hairline-strong);
+      }
+      .t1-panel-bar .dots i:first-child {
+        border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+      }
+      .t1-panel-body {
+        padding: 18px 16px 14px;
+      }
+      .t1-panel-body svg {
+        width: 100%;
+        height: 200px;
+        display: block;
+      }
+      .t1-chart-line {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        animation: t1Draw 3.4s cubic-bezier(0.35, 0, 0.2, 1) 0.3s forwards;
+        filter: drop-shadow(
+          0 0 7px color-mix(in srgb, var(--accent) 30%, transparent)
+        );
+      }
+      @keyframes t1Draw {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      .t1-chart-grid line {
+        stroke: var(--hairline);
+      }
+      .t1-chart-axis {
+        font-family: var(--mono);
+        font-size: 8px;
+        letter-spacing: 0.1em;
+        fill: var(--text-faint);
+      }
+      .t1-panel-foot {
+        padding: 10px 14px;
+        border-top: 1px solid var(--hairline);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        color: var(--text-faint);
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .t1-countdown-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 6px;
+      }
+      .t1-countdown-wrap .cd-label {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+
+      /* ---- problem panels ---- */
+      .t1 .lp-problem-card {
+        position: relative;
+      }
+      .t1 .lp-problem-card .tag {
+        font-size: 10px;
+        letter-spacing: 0.16em;
+      }
+      .t1 .lp-problem-card .tag .pip {
+        display: none;
+      }
+      .t1 .lp-problem-card .tag::before {
+        content: "[ ERR ]";
+        color: var(--text-faint);
+        margin-right: 4px;
+      }
+
+      /* ---- pillars ---- */
+      .t1 .lp-pillar {
+        border-radius: 6px;
+        background: color-mix(in srgb, var(--ink-2) 44%, transparent);
+      }
+      .t1 .lp-pillar .num::before {
+        content: "▸ ";
+        color: var(--accent);
+      }
+      .t1 .lp-pillar::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          var(--accent),
+          color-mix(in srgb, var(--accent) 0%, transparent)
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .t1 .lp-pillar:hover::after {
+        opacity: 0.6;
+      }
+
+      /* ---- trade idea = terminal ticket ---- */
+      .t1 .lp-trade-card {
+        border-radius: 6px;
+      }
+      .t1 .lp-tc-head {
+        padding-top: 24px;
+        background: color-mix(in srgb, var(--ink-3) 40%, transparent);
+        border-bottom: 1px solid var(--hairline-strong);
+      }
+      .t1 .lp-tc-ticket-bar {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 26px;
+        border-bottom: 1px solid var(--hairline);
+      }
+      .t1 .lp-tc-ticket-bar b {
+        color: var(--accent);
+        font-weight: 500;
+      }
+      .t1 .lp-tc-stamp {
+        display: none;
+      }
+      .t1-sample-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .t1-invalidation {
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.6;
+        letter-spacing: 0.02em;
+        color: var(--text-dim);
+        padding: 16px 26px;
+        border-top: 1px solid var(--hairline);
+        background: color-mix(in srgb, var(--dark-earth) 7%, transparent);
+      }
+      .t1-invalidation b {
+        color: var(--accent);
+        font-weight: 500;
+      }
+
+      /* ---- founder ---- */
+      .t1-founder-sig {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        color: var(--text-faint);
+        margin-bottom: 24px;
+      }
+      .t1-founder-sig .k {
+        color: var(--accent);
+      }
+      .t1-noinfluencer {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        line-height: 1.7;
+        letter-spacing: 0.02em;
+        color: var(--text-dim);
+        border: 1px dashed var(--hairline-strong);
+        border-radius: 6px;
+        padding: 16px 18px;
+        margin-top: 28px;
+      }
+      .t1-noinfluencer b {
+        color: var(--accent);
+        font-weight: 500;
+      }
+
+      /* ---- perks ---- */
+      .t1 .lp-perk::before {
+        content: "[ + " counter(perk, decimal-leading-zero) " ]";
+      }
+
+      /* ---- faq ---- */
+      .t1 .lp-faq-q {
+        font-family: var(--display);
+        justify-content: flex-start;
+        gap: 14px;
+      }
+      .t1 .lp-faq-q .q-icon {
+        margin-left: auto;
+      }
+      .t1 .lp-faq-q::before {
+        content: "?";
+        font-family: var(--mono);
+        font-size: 14px;
+        color: var(--accent);
+        flex-shrink: 0;
+        opacity: 0.8;
+      }
+
+      /* ---- final cta ---- */
+      .t1-final {
+        text-align: center;
+      }
+      .t1-cmd {
+        font-family: var(--mono);
+        font-size: clamp(13px, 1.6vw, 17px);
+        letter-spacing: 0.04em;
+        color: var(--text-dim);
+        margin-bottom: 22px;
+        display: inline-block;
+        border: 1px solid var(--hairline-strong);
+        border-radius: 6px;
+        padding: 12px 18px;
+        background: color-mix(in srgb, var(--ink-2) 50%, transparent);
+      }
+      .t1-cmd .p {
+        color: var(--accent);
+      }
+      .t1-cmd .c {
+        color: var(--text);
+      }
+      .t1-cmd .blink {
+        animation: t1Blink 1.1s steps(1) infinite;
+        color: var(--accent);
+      }
+      .t1-final .lp-cta {
+        align-items: center;
+        text-align: center;
+      }
+
+      /* ---- footer ---- */
+      .t1 .lp-footer {
+        font-family: var(--mono);
+      }
+
+      @media (max-width: 920px) {
+        .t1-hero-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .t1-hero-panel {
+          order: 2;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero-page lp-page t1">
+      <div class="fx-layer" aria-hidden="true">
+        <div class="fx-grid"></div>
+        <div class="t1-scanlines" style="position: absolute; inset: 0"></div>
+        <div class="fx-scan"></div>
+        <div class="fx-vignette"></div>
+      </div>
+
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brand-mark">
+            <span class="glyph" aria-hidden="true">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="0.9"
+              >
+                <rect x="2.5" y="2" width="19" height="20" />
+                <rect x="5" y="4.2" width="14" height="17.8" />
+                <rect x="7.5" y="6.4" width="9" height="15.6" />
+                <rect x="10" y="8.6" width="4" height="13.4" />
+              </svg>
+            </span>
+            <span class="name"
+              >FGA<em>://</em><b>four-gate-alpha</b> · prelaunch</span
+            >
+          </div>
+          <div class="t1-bar-right">
+            <span class="t1-bar-status"
+              >cohort:<b style="color: var(--accent); margin-left: 6px"
+                >founding</b
+              ></span
+            >
+            <span class="t1-bar-status"
+              >opens_in:<b
+                class="lp-countdown is-inline"
+                data-countdown="2026-09-15T09:30:00-04:00"
+                data-units="dhm"
+                style="margin-left: 8px"
+                >—</b
+              ></span
+            >
+            <a class="t1-bar-cta" href="#waitlist"
+              >[ get_access<span class="blink">_</span>]</a
+            >
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <!-- ───────────── SECTION 1 — HERO ───────────── -->
+        <section
+          class="lp-section lp-hero t1-hero"
+          id="waitlist"
+          aria-label="Get early access"
+        >
+          <div class="t1-hero-grid">
+            <div>
+              <p class="t1-hero-eyebrow">
+                <span class="k">//</span> launching september 2026 · founding
+                members only
+              </p>
+              <h1 class="lp-hero-title">
+                The trade ideas <em>institutional desks</em> already have.
+                Delivered before the move.
+              </h1>
+              <p class="lp-hero-sub">
+                Four Gate Alpha sends a small number of researched,
+                high-conviction trade ideas every month — each with the thesis,
+                the entry, the exit, and the reason to walk away. No noise. No
+                chat room.
+              </p>
+              <div class="t1-statline" aria-hidden="true">
+                <span>status:<b>PRELAUNCH</b></span>
+                <span
+                  >cohort:<b
+                    >FOUNDING<span class="t1-bar-meter"
+                      ><i class="on"></i><i class="on"></i><i class="on"></i
+                      ><i class="on"></i><i></i><i></i><i></i><i></i><i></i
+                      ><i></i></span></b
+                ></span>
+                <span class="acc">rate:<b>−40% · for life</b></span>
+              </div>
+              <div class="lp-cta">
+                <form class="form-row" onsubmit="event.preventDefault()">
+                  <input
+                    type="email"
+                    placeholder="you@firm.com"
+                    aria-label="Email address"
+                  />
+                  <button type="submit" class="btn-primary">
+                    Get Early Access
+                  </button>
+                </form>
+                <p class="note">
+                  Founding members get <strong>40% off for life</strong> and
+                  first access when we open.
+                </p>
+                <p class="fine">No spam · One preview drop before launch</p>
+              </div>
+            </div>
+
+            <div class="t1-hero-panel" aria-hidden="true">
+              <div class="t1-panel-bar">
+                <span>fga · idea-flow · live</span>
+                <span class="dots"><i></i><i></i><i></i></span>
+              </div>
+              <div class="t1-panel-body">
+                <svg viewBox="0 0 480 200" preserveAspectRatio="none">
+                  <g class="t1-chart-grid">
+                    <line x1="0" y1="40" x2="480" y2="40" />
+                    <line x1="0" y1="80" x2="480" y2="80" />
+                    <line x1="0" y1="120" x2="480" y2="120" />
+                    <line x1="0" y1="160" x2="480" y2="160" />
+                  </g>
+                  <line
+                    x1="0"
+                    y1="58"
+                    x2="480"
+                    y2="58"
+                    stroke="rgba(212,197,169,0.4)"
+                    stroke-dasharray="3 5"
+                    stroke-width="1"
+                    class="lp-tc-level"
+                  />
+                  <text x="474" y="53" text-anchor="end" class="t1-chart-axis">
+                    TARGET
+                  </text>
+                  <line
+                    x1="0"
+                    y1="150"
+                    x2="480"
+                    y2="150"
+                    stroke="rgba(212,197,169,0.4)"
+                    stroke-dasharray="3 5"
+                    stroke-width="1"
+                    class="lp-tc-level"
+                  />
+                  <text x="474" y="145" text-anchor="end" class="t1-chart-axis">
+                    ENTRY
+                  </text>
+                  <path
+                    class="t1-chart-line"
+                    pathLength="1"
+                    d="M0,132 L34,124 L60,140 L92,152 L120,158 L150,150 L182,154 L214,146 L246,150 L278,140 L310,128 L342,116 L374,98 L406,82 L438,64 L470,58"
+                    fill="none"
+                    stroke="#D4C5A9"
+                    stroke-width="1.6"
+                    stroke-linejoin="round"
+                  />
+                  <circle cx="120" cy="158" r="3.2" fill="#D4C5A9" />
+                </svg>
+              </div>
+              <div class="t1-countdown-wrap" style="padding: 14px 16px 6px">
+                <span class="cd-label">// founding cohort opens in</span>
+                <span
+                  class="lp-countdown"
+                  data-countdown="2026-09-15T09:30:00-04:00"
+                  data-units="dhms"
+                  >—</span
+                >
+              </div>
+              <div class="t1-panel-foot">
+                <span>src: research-archive · weekly</span>
+                <span>levels marked · T−3</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ───────────── TICKER STRIP ───────────── -->
+        <div class="lp-ticker-strip" aria-hidden="true">
+          <span class="lp-ticker-track" data-ticker></span>
+        </div>
+
+        <!-- ───────────── SECTION 2 — THE PROBLEM ───────────── -->
+        <section class="lp-section reveal-on-scroll" id="problem">
+          <p class="lp-section-marker">
+            <span class="n">> 02</span> · the problem
+          </p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">
+              Most trading content is built to be <em>scrolled</em>, not traded.
+            </h2>
+            <p class="lp-lede">
+              By the time an idea reaches your feed, the edge has already moved.
+              Here's the gap Four Gate Alpha exists to close.
+            </p>
+          </div>
+          <div class="lp-problems">
+            <article class="lp-problem-card">
+              <span class="tag">the noise problem</span>
+              <p>
+                Most retail trading content is <span class="hl">content</span> —
+                produced to be consumed, not acted on. By the time a "pick"
+                reaches you, it has been seen by ten thousand other accounts and
+                the easy part of the move is gone.
+              </p>
+            </article>
+            <article class="lp-problem-card">
+              <span class="tag">the volume problem</span>
+              <p>
+                You don't need another watchlist. You need
+                <span class="hl">fewer, better ideas</span> — with the research
+                already done, the levels already drawn, and the exit defined
+                before you're in the trade.
+              </p>
+            </article>
+            <article class="lp-problem-card">
+              <span class="tag">the conviction problem</span>
+              <p>
+                You want conviction you can
+                <span class="hl">actually act on</span> — not forty-seven "picks
+                of the week," not a Discord ping at 9:31. A thesis you can read
+                in five minutes and stand behind.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- ───────────── SECTION 3 — THE APPROACH ───────────── -->
+        <section class="lp-section reveal-on-scroll" id="how">
+          <p class="lp-section-marker">
+            <span class="n">> 03</span> · the approach
+          </p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">What the product actually <em>is</em>.</h2>
+            <p class="lp-lede">
+              Not signals. Not a chat room. Not a course. A short, written
+              letter of researched ideas — on a schedule — with the reasoning
+              attached.
+            </p>
+          </div>
+          <div class="lp-pillars">
+            <article class="lp-pillar reveal-on-scroll r1">
+              <span class="num">01</span>
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <line x1="15.5" y1="15.5" x2="21" y2="21" />
+                <line x1="8" y1="10.5" x2="13" y2="10.5" />
+              </svg>
+              <h3>Researched, not reactive</h3>
+              <p>
+                Every idea ships with a written thesis, a defined entry range, a
+                hard stop, and the specific signal that invalidates it. If the
+                setup breaks, you'll know before your P&amp;L does.
+              </p>
+            </article>
+            <article class="lp-pillar reveal-on-scroll r2">
+              <span class="num">02</span>
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M3 4h18l-7 8.5V20l-4 1v-8.5L3 4z" />
+              </svg>
+              <h3>Fewer trades, higher conviction</h3>
+              <p>
+                Three to five ideas a month — sometimes fewer. If there's
+                nothing worth trading, we say so. Cash is a position; we treat
+                it like one.
+              </p>
+            </article>
+            <article class="lp-pillar reveal-on-scroll r3">
+              <span class="num">03</span>
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3.5 2" />
+              </svg>
+              <h3>Built for part-time traders</h3>
+              <p>
+                Check your email once a day. Fifteen minutes a week is enough to
+                act on everything we send — no screens, no chat room, no FOMO
+                engineered for marketing.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- ───────────── SECTION 4 — INSIDE A TRADE IDEA ───────────── -->
+        <section class="lp-section is-narrow reveal-on-scroll" id="sample">
+          <p class="lp-section-marker">
+            <span class="n">> 04</span> · inside a trade idea
+          </p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">This is <em>exactly</em> what you get.</h2>
+            <p class="lp-lede">
+              Same format, every time. An anonymised example from the research
+              archive — redacted, not retouched.
+            </p>
+          </div>
+          <article class="lp-trade-card" aria-label="Sample trade idea">
+            <div class="lp-tc-ticket-bar">
+              <span>idea #████ · archive/2025</span>
+              <span>status: <b>closed · target hit</b></span>
+            </div>
+            <div class="lp-tc-head">
+              <div class="lp-tc-ticker">NYSE · ████ · CONSUMER CYCLICALS</div>
+              <h3 class="lp-tc-name">
+                A mid-cap retailer testing the prior-quarter low.
+              </h3>
+              <div class="lp-tc-tag">
+                Swing · 4–8 weeks · Mean-reversion long
+              </div>
+            </div>
+            <div class="lp-tc-grid">
+              <div class="lp-tc-cell">
+                <div class="lp-tc-k">Entry</div>
+                <div class="lp-tc-v accent">218 — 224</div>
+              </div>
+              <div class="lp-tc-cell">
+                <div class="lp-tc-k">Stop</div>
+                <div class="lp-tc-v">209</div>
+              </div>
+              <div class="lp-tc-cell">
+                <div class="lp-tc-k">Target</div>
+                <div class="lp-tc-v accent">264</div>
+              </div>
+              <div class="lp-tc-cell">
+                <div class="lp-tc-k">Risk / Reward</div>
+                <div class="lp-tc-v">1 : 3.4</div>
+              </div>
+              <div class="lp-tc-cell">
+                <div class="lp-tc-k">Conviction</div>
+                <div class="lp-tc-v">Med–High</div>
+              </div>
+              <div class="lp-tc-cell">
+                <div class="lp-tc-k">Sizing</div>
+                <div class="lp-tc-v">0.75% risk</div>
+              </div>
+            </div>
+            <div class="lp-tc-body">
+              <h4>— Thesis</h4>
+              <p>
+                Inventory has cleaned up over two consecutive quarters and gross
+                margin is reverting toward its five-year mean — while the tape
+                still prices the name as if the destock cycle were ongoing.
+                Sentiment is washed out; insiders bought the last drawdown.
+              </p>
+              <p>
+                The setup is a re-test of the prior earnings-day low on
+                declining volume. We're a buyer on the test, not the breakout —
+                entry staggered across the band, stop under the structural low.
+              </p>
+            </div>
+            <div class="t1-invalidation">
+              <b>// invalidates:</b> a weekly close below 207, or a guide-down
+              that resets the gross-margin story. If either prints, the idea is
+              dead — no averaging down.
+            </div>
+            <div class="lp-tc-chart">
+              <div class="lp-tc-chart-meta">
+                <span>Weekly · 18 mo</span><span>Levels marked · T−3</span>
+              </div>
+              <svg viewBox="0 0 600 116" preserveAspectRatio="none">
+                <line
+                  x1="0"
+                  x2="600"
+                  y1="20"
+                  y2="20"
+                  stroke="rgba(212,197,169,0.35)"
+                  stroke-dasharray="3 4"
+                  stroke-width="1"
+                  class="lp-tc-level"
+                />
+                <text
+                  x="592"
+                  y="16"
+                  text-anchor="end"
+                  font-family="Fira Code"
+                  font-size="8"
+                  fill="#D4C5A9"
+                  letter-spacing="2"
+                >
+                  TARGET 264
+                </text>
+                <rect
+                  x="0"
+                  y="80"
+                  width="600"
+                  height="20"
+                  fill="rgba(212,197,169,0.05)"
+                />
+                <line
+                  x1="0"
+                  x2="600"
+                  y1="90"
+                  y2="90"
+                  stroke="rgba(212,197,169,0.35)"
+                  stroke-dasharray="3 4"
+                  stroke-width="1"
+                  class="lp-tc-level"
+                />
+                <text
+                  x="592"
+                  y="86"
+                  text-anchor="end"
+                  font-family="Fira Code"
+                  font-size="8"
+                  fill="#D4C5A9"
+                  letter-spacing="2"
+                >
+                  ENTRY 218–224
+                </text>
+                <line
+                  x1="0"
+                  x2="600"
+                  y1="106"
+                  y2="106"
+                  stroke="rgba(199,122,110,0.45)"
+                  stroke-dasharray="3 4"
+                  stroke-width="1"
+                />
+                <text
+                  x="592"
+                  y="114"
+                  text-anchor="end"
+                  font-family="Fira Code"
+                  font-size="8"
+                  fill="#C77A6E"
+                  letter-spacing="2"
+                >
+                  STOP 209
+                </text>
+                <path
+                  class="lp-tc-line"
+                  pathLength="1"
+                  d="M0,74 L40,68 L70,78 L100,86 L130,90 L160,96 L190,92 L220,88 L250,92 L280,88 L310,82 L340,74 L370,66 L400,58 L430,50 L460,42 L490,36 L520,30 L550,26 L580,22 L600,20"
+                  fill="none"
+                  stroke="#D4C5A9"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"
+                />
+                <circle
+                  class="lp-tc-marker"
+                  cx="160"
+                  cy="96"
+                  r="3"
+                  fill="#D4C5A9"
+                />
+              </svg>
+            </div>
+          </article>
+        </section>
+
+        <!-- ───────────── SECTION 5 — WHO'S BEHIND THIS ───────────── -->
+        <section class="lp-section reveal-on-scroll" id="who">
+          <p class="lp-section-marker">
+            <span class="n">> 05</span> · who's behind this
+          </p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">
+              Built by traders, <em>not influencers</em>.
+            </h2>
+          </div>
+          <div class="lp-founder">
+            <div>
+              <p class="t1-founder-sig">
+                <span class="k">//</span> signed_by: founding partner — public
+                at launch
+              </p>
+              <blockquote class="lp-founder-quote">
+                I spent eleven years on the buy side watching good ideas get
+                buried under bad ones. Four Gate Alpha is the letter I wanted to
+                receive — short, written down, and honest about what I don't
+                know.
+              </blockquote>
+              <p class="lp-founder-attr">
+                — Founding partner · ex–multi-strategy desk
+              </p>
+              <div class="t1-noinfluencer">
+                No webinar funnel. No <b>"$5,000 mastermind."</b> No screenshots
+                of a sports car. Just the research, on a schedule, with the
+                reasoning attached — and a name on the masthead the day we go
+                live.
+              </div>
+            </div>
+            <div class="lp-founder-creds">
+              <div class="lp-founder-cred">
+                <span class="k">In markets</span>
+                <span class="v"
+                  >11 years — equities &amp; equity volatility, buy side.</span
+                >
+              </div>
+              <div class="lp-founder-cred">
+                <span class="k">Background</span>
+                <span class="v"
+                  >Sector coverage, then a sleeve at a multi-strategy fund.
+                  Process built around catalyst-driven mean reversion and
+                  risk-defined entries.</span
+                >
+              </div>
+              <div class="lp-founder-cred">
+                <span class="k">Anonymous, for now</span>
+                <span class="v"
+                  >The name goes on the masthead at launch. Until then, judge
+                  the thinking from the sample idea above.</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ───────────── SECTION 6 — WHAT FOUNDING MEMBERS GET ───────────── -->
+        <section class="lp-section reveal-on-scroll" id="founding">
+          <p class="lp-section-marker">
+            <span class="n">> 06</span> · founding members
+          </p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">
+              Why sign up <em>now</em> instead of later.
+            </h2>
+            <p class="lp-lede">
+              The asymmetric offer: a small list of advantages that only exist
+              before launch — and one (the price) that lasts forever.
+            </p>
+          </div>
+          <div class="lp-perks">
+            <article class="lp-perk reveal-on-scroll r1">
+              <h3>40% off, locked for life</h3>
+              <p>
+                The founding rate never resets. As long as you stay a member you
+                pay 40% less than everyone who joins after launch — annual or
+                monthly.
+              </p>
+            </article>
+            <article class="lp-perk reveal-on-scroll r2">
+              <h3>First through the door</h3>
+              <p>
+                Founding members get access a full enrollment window before the
+                public waitlist. We open once a month; you're in the first room.
+              </p>
+            </article>
+            <article class="lp-perk reveal-on-scroll r3">
+              <h3>One free idea before launch</h3>
+              <p>
+                A complete, real trade idea — thesis, levels, invalidation,
+                chart — sent to founding members before we go live. See exactly
+                how we think before you pay anything.
+              </p>
+            </article>
+            <article class="lp-perk reveal-on-scroll r4">
+              <h3>A direct line, month one</h3>
+              <p>
+                For your first month, replies reach the desk — not a help-desk
+                queue. Ask how an idea was sized or why a stop sits where it
+                does, and you'll get an answer.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- ───────────── SECTION 7 — FAQ ───────────── -->
+        <section class="lp-section is-narrow reveal-on-scroll" id="faq">
+          <p class="lp-section-marker"><span class="n">> 07</span> · faq</p>
+          <div class="lp-section-head">
+            <h2 class="lp-heading">Questions, answered <em>straight</em>.</h2>
+          </div>
+          <div class="lp-faq">
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                What does a typical trade idea look like?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    One name, one direction. You get a two-page note: the thesis
+                    in plain English, an entry range, a hard stop, a target, the
+                    time horizon, and the exact signal that would make us walk
+                    away — plus the chart with the levels drawn on it. The
+                    redacted example above is the real format.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                How much capital do I need to trade this?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    Ideas are sized in percent-of-risk, not dollars, so you
+                    scale them to your account — it works at almost any size.
+                    That said, very small accounts feel commissions and
+                    round-lot friction; if you're trading a few hundred dollars,
+                    this probably isn't for you yet. We'd rather tell you that
+                    than take your money.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                What's the timeframe — day, swing, long-term?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    Mostly swing — positions that play out over four to eight
+                    weeks, occasionally a few days, occasionally a few months.
+                    No intraday scalping, no day-trading alerts. If you can
+                    check your email once a day, the cadence works for you.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                Is this investment advice?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    No. Four Gate Alpha publishes research and trade ideas for
+                    educational purposes. We don't know your situation and we're
+                    not your adviser — you make every decision. Full risk
+                    disclosure on the
+                    <a href="legal.html#disclosure">disclosure page</a>.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-faq-item">
+              <button class="lp-faq-q" type="button">
+                When do you launch, and what will it cost?<span
+                  class="q-icon"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <div class="lp-faq-answer">
+                <div class="lp-faq-answer-inner">
+                  <p>
+                    September 2026. Pricing starts at $79/month (or $790/year).
+                    Founding members lock in 40% off for life — $47/month or
+                    $474/year — and that rate never goes up. Join the waitlist
+                    and you'll be first in line when enrollment opens.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ───────────── SECTION 8 — FINAL CTA ───────────── -->
+        <section class="lp-section t1-final reveal-on-scroll" id="join">
+          <p class="t1-cmd" aria-hidden="true">
+            <span class="p">$</span>
+            <span class="c">four-gate-alpha</span> --early-access<span
+              class="blink"
+            >
+              █</span
+            >
+          </p>
+          <div class="lp-section-head is-centered">
+            <h2 class="lp-heading">
+              Get the first idea <em>before anyone else</em>.
+            </h2>
+            <p class="lp-lede">
+              One real trade idea, sent to founding members before launch. After
+              that, three to five a month — and the founding rate, for life.
+            </p>
+          </div>
+          <div class="lp-cta">
+            <form class="form-row" onsubmit="event.preventDefault()">
+              <input
+                type="email"
+                placeholder="you@firm.com"
+                aria-label="Email address"
+              />
+              <button type="submit" class="btn-primary">
+                Get Early Access
+              </button>
+            </form>
+            <p class="fine">
+              No spam · One preview drop before launch · Unsubscribe anytime
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="lp-footer">
+        <div class="lp-footer-inner">
+          <div class="lp-footer-top">
+            <div class="brand-mark">
+              <span class="glyph" aria-hidden="true">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="0.9"
+                >
+                  <rect x="2.5" y="2" width="19" height="20" />
+                  <rect x="5" y="4.2" width="14" height="17.8" />
+                  <rect x="7.5" y="6.4" width="9" height="15.6" />
+                  <rect x="10" y="8.6" width="4" height="13.4" />
+                </svg>
+              </span>
+              <span class="name">Four Gate <em>Alpha</em></span>
+            </div>
+            <div class="lp-footer-links">
+              <a href="legal.html#terms">Terms</a>
+              <a href="legal.html#privacy">Privacy</a>
+              <a href="legal.html#disclosure">Risk Disclosure</a>
+            </div>
+          </div>
+          <p class="lp-disclosure">
+            Four Gate Alpha is a research and publishing service. Nothing on
+            this site is personalised investment advice. Trading involves
+            substantial risk of loss; past performance is not indicative of
+            future results. Sample trade idea shown is a redacted historical
+            example for illustration only.
+          </p>
+          <div class="lp-footer-top">
+            <span class="lp-footer-meta"
+              >© 2026 Four Gate Alpha · Prelaunch</span
+            >
+            <span class="lp-footer-meta"
+              >Built by traders, not influencers</span
+            >
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <nav class="variant-badge">
+      <span class="label">Landing ·</span>
+      <a href="landing-v1.html" class="is-active">L1 Terminal</a>
+      <a href="landing-v2.html">L2 Letter</a>
+      <a href="landing-v3.html">L3 Brief</a>
+      <a href="landing-v4.html">L4 Tape</a>
+      <a href="index.html">Index</a>
+    </nav>
+
+    <script src="shared/landing.js" defer></script>
+    <script src="shared/theme-toggle.js" defer></script>
+  </body>
+</html>
