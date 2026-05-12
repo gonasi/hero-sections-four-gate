@@ -48,8 +48,8 @@
       /* ---- background field (inside .fx-layer) ---- */
       .t4-candles {
         position: absolute;
-        inset: auto 0 -2% 0;
-        height: 78%;
+        inset: auto 0 -7% 0;
+        height: 84%;
         display: flex;
         align-items: flex-end;
         gap: 1.4vw;
@@ -805,10 +805,14 @@
   <body>
     <div class="hero-page lp-page t4">
       <div class="fx-layer" aria-hidden="true">
-        <div class="t4-bigtape t4-top">
+        <div
+          class="t4-bigtape t4-top"
+          data-parallax="-104"
+          data-parallax-x="16"
+        >
           <span class="lp-ticker-track" data-ticker></span>
         </div>
-        <div class="t4-chartfx">
+        <div class="t4-chartfx" data-parallax="-46" data-parallax-x="11">
           <svg viewBox="0 0 1200 320" preserveAspectRatio="none">
             <g class="grid">
               <line x1="0" y1="64" x2="1200" y2="64" />
@@ -836,8 +840,17 @@
           </svg>
           <span class="t4-chart-tag">▲ +1.92%</span>
         </div>
-        <div class="t4-candles" id="t4Candles"></div>
-        <div class="t4-bigtape t4-bottom">
+        <div
+          class="t4-candles"
+          id="t4Candles"
+          data-parallax="-48"
+          data-parallax-x="7"
+        ></div>
+        <div
+          class="t4-bigtape t4-bottom"
+          data-parallax="58"
+          data-parallax-x="-13"
+        >
           <span class="lp-ticker-track" data-ticker></span>
         </div>
         <div class="t4-beam"></div>

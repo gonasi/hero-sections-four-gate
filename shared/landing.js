@@ -190,4 +190,82 @@
   } else {
     each(countEls, animateCount);
   }
+
+  /* ---------- Background parallax -------------------------------------
+     Any element carrying data-parallax drifts as the page scrolls (and a
+     touch as the pointer moves), so fixed background fields stop feeling
+     glued to the viewport.
+       data-parallax    = px translateY across the full page scroll
+                          (negative = drifts up; positive = drifts down)
+       data-parallax-x  = px amplitude of pointer-driven drift (optional)
+     Bounded by scroll progress, so it never wanders off — and disabled
+     entirely under prefers-reduced-motion.                                */
+  (function () {
+    if (reduceMotion || !window.requestAnimationFrame) return;
+    var layers = [];
+    each(document.querySelectorAll("[data-parallax]"), function (el) {
+      layers.push({
+        el: el,
+        ty: parseFloat(el.getAttribute("data-parallax")) || 0,
+        amp: parseFloat(el.getAttribute("data-parallax-x")) || 0,
+      });
+      el.style.willChange = "transform";
+    });
+    if (!layers.length) return;
+
+    var pxT = 0,
+      pyT = 0,
+      pxC = 0,
+      pyC = 0,
+      running = false,
+      lastSc = NaN;
+
+    function kick() {
+      if (!running) {
+        running = true;
+        window.requestAnimationFrame(frame);
+      }
+    }
+    function onPointer(e) {
+      var t = e.touches ? e.touches[0] : e;
+      if (!t) return;
+      var w = window.innerWidth || 1,
+        h = window.innerHeight || 1;
+      pxT = (t.clientX / w - 0.5) * 2;
+      pyT = (t.clientY / h - 0.5) * 2;
+      kick();
+    }
+    function frame() {
+      var max =
+        (document.documentElement.scrollHeight || 0) -
+          (window.innerHeight || 0) || 1;
+      var sc = window.pageYOffset || document.documentElement.scrollTop || 0;
+      var p = sc / max;
+      p = p < 0 ? 0 : p > 1 ? 1 : p;
+      pxC += (pxT - pxC) * 0.07;
+      pyC += (pyT - pyC) * 0.07;
+      for (var i = 0; i < layers.length; i++) {
+        var L = layers[i];
+        var x = pxC * L.amp;
+        var y = L.ty * p + pyC * L.amp * 0.5;
+        L.el.style.transform =
+          "translate3d(" + x.toFixed(2) + "px," + y.toFixed(2) + "px,0)";
+      }
+      var settled =
+        Math.abs(pxT - pxC) < 0.0015 && Math.abs(pyT - pyC) < 0.0015;
+      var scrollIdle = sc === lastSc;
+      lastSc = sc;
+      if (settled && scrollIdle) {
+        running = false;
+        return;
+      }
+      window.requestAnimationFrame(frame);
+    }
+
+    window.addEventListener("scroll", kick, { passive: true });
+    window.addEventListener("resize", kick);
+    window.addEventListener("load", kick);
+    window.addEventListener("pointermove", onPointer, { passive: true });
+    kick();
+  })();
 })();

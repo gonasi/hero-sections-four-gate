@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Studies — Four Gate Alpha</title>
+    <title>Pick a direction — Four Gate Alpha</title>
     <meta
       name="description"
-      content="Four Gate Alpha — nine hero & launch-teaser variations plus four prelaunch landing-page treatments. Open any to review."
+      content="Four Gate Alpha — review studio. Nine hero / launch-teaser treatments and four full prelaunch landing pages. Open each, step through them, choose a direction."
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,283 +27,504 @@
     </script>
 
     <style>
-      .index-page {
-        padding: 0 0 96px;
+      /* ===================================================================
+         REVIEW STUDIO — index of every hero / teaser / landing treatment.
+         Perf note: the grid tiles are lightweight CSS "posters" (no iframes).
+         Exactly ONE live iframe ever exists at a time — the one in the
+         full-screen viewer that opens on click. That keeps the page smooth.
+         Built on _shared.css tokens.
+         =================================================================== */
+      .studio {
+        padding: 0 0 clamp(72px, 12vh, 130px);
       }
-
       .topbar-inner .meta .label {
         color: var(--accent);
       }
 
-      .index-hero {
+      /* ---- hero / intro ---------------------------------------------- */
+      .studio-hero {
         max-width: var(--container);
         margin: 0 auto;
-        padding: 80px var(--gutter) 56px;
+        padding: clamp(56px, 9vh, 92px) var(--gutter) clamp(40px, 6vh, 56px);
         border-bottom: 1px solid var(--hairline);
         position: relative;
         z-index: 1;
       }
-      .index-hero h1 {
+      .studio-hero h1 {
         font-family: var(--display);
         font-weight: 400;
-        font-size: clamp(34px, 5.2vw, 56px);
-        line-height: 1.08;
+        font-size: clamp(34px, 5.4vw, 58px);
+        line-height: 1.06;
         letter-spacing: -0.01em;
         margin: 18px 0 18px;
-        max-width: 22ch;
+        max-width: 20ch;
       }
-      .index-hero h1 em {
+      .studio-hero h1 em {
         font-style: italic;
         color: var(--accent);
       }
-      .index-hero p {
-        max-width: 60ch;
+      .studio-hero .lede {
+        max-width: 64ch;
+        font-size: 17.5px;
+        line-height: 1.62;
         color: var(--text);
-        opacity: 0.78;
-        font-size: 17px;
+        opacity: 0.8;
         margin: 0;
       }
-      .index-hero .meta-row {
+      .studio-hero .lede strong {
+        color: var(--text);
+        opacity: 1;
+        font-weight: 500;
+      }
+
+      .stat-strip {
         display: flex;
         flex-wrap: wrap;
+        gap: 1px;
+        margin-top: 30px;
+        background: var(--hairline);
+        border: 1px solid var(--hairline);
+        width: max-content;
+        max-width: 100%;
+      }
+      .stat {
+        background: var(--ink);
+        padding: 14px 26px 14px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        min-width: 132px;
+      }
+      .stat .n {
+        font-family: var(--display);
+        font-size: 27px;
+        line-height: 1;
+        color: var(--accent);
+      }
+      .stat .k {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+
+      /* ---- segmented filter ------------------------------------------ */
+      .seg {
+        display: inline-flex;
+        flex-wrap: wrap;
+        margin-top: 32px;
+        padding: 4px;
+        gap: 2px;
+        border: 1px solid var(--hairline-strong);
+        background: color-mix(in srgb, var(--ink-2) 60%, transparent);
+        border-radius: 999px;
+      }
+      .seg-btn {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        padding: 9px 16px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        transition:
+          color 0.18s ease,
+          background 0.2s ease;
+      }
+      .seg-btn .c {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--text-faint);
+        border: 1px solid var(--hairline-strong);
+        border-radius: 999px;
+        padding: 1px 7px;
+        transition:
+          color 0.18s ease,
+          border-color 0.18s ease;
+      }
+      .seg-btn:hover {
+        color: var(--text);
+      }
+      .seg-btn.is-active {
+        color: var(--burnt-umber);
+        background: var(--accent);
+      }
+      .seg-btn.is-active .c {
+        color: var(--burnt-umber);
+        border-color: color-mix(in srgb, var(--burnt-umber) 32%, transparent);
+      }
+
+      /* ---- tracks ----------------------------------------------------- */
+      .track {
+        max-width: var(--container);
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+        position: relative;
+        z-index: 1;
+      }
+      .track[hidden] {
+        display: none;
+      }
+      .track-head {
+        padding: clamp(48px, 8vh, 76px) 0 26px;
+        border-top: 1px solid var(--hairline);
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
         gap: 24px;
-        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+      #track-hero .track-head {
+        border-top: 0;
+        padding-top: clamp(36px, 5vh, 52px);
+      }
+      .track-head h2 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(24px, 3.4vw, 38px);
+        line-height: 1.12;
+        letter-spacing: -0.01em;
+        margin: 12px 0 0;
+        color: var(--text);
+      }
+      .track-head h2 em {
+        font-style: italic;
+        color: var(--accent);
+      }
+      .track-head p {
+        max-width: 58ch;
+        font-size: 15px;
+        line-height: 1.6;
+        opacity: 0.78;
+        margin: 9px 0 0;
+      }
+      .track-head .ct {
         font-family: var(--mono);
         font-size: 11px;
         letter-spacing: 0.18em;
         text-transform: uppercase;
         color: var(--text-faint);
-      }
-      .index-hero .meta-row span strong {
-        color: var(--text-dim);
-        font-weight: 500;
-        margin-right: 8px;
+        white-space: nowrap;
+        padding-bottom: 4px;
       }
 
-      .grid {
-        max-width: var(--container);
-        margin: 0 auto;
-        padding: 56px var(--gutter) 0;
+      /* ---- gallery + poster tiles ------------------------------------ */
+      .gallery {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1px;
-        background: var(--hairline);
-        border: 1px solid var(--hairline);
-        position: relative;
-        z-index: 1;
+        grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+        gap: clamp(18px, 2.2vw, 28px);
       }
-      @media (max-width: 820px) {
-        .grid {
+      @media (max-width: 720px) {
+        .gallery {
           grid-template-columns: 1fr;
         }
       }
 
-      .grid-divider {
-        max-width: var(--container);
-        margin: clamp(56px, 9vh, 100px) auto 0;
-        padding: 0 var(--gutter);
-        position: relative;
-        z-index: 1;
-      }
-      .grid-divider .eyebrow {
-        margin-bottom: 14px;
-      }
-      .grid-divider h2 {
-        font-family: var(--display);
-        font-weight: 400;
-        font-size: clamp(26px, 3.6vw, 42px);
-        line-height: 1.12;
-        letter-spacing: -0.01em;
-        margin: 0 0 16px;
-        max-width: 22ch;
-        color: var(--text);
-      }
-      .grid-divider h2 em {
-        font-style: italic;
-        color: var(--accent);
-      }
-      .grid-divider p {
-        max-width: 60ch;
-        color: var(--text);
-        opacity: 0.78;
-        font-size: 16px;
-        margin: 0;
-      }
-
-      .card {
+      .preview {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        gap: 36px;
         background: var(--ink);
-        padding: 36px clamp(24px, 3.5vw, 44px) 32px;
-        min-height: 320px;
+        border: 1px solid var(--hairline);
         position: relative;
-        overflow: hidden;
         transition:
-          background 0.25s ease,
           transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+          border-color 0.25s ease,
           box-shadow 0.3s ease;
-        animation: cardIn 0.66s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+        animation: tileIn 0.5s ease backwards;
       }
-      /* diagonal light sweep on hover */
-      .card::after {
+      .preview:hover {
+        transform: translateY(-4px);
+        border-color: color-mix(in srgb, var(--accent) 32%, transparent);
+        box-shadow:
+          0 22px 48px rgba(0, 0, 0, 0.32),
+          0 0 36px color-mix(in srgb, var(--accent) 9%, transparent);
+        z-index: 2;
+      }
+      @keyframes tileIn {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+      }
+      .gallery .preview:nth-child(1) {
+        animation-delay: 0.02s;
+      }
+      .gallery .preview:nth-child(2) {
+        animation-delay: 0.06s;
+      }
+      .gallery .preview:nth-child(3) {
+        animation-delay: 0.1s;
+      }
+      .gallery .preview:nth-child(4) {
+        animation-delay: 0.14s;
+      }
+      .gallery .preview:nth-child(5) {
+        animation-delay: 0.18s;
+      }
+      .gallery .preview:nth-child(6) {
+        animation-delay: 0.22s;
+      }
+      .gallery .preview:nth-child(7) {
+        animation-delay: 0.26s;
+      }
+      .gallery .preview:nth-child(8) {
+        animation-delay: 0.3s;
+      }
+      .gallery .preview:nth-child(9) {
+        animation-delay: 0.34s;
+      }
+
+      /* the clickable "page poster" — pure CSS, no iframe */
+      .vp {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        cursor: pointer;
+        border-bottom: 1px solid var(--hairline);
+        background:
+          radial-gradient(
+            130% 90% at 18% -10%,
+            color-mix(
+              in srgb,
+              var(--accent) calc(8% + var(--i, 0) * 0.7%),
+              transparent
+            ),
+            transparent 58%
+          ),
+          linear-gradient(
+            calc(150deg + var(--i, 0) * 7deg),
+            var(--ink-3),
+            var(--ink)
+          );
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        width: 100%;
+        font: inherit;
+        color: inherit;
+        appearance: none;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+      }
+      .vp::after {
         content: "";
         position: absolute;
         inset: 0;
         pointer-events: none;
-        mix-blend-mode: screen;
-        background: linear-gradient(
-          115deg,
-          transparent 36%,
-          color-mix(in srgb, var(--accent) 14%, transparent) 50%,
-          transparent 64%
-        );
-        transform: translateX(-110%);
-        transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+        background: color-mix(in srgb, var(--accent) 9%, transparent);
+        opacity: 0;
+        transition: opacity 0.22s ease;
       }
-      :root[data-theme="light"] .card::after {
-        mix-blend-mode: multiply;
+      .vp:hover::after {
+        opacity: 1;
       }
-      .card:hover {
-        background: var(--ink-2);
-        transform: translateY(-6px);
-        box-shadow:
-          0 26px 60px rgba(0, 0, 0, 0.34),
-          inset 0 0 0 1px color-mix(in srgb, var(--accent) 32%, transparent),
-          0 0 44px color-mix(in srgb, var(--accent) 12%, transparent);
-        z-index: 2;
+      .vp:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: -2px;
       }
-      .card:hover::after {
-        transform: translateX(110%);
+      .vp-chrome {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 12px;
+        border-bottom: 1px solid var(--hairline);
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: 0.08em;
+        color: var(--text-faint);
+        background: color-mix(in srgb, var(--ink) 45%, transparent);
       }
-      .card:hover .card-cta {
+      .vp-dots {
+        display: inline-flex;
+        gap: 5px;
+        flex: 0 0 auto;
+      }
+      .vp-dots i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--hairline-strong);
+        display: inline-block;
+      }
+      .vp-url {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .vp-url b {
+        color: var(--text-dim);
+        font-weight: 500;
+      }
+      .vp-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        padding: 16px clamp(18px, 3vw, 28px);
+        min-height: 0;
+      }
+      .vp-num {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(40px, 8vw, 66px);
+        line-height: 0.85;
+        color: color-mix(in srgb, var(--accent) 62%, var(--text));
+        letter-spacing: -0.02em;
+      }
+      .vp-kicker {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
         color: var(--accent);
       }
-      .card:hover .card-cta .arrow {
-        transform: translateX(5px);
+      .vp-cue {
+        margin-top: 4px;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        opacity: 0.85;
+        transition:
+          color 0.2s ease,
+          opacity 0.2s ease;
       }
-      .card:hover .card-tag .pip {
-        width: 34px;
+      .vp-cue::before {
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 8px solid currentColor;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
       }
-      .card:hover .card-title em {
-        text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 38%, transparent);
-      }
-      @keyframes cardIn {
-        from {
-          opacity: 0;
-          transform: translateY(30px) scale(0.985);
-        }
-      }
-      .grid > .card:nth-child(1) {
-        animation-delay: 0.04s;
-      }
-      .grid > .card:nth-child(2) {
-        animation-delay: 0.1s;
-      }
-      .grid > .card:nth-child(3) {
-        animation-delay: 0.16s;
-      }
-      .grid > .card:nth-child(4) {
-        animation-delay: 0.22s;
-      }
-      .grid > .card:nth-child(5) {
-        animation-delay: 0.28s;
-      }
-      .grid > .card:nth-child(6) {
-        animation-delay: 0.34s;
-      }
-      .grid > .card:nth-child(7) {
-        animation-delay: 0.4s;
-      }
-      .grid > .card:nth-child(8) {
-        animation-delay: 0.46s;
-      }
-      .grid > .card:nth-child(9) {
-        animation-delay: 0.52s;
+      .vp:hover .vp-cue {
+        color: var(--accent);
+        opacity: 1;
       }
 
-      .card-head {
+      .preview-info {
+        padding: 18px clamp(18px, 2vw, 24px) 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        flex: 1;
+      }
+      .preview-info-top {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 16px;
+        gap: 12px;
       }
-      .card-tag {
+      .preview-tag {
         font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.22em;
+        font-size: 10.5px;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
         color: var(--accent);
         display: inline-flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
       }
-      .card-tag .pip {
-        width: 18px;
+      .preview-tag .pip {
+        width: 16px;
         height: 1px;
         background: var(--accent);
         display: inline-block;
         transition: width 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
       }
-      .card-num {
+      .preview:hover .preview-tag .pip {
+        width: 28px;
+      }
+      .preview-num {
         font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.18em;
+        font-size: 10px;
+        letter-spacing: 0.16em;
         color: var(--text-faint);
       }
-
-      .card-title {
+      .preview-title {
         font-family: var(--display);
         font-weight: 400;
-        font-size: clamp(22px, 2.4vw, 28px);
-        line-height: 1.18;
-        letter-spacing: -0.005em;
+        font-size: 17px;
+        line-height: 1.34;
+        letter-spacing: -0.003em;
         margin: 0;
         color: var(--text);
       }
-      .card-title em {
+      .preview-title em {
         font-style: italic;
         color: var(--accent);
-        transition: text-shadow 0.3s ease;
       }
-
-      .card-foot {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        padding-top: 24px;
-        border-top: 1px solid var(--hairline);
-      }
-      .card-note {
+      .preview-desc {
         font-family: var(--mono);
-        font-size: 10.5px;
-        letter-spacing: 0.16em;
+        font-size: 10px;
+        letter-spacing: 0.13em;
         text-transform: uppercase;
         color: var(--text-faint);
+        margin: 0;
       }
-      .card-cta {
+      .preview-links {
+        margin-top: auto;
+        padding-top: 14px;
+        border-top: 1px solid var(--hairline);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .plink {
         font-family: var(--mono);
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
-        letter-spacing: 0.18em;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--text);
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        transition: color 0.2s ease;
+        gap: 8px;
+        transition: color 0.18s ease;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
       }
-      .card-cta .arrow {
+      .plink .arrow {
         display: inline-block;
         transition: transform 0.2s ease;
       }
+      .plink:hover {
+        color: var(--accent);
+      }
+      .plink:hover .arrow {
+        transform: translate(2px, -2px);
+      }
+      .plink.ghost {
+        color: var(--text-dim);
+      }
+      .plink.ghost:hover {
+        color: var(--accent);
+      }
+      .plink.ghost:hover .arrow {
+        transform: scale(1.12);
+      }
 
-      .footer {
+      /* ---- footer ----------------------------------------------------- */
+      .studio-foot {
         max-width: var(--container);
         margin: 0 auto;
-        padding: 56px var(--gutter) 0;
+        padding: clamp(48px, 8vh, 72px) var(--gutter) 0;
         display: flex;
         justify-content: space-between;
         gap: 16px;
@@ -316,16 +537,227 @@
         position: relative;
         z-index: 1;
       }
-      .footer a {
+      .studio-foot a {
         border-bottom: 1px solid var(--hairline-strong);
       }
-      .footer a:hover {
+      .studio-foot a:hover {
         color: var(--text);
+      }
+
+      /* ---- full-screen viewer (the only live iframe) ----------------- */
+      .lb {
+        position: fixed;
+        inset: 0;
+        z-index: 500;
+        display: flex;
+        flex-direction: column;
+        background: color-mix(in srgb, var(--ink) 95%, transparent);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.22s ease,
+          visibility 0.22s;
+      }
+      .lb.is-open {
+        opacity: 1;
+        visibility: visible;
+      }
+      .lb-bar {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 13px clamp(14px, 3vw, 26px);
+        border-bottom: 1px solid var(--hairline);
+        background: var(--ink);
+      }
+      .lb-tag {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        white-space: nowrap;
+      }
+      .lb-tag .pip {
+        width: 18px;
+        height: 1px;
+        background: var(--accent);
+        display: inline-block;
+      }
+      .lb-count {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        color: var(--text-faint);
+        white-space: nowrap;
+      }
+      .lb-hint {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        white-space: nowrap;
+      }
+      .lb-hint .k {
+        color: var(--text-dim);
+      }
+      .lb-spacer {
+        flex: 1;
+      }
+      .lb-open {
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text);
+        border: 1px solid var(--hairline-strong);
+        padding: 8px 15px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+        transition:
+          color 0.18s ease,
+          background 0.18s ease,
+          border-color 0.18s ease;
+      }
+      .lb-open:hover {
+        color: var(--burnt-umber);
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      .lb-close {
+        flex: 0 0 auto;
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid var(--hairline-strong);
+        background: transparent;
+        color: var(--text);
+        cursor: pointer;
+        font-size: 17px;
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          color 0.18s ease,
+          background 0.18s ease,
+          border-color 0.18s ease;
+      }
+      .lb-close:hover {
+        background: var(--ink-3);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .lb-body {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: clamp(8px, 1.6vw, 18px);
+        padding: clamp(12px, 2.4vw, 26px);
+        min-height: 0;
+      }
+      .lb-nav {
+        flex: 0 0 auto;
+        width: clamp(42px, 5vw, 54px);
+        height: clamp(42px, 5vw, 54px);
+        border-radius: 999px;
+        border: 1px solid var(--hairline-strong);
+        background: color-mix(in srgb, var(--ink-2) 70%, transparent);
+        color: var(--text);
+        cursor: pointer;
+        font-size: 20px;
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          color 0.18s ease,
+          background 0.18s ease,
+          border-color 0.18s ease,
+          transform 0.18s ease;
+      }
+      .lb-nav:hover {
+        background: var(--accent);
+        color: var(--burnt-umber);
+        border-color: var(--accent);
+        transform: scale(1.06);
+      }
+      .lb-stage {
+        flex: 1;
+        height: 100%;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .lb-frame-wrap {
+        width: 100%;
+        height: 100%;
+        max-width: 1320px;
+        border: 1px solid var(--hairline-strong);
+        background: var(--ink);
+        overflow: hidden;
+        position: relative;
+      }
+      .lb-frame {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+        background: var(--ink);
+      }
+      .lb-loading {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        pointer-events: none;
+      }
+      body.lb-open {
+        overflow: hidden;
+      }
+      @media (max-width: 720px) {
+        .lb-hint {
+          display: none;
+        }
+        .lb-open .long {
+          display: none;
+        }
+        .lb-body {
+          padding: 8px;
+          gap: 6px;
+        }
+        .lb-nav {
+          position: fixed;
+          bottom: 14px;
+          z-index: 6;
+        }
+        .lb-nav.lb-prev {
+          left: 14px;
+        }
+        .lb-nav.lb-next {
+          right: 14px;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="hero-page index-page">
+    <div class="hero-page studio">
       <div class="fx-layer" aria-hidden="true">
         <div class="fx-aurora"></div>
         <div class="fx-rays"></div>
@@ -333,6 +765,7 @@
         <div class="fx-scan"></div>
         <div class="fx-vignette"></div>
       </div>
+
       <header class="topbar">
         <div class="topbar-inner">
           <div class="brand-mark">
@@ -376,291 +809,500 @@
           </div>
           <div class="meta">
             <span class="dot" aria-hidden="true"></span>
-            <span class="label">Studies · Index</span>
+            <span class="label">Review studio</span>
             <span class="hide-mobile">9 heroes · 4 landings</span>
           </div>
         </div>
       </header>
 
-      <section class="index-hero">
+      <section class="studio-hero">
         <span class="eyebrow reveal d1"
-          ><span class="pip"></span>For review</span
+          ><span class="pip"></span>For review · choose a direction</span
         >
         <h1 class="reveal d2">
-          Studies for <em class="glow">one product</em> — heroes, teasers &amp;
-          landing pages.
+          Thirteen ways to launch <em class="glow">one product</em>.
         </h1>
-        <p class="reveal d3">
-          Every page below is a self-contained treatment for Four Gate Alpha —
-          same copy intent, different structure and emphasis. V1–V4 are hero
-          sections; V5–V9 are full-bleed launch teasers with cinematic chrome;
-          and L1–L4 are complete prelaunch landing pages built on the spec (hero
-          → problem → approach → trade idea → who's behind → founding offer →
-          FAQ → final CTA → footer). Every page carries a light/dark toggle and
-          a healthy dose of motion. Open any to review the full layout, type,
-          and motion in context.
+        <p class="lede reveal d3">
+          Nine hero sections and four full prelaunch landing pages —
+          <strong>same message, very different design &amp; code</strong>. Open
+          any tile to see it full-screen, step through the set with the arrows,
+          and tell us which direction to build out.
         </p>
-        <div class="meta-row reveal d4">
-          <span><strong>Heroes</strong> 9</span>
-          <span><strong>Landing pages</strong> 4</span>
-          <span
-            ><strong>Shared system</strong> _shared.css · shared/teaser.css ·
-            shared/landing.css</span
+
+        <div class="stat-strip reveal d4">
+          <div class="stat">
+            <span class="n">9</span><span class="k">Hero sections</span>
+          </div>
+          <div class="stat">
+            <span class="n">4</span><span class="k">Landing pages</span>
+          </div>
+          <div class="stat">
+            <span class="n">13</span
+            ><span class="k">Directions to choose from</span>
+          </div>
+        </div>
+
+        <div class="seg reveal d5" role="group" aria-label="Filter treatments">
+          <button
+            type="button"
+            class="seg-btn is-active"
+            data-filter="all"
+            aria-pressed="true"
           >
-          <span><strong>Status</strong> Review</span>
+            Everything <span class="c">13</span>
+          </button>
+          <button
+            type="button"
+            class="seg-btn"
+            data-filter="hero"
+            aria-pressed="false"
+          >
+            Hero sections <span class="c">9</span>
+          </button>
+          <button
+            type="button"
+            class="seg-btn"
+            data-filter="landing"
+            aria-pressed="false"
+          >
+            Landing pages <span class="c">4</span>
+          </button>
         </div>
       </section>
 
-      <main class="grid" aria-label="Hero and teaser variations">
-        <a class="card" href="hero-v1.html">
-          <div class="card-head">
-            <span class="card-tag"><span class="pip"></span>V1 · Frames</span>
-            <span class="card-num">01 / 09</span>
+      <main>
+        <section class="track" id="track-hero" data-track="hero">
+          <div class="track-head">
+            <div>
+              <span class="eyebrow"
+                ><span class="pip"></span>Hero sections · V1–V9</span
+              >
+              <h2>Nine ways to <em>open</em>.</h2>
+              <p>
+                Four crafted hero sections (V1–V4) and five full-bleed launch
+                teasers with cinematic chrome (V5–V9) — same headline intent,
+                different structure, type and motion.
+              </p>
+            </div>
+            <span class="ct">9 treatments</span>
           </div>
-          <h2 class="card-title">
-            The trade ideas <em>institutional desks</em> already have. Delivered
-            before the move.
-          </h2>
-          <div class="card-foot">
-            <span class="card-note">Logo + frames</span>
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
+          <div
+            class="gallery"
+            id="gallery-hero"
+            aria-label="Hero &amp; teaser treatments"
+          ></div>
+        </section>
 
-        <a class="card" href="hero-v2.html">
-          <div class="card-head">
-            <span class="card-tag"><span class="pip"></span>V2 · Ticker</span>
-            <span class="card-num">02 / 09</span>
+        <section class="track" id="track-landing" data-track="landing">
+          <div class="track-head">
+            <div>
+              <span class="eyebrow"
+                ><span class="pip"></span>Prelaunch landing pages · L1–L4</span
+              >
+              <h2>Four full pages, <em>one waitlist</em>.</h2>
+              <p>
+                Complete prelaunch sites on the shared spec — hero → problem →
+                approach → trade idea → who's behind → founding offer → FAQ →
+                final CTA. Mobile-responsive, animated, light/dark, with the
+                signature trade-idea card and a launch countdown.
+              </p>
+            </div>
+            <span class="ct">4 treatments</span>
           </div>
-          <h2 class="card-title">
-            Stop guessing what to <em>trade this week</em>.
-          </h2>
-          <div class="card-foot">
-            <span class="card-note">Ticker-led</span>
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
-
-        <a class="card" href="hero-v3.html">
-          <div class="card-head">
-            <span class="card-tag"
-              ><span class="pip"></span>V3 · Trade Card</span
-            >
-            <span class="card-num">03 / 09</span>
-          </div>
-          <h2 class="card-title">
-            Research-grade trade ideas, for <em>independent investors</em>.
-          </h2>
-          <div class="card-foot">
-            <span class="card-note">Card-anchored</span>
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
-
-        <a class="card" href="hero-v4.html">
-          <div class="card-head">
-            <span class="card-tag"
-              ><span class="pip"></span>V4 · Typographic</span
-            >
-            <span class="card-num">04 / 09</span>
-          </div>
-          <h2 class="card-title">
-            A <em>typographic</em> take — copy as the entire stage.
-          </h2>
-          <div class="card-foot">
-            <span class="card-note">Editorial / type-led</span>
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
-
-        <a class="card" href="hero-v5.html">
-          <div class="card-head">
-            <span class="card-tag"
-              ><span class="pip"></span>V5 · Concentric Gate</span
-            >
-            <span class="card-num">05 / 09</span>
-          </div>
-          <h2 class="card-title">
-            A research letter, <em>launching soon</em>.
-          </h2>
-          <div class="card-foot">
-            <span class="card-note"
-              >Launch teaser · glyph plate + countdown</span
-            >
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
-
-        <a class="card" href="hero-v6.html">
-          <div class="card-head">
-            <span class="card-tag"
-              ><span class="pip"></span>V6 · Cabinet of Glass</span
-            >
-            <span class="card-num">06 / 09</span>
-          </div>
-          <h2 class="card-title">A research desk, <em>launching soon</em>.</h2>
-          <div class="card-foot">
-            <span class="card-note">Launch teaser · liquid-glass split</span>
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
-
-        <a class="card" href="hero-v7.html">
-          <div class="card-head">
-            <span class="card-tag"><span class="pip"></span>V7 · Pop</span>
-            <span class="card-num">07 / 09</span>
-          </div>
-          <h2 class="card-title">
-            Read the tape <em>before</em> it reads you.
-          </h2>
-          <div class="card-foot">
-            <span class="card-note">Launch teaser · candle-flow stage</span>
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
-
-        <a class="card" href="hero-v8.html">
-          <div class="card-head">
-            <span class="card-tag"
-              ><span class="pip"></span>V8 · Field of View</span
-            >
-            <span class="card-num">08 / 09</span>
-          </div>
-          <h2 class="card-title">
-            A live market-data stage — <em>charts as the hero</em>.
-          </h2>
-          <div class="card-foot">
-            <span class="card-note">Launch teaser · live market data</span>
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
-
-        <a class="card" href="hero-v9.html">
-          <div class="card-head">
-            <span class="card-tag"><span class="pip"></span>V9 · Marquee</span>
-            <span class="card-num">09 / 09</span>
-          </div>
-          <h2 class="card-title">
-            Read the tape <em>before</em> it reads you.
-          </h2>
-          <div class="card-foot">
-            <span class="card-note">Launch teaser · marquee wordmark</span>
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
+          <div
+            class="gallery"
+            id="gallery-landing"
+            aria-label="Prelaunch landing pages"
+          ></div>
+        </section>
       </main>
 
-      <section class="grid-divider">
-        <span class="eyebrow"
-          ><span class="pip"></span>Prelaunch landing pages</span
+      <footer class="studio-foot">
+        <span
+          >Four Gate Alpha · hero, teaser &amp; landing studies — internal
+          review</span
         >
-        <h2>Four full landing pages, <em>one waitlist</em>.</h2>
-        <p>
-          Built on the spec — same nine-section structure, four very different
-          treatments. Mobile-responsive, animated background illustrations,
-          light/dark toggle, the signature trade-idea card, a launch countdown,
-          and an accordion FAQ on each.
-        </p>
-      </section>
-
-      <main class="grid" aria-label="Prelaunch landing pages">
-        <a class="card" href="landing-v1.html">
-          <div class="card-head">
-            <span class="card-tag"><span class="pip"></span>L1 · Terminal</span>
-            <span class="card-num">01 / 04</span>
-          </div>
-          <h2 class="card-title">
-            Bloomberg-terminal <em>chrome</em> — data panels, mono labels, a
-            self-drawing chart.
-          </h2>
-          <div class="card-foot">
-            <span class="card-note">Landing · terminal aesthetic</span>
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
-
-        <a class="card" href="landing-v2.html">
-          <div class="card-head">
-            <span class="card-tag"
-              ><span class="pip"></span>L2 · The Letter</span
-            >
-            <span class="card-num">02 / 04</span>
-          </div>
-          <h2 class="card-title">
-            An <em>investment letter</em> — masthead, drop caps, a signed
-            founder note.
-          </h2>
-          <div class="card-foot">
-            <span class="card-note">Landing · editorial</span>
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
-
-        <a class="card" href="landing-v3.html">
-          <div class="card-head">
-            <span class="card-tag"
-              ><span class="pip"></span>L3 · The Brief</span
-            >
-            <span class="card-num">03 / 04</span>
-          </div>
-          <h2 class="card-title">
-            Modern, sleek <em>SaaS</em> — frosted glass, gradient washes,
-            scroll-reveal, count-ups.
-          </h2>
-          <div class="card-foot">
-            <span class="card-note">Landing · modern / "pops"</span>
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
-
-        <a class="card" href="landing-v4.html">
-          <div class="card-head">
-            <span class="card-tag"><span class="pip"></span>L4 · The Tape</span>
-            <span class="card-num">04 / 04</span>
-          </div>
-          <h2 class="card-title">
-            Cinematic — a live <em>candle field</em> and scrolling tape behind
-            every panel.
-          </h2>
-          <div class="card-foot">
-            <span class="card-note">Landing · maximalist</span>
-            <span class="card-cta"
-              >View<span class="arrow" aria-hidden="true">→</span></span
-            >
-          </div>
-        </a>
-      </main>
-
-      <footer class="footer">
-        <span>Four Gate Alpha · Hero, teaser &amp; landing studies</span>
-        <span><a href="legal.html">Legal</a> · Best viewed on desktop</span>
+        <span><a href="legal.html">Legal</a> · best viewed on desktop</span>
       </footer>
     </div>
 
+    <!-- Full-screen viewer (the only live page render on this screen) -->
+    <div
+      class="lb"
+      id="lb"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Treatment preview"
+      aria-hidden="true"
+    >
+      <div class="lb-bar">
+        <span class="lb-tag" id="lbTag"
+          ><span class="pip"></span><span class="txt"></span
+        ></span>
+        <span class="lb-count" id="lbCount"></span>
+        <span class="lb-hint"
+          ><span class="k">←&nbsp;→</span> step ·
+          <span class="k">esc</span> close</span
+        >
+        <span class="lb-spacer"></span>
+        <a class="lb-open" id="lbOpen" href="#" target="_blank" rel="noopener">
+          Open<span class="long">&nbsp;full page</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <button
+          class="lb-close"
+          id="lbClose"
+          type="button"
+          aria-label="Close preview"
+        >
+          ✕
+        </button>
+      </div>
+      <div class="lb-body">
+        <button
+          class="lb-nav lb-prev"
+          id="lbPrev"
+          type="button"
+          aria-label="Previous treatment"
+        >
+          ‹
+        </button>
+        <div class="lb-stage">
+          <div class="lb-frame-wrap">
+            <div class="lb-loading" id="lbLoading">Loading preview…</div>
+            <iframe
+              class="lb-frame"
+              id="lbFrame"
+              title="Treatment preview"
+              src="about:blank"
+            ></iframe>
+          </div>
+        </div>
+        <button
+          class="lb-nav lb-next"
+          id="lbNext"
+          type="button"
+          aria-label="Next treatment"
+        >
+          ›
+        </button>
+      </div>
+    </div>
+
     <script src="shared/theme-toggle.js" defer></script>
+    <script>
+      (function () {
+        // [file, tag, num, descriptor, title-html]
+        var HEROES = [
+          [
+            "hero-v1.html",
+            "V1 · Frames",
+            "01",
+            "Hero · logo + frames",
+            "The trade ideas <em>institutional desks</em> already have — delivered before the move.",
+          ],
+          [
+            "hero-v2.html",
+            "V2 · Ticker",
+            "02",
+            "Hero · ticker-led",
+            "Stop guessing what to <em>trade this week</em>.",
+          ],
+          [
+            "hero-v3.html",
+            "V3 · Trade Card",
+            "03",
+            "Hero · card-anchored",
+            "Research-grade trade ideas, for <em>independent investors</em>.",
+          ],
+          [
+            "hero-v4.html",
+            "V4 · Typographic",
+            "04",
+            "Hero · editorial / type-led",
+            "A <em>typographic</em> take — copy as the entire stage.",
+          ],
+          [
+            "hero-v5.html",
+            "V5 · Concentric Gate",
+            "05",
+            "Teaser · glyph plate + countdown",
+            "A research letter, <em>launching soon</em>.",
+          ],
+          [
+            "hero-v6.html",
+            "V6 · Cabinet of Glass",
+            "06",
+            "Teaser · liquid-glass split",
+            "A research desk, <em>launching soon</em>.",
+          ],
+          [
+            "hero-v7.html",
+            "V7 · Pop",
+            "07",
+            "Teaser · candle-flow stage",
+            "Read the tape <em>before</em> it reads you.",
+          ],
+          [
+            "hero-v8.html",
+            "V8 · Field of View",
+            "08",
+            "Teaser · live market data",
+            "A live market-data stage — <em>charts as the hero</em>.",
+          ],
+          [
+            "hero-v9.html",
+            "V9 · Marquee",
+            "09",
+            "Teaser · marquee wordmark",
+            "Read the tape <em>before</em> it reads you.",
+          ],
+        ];
+        var LANDINGS = [
+          [
+            "landing-v1.html",
+            "L1 · Terminal",
+            "01",
+            "Landing · terminal aesthetic",
+            "Bloomberg-terminal <em>chrome</em> — data panels, mono labels, a self-drawing chart.",
+          ],
+          [
+            "landing-v2.html",
+            "L2 · The Letter",
+            "02",
+            "Landing · editorial",
+            "An <em>investment letter</em> — masthead, drop caps, a signed founder note.",
+          ],
+          [
+            "landing-v3.html",
+            "L3 · The Brief",
+            "03",
+            'Landing · modern / "pops"',
+            "Modern, sleek <em>SaaS</em> — frosted glass, gradient washes, scroll-reveal, count-ups.",
+          ],
+          [
+            "landing-v4.html",
+            "L4 · The Tape",
+            "04",
+            "Landing · maximalist",
+            "Cinematic — a live <em>candle field</em> and scrolling tape behind every panel.",
+          ],
+        ];
+        var COUNTS = { hero: HEROES.length, landing: LANDINGS.length };
+
+        function esc(s) {
+          return String(s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+        function fileStem(f) {
+          return f.replace(/\.html?$/i, "");
+        }
+
+        function buildTile(item, kind, i, total) {
+          var file = item[0],
+            tag = item[1],
+            num = item[2],
+            desc = item[3],
+            title = item[4];
+          var globalI = kind === "landing" ? HEROES.length + i : i;
+          var a = document.createElement("article");
+          a.className = "preview";
+          a.dataset.file = file;
+          a.dataset.tag = tag;
+          a.dataset.kind = kind;
+          a.style.setProperty("--i", String(globalI));
+          a.innerHTML =
+            '<button type="button" class="vp" style="--i:' +
+            globalI +
+            '" aria-label="Open ' +
+            esc(tag) +
+            ' preview">' +
+            '<span class="vp-chrome">' +
+            '<span class="vp-dots" aria-hidden="true"><i></i><i></i><i></i></span>' +
+            '<span class="vp-url">fourgatealpha&hairsp;<span aria-hidden="true">/</span>&hairsp;<b>' +
+            esc(fileStem(file)) +
+            "</b></span>" +
+            "</span>" +
+            '<span class="vp-body">' +
+            '<span class="vp-num">' +
+            esc(num) +
+            "</span>" +
+            '<span class="vp-kicker">' +
+            esc(tag) +
+            "</span>" +
+            '<span class="vp-cue">Open full-screen preview</span>' +
+            "</span>" +
+            "</button>" +
+            '<div class="preview-info">' +
+            '<div class="preview-info-top">' +
+            '<span class="preview-tag"><span class="pip"></span>' +
+            esc(tag) +
+            "</span>" +
+            '<span class="preview-num">' +
+            esc(num) +
+            " / " +
+            (total < 10 ? "0" : "") +
+            total +
+            "</span>" +
+            "</div>" +
+            '<p class="preview-title">' +
+            title +
+            "</p>" +
+            '<p class="preview-desc">' +
+            esc(desc) +
+            "</p>" +
+            '<div class="preview-links">' +
+            '<button type="button" class="plink preview-open">Preview <span class="arrow" aria-hidden="true">⤢</span></button>' +
+            '<a class="plink ghost" href="' +
+            esc(file) +
+            '" target="_blank" rel="noopener">Open page <span class="arrow" aria-hidden="true">↗</span></a>' +
+            "</div>" +
+            "</div>";
+          return a;
+        }
+
+        var galHero = document.getElementById("gallery-hero");
+        var galLanding = document.getElementById("gallery-landing");
+        HEROES.forEach(function (it, i) {
+          galHero.appendChild(buildTile(it, "hero", i, HEROES.length));
+        });
+        LANDINGS.forEach(function (it, i) {
+          galLanding.appendChild(buildTile(it, "landing", i, LANDINGS.length));
+        });
+
+        var cards = Array.prototype.slice.call(
+          document.querySelectorAll(".preview"),
+        );
+
+        // --- segmented filter --------------------------------------------
+        var tracks = Array.prototype.slice.call(
+          document.querySelectorAll(".track"),
+        );
+        var segBtns = Array.prototype.slice.call(
+          document.querySelectorAll(".seg-btn"),
+        );
+        function applyFilter(f) {
+          tracks.forEach(function (t) {
+            t.hidden = !(f === "all" || t.dataset.track === f);
+          });
+          segBtns.forEach(function (b) {
+            var on = b.dataset.filter === f;
+            b.classList.toggle("is-active", on);
+            b.setAttribute("aria-pressed", on ? "true" : "false");
+          });
+        }
+        segBtns.forEach(function (b) {
+          b.addEventListener("click", function () {
+            applyFilter(b.dataset.filter);
+          });
+        });
+
+        // --- full-screen viewer ------------------------------------------
+        var lb = document.getElementById("lb");
+        var lbFrame = document.getElementById("lbFrame");
+        var lbTagTxt = document.querySelector("#lbTag .txt");
+        var lbCount = document.getElementById("lbCount");
+        var lbOpen = document.getElementById("lbOpen");
+        var lbLoading = document.getElementById("lbLoading");
+        var activeList = [];
+        var cur = -1;
+        var lastFocus = null;
+
+        function visibleCards() {
+          return cards.filter(function (c) {
+            var t = c.closest(".track");
+            return !t || !t.hidden;
+          });
+        }
+        function show(list, i) {
+          activeList = list;
+          cur = i;
+          var card = list[i];
+          lbTagTxt.textContent = card.dataset.tag;
+          lbCount.textContent = i + 1 + " / " + list.length;
+          lbOpen.href = card.dataset.file;
+          lbLoading.style.display = "flex";
+          // swap via about:blank so previous page stops rendering immediately
+          lbFrame.src = "about:blank";
+          lbFrame.src = card.dataset.file;
+        }
+        function openFor(card) {
+          lastFocus = document.activeElement;
+          var list = visibleCards();
+          var i = list.indexOf(card);
+          if (i < 0) {
+            list = cards.slice();
+            i = cards.indexOf(card);
+          }
+          lb.classList.add("is-open");
+          lb.setAttribute("aria-hidden", "false");
+          document.body.classList.add("lb-open");
+          show(list, i);
+          document.getElementById("lbClose").focus();
+        }
+        function close() {
+          lb.classList.remove("is-open");
+          lb.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("lb-open");
+          lbFrame.src = "about:blank";
+          cur = -1;
+          if (lastFocus && lastFocus.focus) lastFocus.focus();
+        }
+        function step(d) {
+          if (cur < 0 || !activeList.length) return;
+          show(activeList, (cur + d + activeList.length) % activeList.length);
+        }
+        lbFrame.addEventListener("load", function () {
+          if (lbFrame.src.indexOf("about:blank") === -1)
+            lbLoading.style.display = "none";
+        });
+
+        cards.forEach(function (c) {
+          c.querySelector(".vp").addEventListener("click", function () {
+            openFor(c);
+          });
+          var pbtn = c.querySelector(".preview-open");
+          if (pbtn)
+            pbtn.addEventListener("click", function () {
+              openFor(c);
+            });
+        });
+        document.getElementById("lbClose").addEventListener("click", close);
+        document
+          .getElementById("lbPrev")
+          .addEventListener("click", function () {
+            step(-1);
+          });
+        document
+          .getElementById("lbNext")
+          .addEventListener("click", function () {
+            step(1);
+          });
+        lb.addEventListener("mousedown", function (e) {
+          if (
+            e.target === lb ||
+            e.target.classList.contains("lb-body") ||
+            e.target.classList.contains("lb-stage")
+          )
+            close();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (!lb.classList.contains("is-open")) return;
+          if (e.key === "Escape") {
+            e.preventDefault();
+            close();
+          } else if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            step(-1);
+          } else if (e.key === "ArrowRight") {
+            e.preventDefault();
+            step(1);
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
